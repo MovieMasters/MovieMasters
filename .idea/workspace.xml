@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c179a6ca-33f0-487c-b339-5ff9d39a1f95" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Theather.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path=".idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +35,9 @@
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="786" />
@@ -70,11 +74,11 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536867231081" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../MoMa" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536867435263" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Ignored.Files" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -98,15 +102,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1536866704702</updated>
-      <workItem from="1536866707956" duration="478000" />
+      <workItem from="1536866707956" duration="720000" />
     </task>
+    <task id="LOCAL-00001" summary="Second Commit">
+      <created>1536867264340</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1536867264340</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="478000" />
+    <option name="totallyTimeSpent" value="720000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info id="Image Layers" />
@@ -140,6 +153,10 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Second Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Second Commit" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Theather.java">
