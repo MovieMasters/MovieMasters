@@ -1,6 +1,4 @@
-package theatherPackage;
-
-import roomPackage.Room;
+package Models;
 
 import java.util.ArrayList;
 
