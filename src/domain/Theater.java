@@ -1,11 +1,9 @@
 package domain;
 
-
-import model.Model;
-
 import java.util.ArrayList;
+import java.util.List;
 
-public class Theather extends Model {
+public class Theater {
     private String name;
     private String street;
     private int houseNr;
@@ -14,10 +12,10 @@ public class Theather extends Model {
     private String city;
     private String province;
     private int phoneNr;
-    private ArrayList<Room> rooms;
+    private List<Room> rooms;
 
 
-    public Theather(String name, String street, int houseNr, String houseNrAdd, String postcode, String city, String province, int phoneNr) {
+    Theater(String name, String street, int houseNr, String houseNrAdd, String postcode, String city, String province, int phoneNr) {
         this.name = name;
         this.street = street;
         this.houseNr = houseNr;
@@ -26,79 +24,79 @@ public class Theather extends Model {
         this.city = city;
         this.province = province;
         this.phoneNr = phoneNr;
-        this.rooms = new ArrayList<Room>();
+        this.rooms = new ArrayList<>();
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
-    public String getStreet() {
+    String getStreet() {
         return street;
     }
 
-    public void setStreet(String street) {
+    void setStreet(String street) {
         this.street = street;
     }
 
-    public int getHouseNr() {
+    int getHouseNr() {
         return houseNr;
     }
 
-    public void setHouseNr(int houseNr) {
+    void setHouseNr(int houseNr) {
         this.houseNr = houseNr;
     }
 
-    public String getHouseNrAdd() {
+    String getHouseNrAdd() {
         return houseNrAdd;
     }
 
-    public void setHouseNrAdd(String houseNrAdd) {
+    void setHouseNrAdd(String houseNrAdd) {
         this.houseNrAdd = houseNrAdd;
     }
 
-    public String getPostcode() {
+    String getPostcode() {
         return postcode;
     }
 
-    public void setPostcode(String postcode) {
+    void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
-    public String getCity() {
+    String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    void setCity(String city) {
         this.city = city;
     }
 
-    public String getProvince() {
+    String getProvince() {
         return province;
     }
 
-    public void setProvince(String province) {
+    void setProvince(String province) {
         this.province = province;
     }
 
-    public int getPhoneNr() {
+    int getPhoneNr() {
         return phoneNr;
     }
 
-    public void setPhoneNr(int phoneNr) {
+    void setPhoneNr(int phoneNr) {
         this.phoneNr = phoneNr;
     }
 
-    public ArrayList<Room> getRooms() {
+    List<Room> getRooms() {
         return rooms;
     }
 
-    public void setRooms(ArrayList<Room> rooms) {
-        this.rooms = rooms;
+    void addRoom(Room room){
+        this.rooms.add(room);
     }
 }
 
