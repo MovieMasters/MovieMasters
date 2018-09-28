@@ -1,5 +1,7 @@
-package model;
+package domain;
 
+
+import model.Model;
 
 import java.util.ArrayList;
 
