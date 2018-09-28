@@ -5,7 +5,7 @@ import controller.LoginController;
 import javax.swing.*;
 import java.awt.*;
 
-public class Login extends JPanel {
+public class Login extends View {
     private JTextField tfusername;
     private JPasswordField pfPassword;
     private JLabel lblUsername, lblPassword;
@@ -17,7 +17,7 @@ public class Login extends JPanel {
         super();
         setLayout(new GridBagLayout());
 
-        loginController = new LoginController(this);
+        loginController = new LoginController();
         tfusername = new JTextField(30);
         pfPassword = new JPasswordField(30);
         lblUsername = new JLabel("Username");

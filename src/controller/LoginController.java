@@ -1,14 +1,11 @@
 package controller;
-import view.Login;
 import view.MainFrame;
 import view.Register;
 import java.awt.event.ActionEvent;
 
 public class LoginController extends Controller {
-    private Login loginView;
 
-    public LoginController(Login loginView) {
-        this.loginView = loginView;
+    public LoginController() {
     }
 
     @Override
@@ -17,7 +14,8 @@ public class LoginController extends Controller {
         switch (e.getActionCommand())
         {
             case "Register":
-                MainFrame.getMainFrame().changeView(new Register());
+//                MainFrame.getMainFrame().changeView(new Register());
+                MainFrame.getMainFrame().setView(new Register());
                 break;
             case "Login":
                 System.out.println("Login");

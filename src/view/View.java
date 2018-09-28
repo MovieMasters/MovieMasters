@@ -1,5 +1,7 @@
 package view;
 
-public abstract class View {
+import javax.swing.*;
+
+public abstract class View extends JPanel {
 
 }

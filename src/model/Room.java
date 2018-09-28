@@ -1,4 +1,4 @@
 package model;
 
-public class Room {
+public class Room extends Model {
 }

@@ -1,10 +1,9 @@
 package model;
 
-import model.Room;
 
 import java.util.ArrayList;
 
-public class Theather {
+public class Theather extends Model {
     private String name;
     private String street;
     private int houseNr;

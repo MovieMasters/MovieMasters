@@ -1,29 +1,22 @@
 package view;
 
+import model.Model;
+import model.Room;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
 
-    static MainFrame mainFrame;
-    private JPanel currentView;
+    private static MainFrame mainFrame;
+    private View currentView;
 
     public MainFrame() {
         setTitle("MovieMasters");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(800, 600));
+        setResizable(false);
+        centerFrame();
         setJMenuBar(new MenuBar());
-        setLocationRelativeTo(null);
-    }
-
-    public void changeView(JPanel view){
-        if(currentView != null)
-        {
-            getContentPane().remove(currentView);
-        }
-        getContentPane().add(view);
-        pack();
-        currentView = view;
     }
 
     /**
@@ -32,9 +25,27 @@ public class MainFrame extends JFrame {
      * event-dispatching thread.
      */
     private static void createAndShowGUI() {
-        mainFrame = new MainFrame();
-        mainFrame.changeView(new Login());
+        mainFrame = getMainFrame();
+        mainFrame.setView(new Login());
         mainFrame.setVisible(true);
+    }
+
+    public static MainFrame getMainFrame() {
+        if (mainFrame == null)
+            mainFrame = new MainFrame();
+        return mainFrame;
+    }
+
+    private void centerFrame() {
+        Dimension frameDimension = new Dimension(800, 600);
+        setSize(frameDimension);
+        setPreferredSize(frameDimension);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = getSize().width;
+        int height = getSize().height;
+        int x = (screenSize.width - width) / 2;
+        int y = (screenSize.height - height) / 2;
+        setLocation(x, y);
     }
 
     public static void main(String[] args) {
@@ -49,8 +60,12 @@ public class MainFrame extends JFrame {
         });
     }
 
-    public static MainFrame getMainFrame()
-    {
-        return mainFrame;
+    public void setView(View view) {
+        if (currentView != null) {
+            getContentPane().remove(currentView);
+        }
+        getContentPane().add(view);
+        pack();
+        currentView = view;
     }
 }
