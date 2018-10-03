@@ -30,15 +30,13 @@ public class RegisterController extends Controller {
 
     private boolean validateRegistration() {
         boolean ret = true;
-        if (registerView.getTfFirstname().getText().length() < 5) {
-            registerView.getLblErrorFirstname().setText("Fout");
-            registerView.getTfFirstname().setBorder(BorderFactory.createDashedBorder(Color.red));
-            registerView.getLblErrorFirstname().setVisible(true);
-            ret = false;
-        }
-        if (ret) {
-            registerView.resetErrors();
-        }
+//        if (registerView.getPfPassword().get) {
+//            registerView.showErrorLabel(registerView.getLblErrorFirstname(), "");
+//            ret = false;
+//        }
+//        if (ret) {
+//            registerView.resetErrors();
+//        }
         return ret;
     }
 }

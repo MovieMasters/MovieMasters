@@ -2,17 +2,22 @@ package domain;
 
 public class Account {
     private String username;
-    private String password;
+    private char[] password;
     private String emailAddress;
     private String firstName;
     private String lastName;
 
-    public Account(String username, String password, String emailAddress, String firstName, String lastName) {
+    public Account(String username, char[] password, String emailAddress, String firstName, String lastName) {
         this.username = username;
         this.password = password;
         this.emailAddress = emailAddress;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public boolean remove() {
+        //Do something maybe?
+        return true;
     }
 
     public String getUsername() {
@@ -23,11 +28,11 @@ public class Account {
         this.username = username;
     }
 
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(char[] password) {
         this.password = password;
     }
 

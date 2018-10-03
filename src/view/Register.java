@@ -11,30 +11,19 @@ public class Register extends View {
     private JPasswordField pfPassword, pfVerifyPassword;
     private JLabel lblTitle, lblFirstname, lblLastname, lblUsername, lblEmailAddress, lblPassword, lblVerifyPassword, lblErrorFirstname, lblErrorLastname, lblErrorUsername, lblErrorEmail, lblErrorPassword, lblErrorVerifyPassword;
     private JButton btnRegister, btnCancel;
-    private ArrayList<JLabel> listErrorLabels;
-    private ArrayList<JTextField> listTextFields;
 
     private RegisterController registerController;
 
     public Register() {
         setLayout(new GridBagLayout());
-        listErrorLabels = new ArrayList<>();
-        listTextFields = new ArrayList<>();
 
         lblTitle = new JLabel("Account aanmaken", JLabel.CENTER);
         tfFirstname = new JTextField(15);
         tfLastname = new JTextField(15);
         tfusername = new JTextField(15);
         tfEmailaddress = new JTextField(15);
-        pfPassword = new JPasswordField(15);
-        pfVerifyPassword = new JPasswordField(15);
-
-        listTextFields.add(tfFirstname);
-        listTextFields.add(tfLastname);
-        listTextFields.add(tfusername);
-        listTextFields.add(tfEmailaddress);
-        listTextFields.add(pfPassword);
-        listTextFields.add(pfVerifyPassword);
+        pfPassword = new JPasswordField(8);
+        pfVerifyPassword = new JPasswordField("test", 8);
 
         lblFirstname = new JLabel("Voornaam");
         lblLastname = new JLabel("Achternaam");
@@ -44,22 +33,17 @@ public class Register extends View {
         lblVerifyPassword = new JLabel("Bevestig wachtwoord");
 
         lblErrorFirstname = new JLabel();
+        lblErrorFirstname.setForeground(Color.RED);
         lblErrorLastname = new JLabel();
+        lblErrorLastname.setForeground(Color.RED);
         lblErrorUsername = new JLabel();
+        lblErrorUsername.setForeground(Color.RED);
         lblErrorEmail = new JLabel();
+        lblErrorEmail.setForeground(Color.RED);
         lblErrorPassword = new JLabel();
+        lblErrorPassword.setForeground(Color.RED);
         lblErrorVerifyPassword = new JLabel();
-
-        listErrorLabels.add(lblErrorFirstname);
-        listErrorLabels.add(lblErrorLastname);
-        listErrorLabels.add(lblErrorUsername);
-        listErrorLabels.add(lblErrorEmail);
-        listErrorLabels.add(lblErrorPassword);
-        listErrorLabels.add(lblErrorVerifyPassword);
-
-        for (JLabel label : listErrorLabels) {
-            label.setForeground(Color.red);
-        }
+        lblErrorVerifyPassword.setForeground(Color.RED);
 
         btnRegister = new JButton("Registreren");
         btnRegister.setActionCommand("Register");
@@ -181,16 +165,6 @@ public class Register extends View {
         pnlButtons.add(btnCancel);
     }
 
-    public void resetErrors() {
-        for (JLabel label : listErrorLabels) {
-            label.setText("");
-            label.setVisible(false);
-        }
-        for (JTextField field : listTextFields) {
-            field.setBorder(BorderFactory.createLineBorder(Color.black));
-        }
-    }
-
     public JTextField getTfFirstname() {
         return tfFirstname;
     }
@@ -235,11 +209,4 @@ public class Register extends View {
         return lblErrorVerifyPassword;
     }
 
-    public ArrayList<JLabel> getListErrorLabels() {
-        return listErrorLabels;
-    }
-
-    public ArrayList<JTextField> getListTextFields() {
-        return listTextFields;
-    }
 }
