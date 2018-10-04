@@ -2,10 +2,12 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class MainFrame extends JFrame {
 
     private static MainFrame mainFrame;
+    private HashMap<ViewName, View> viewMap;
     private View currentView;
 
     public MainFrame() {
@@ -14,6 +16,7 @@ public class MainFrame extends JFrame {
         setResizable(false);
         centerFrame();
         setJMenuBar(new MenuBar());
+        viewMap = new HashMap();
     }
 
     public static MainFrame getMainFrame() {
@@ -34,12 +37,29 @@ public class MainFrame extends JFrame {
         setLocation(x, y);
     }
 
+    public void setView(ViewName viewName, boolean useCached) {
+        View view = null;
+        if (useCached && viewMap.containsKey(viewName)) {
+            view = viewMap.get(viewName);
+        }
 
-    public void setView(View view) {
+        if (view == null) {
+            switch (viewName) {
+                case LOGIN:
+                    view = new Login();
+                    break;
+                case REGISTER:
+                    view = new Register();
+                    break;
+            }
+            viewMap.put(viewName, view);
+        }
+
         if (currentView != null) {
             getContentPane().remove(currentView);
         }
         getContentPane().add(view);
+        repaint();
         pack();
         currentView = view;
     }

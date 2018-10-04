@@ -1,11 +1,13 @@
 package view;
 
+import businnesslogic.AManager;
+import businnesslogic.Manager;
+
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
+import java.util.HashMap;
 
 public abstract class View extends JPanel {
-
     public void setTextFieldInvalid(JTextField field) {
         field.setBorder(BorderFactory.createDashedBorder(Color.RED));
     }

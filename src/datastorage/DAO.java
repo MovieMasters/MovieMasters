@@ -1,15 +1,13 @@
 package datastorage;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.mysql.cj.protocol.Resultset;
+
+import java.sql.*;
 
 public abstract class DAO {
     /**
      * @param query The SQL query that will be executed
-     * @return true if execution of the SQL statement was successful, false
-     * otherwise.
+     * @return Resultset
      */
     public ResultSet executeQuery(String query) {
         ResultSet rs = null;
@@ -26,4 +24,24 @@ public abstract class DAO {
         }
         return rs;
     }
+
+    /**
+     * @param query The prepared statement that will be executed
+     * @return Resultset
+     */
+//    public Resultset executePreparedStatement(String query){
+//        ResultSet rs = null;
+//        if (query != null) {
+//            try {
+//                Connection conn = DBConnection.getConnection();
+//                if (conn != null) {
+//                    PreparedStatement stmt = conn.prepareStatement(query);
+//                    stmt.execute();
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return rs;
+//    }
 }

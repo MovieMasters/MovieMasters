@@ -1,12 +1,6 @@
 package controller;
 
-import view.Login;
-import view.MainFrame;
-import view.Register;
-import view.View;
-
-import javax.swing.*;
-import java.awt.*;
+import view.*;
 import java.awt.event.ActionEvent;
 
 public class RegisterController extends Controller {
@@ -23,7 +17,7 @@ public class RegisterController extends Controller {
                 validateRegistration();
                 break;
             case "Cancel":
-                MainFrame.getMainFrame().setView(new Login());
+                MainFrame.getMainFrame().setView(ViewName.LOGIN, true);
                 break;
         }
     }

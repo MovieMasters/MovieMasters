@@ -1,10 +1,13 @@
 package controller;
 
+import businnesslogic.AManager;
 import businnesslogic.AccountManager;
+import businnesslogic.Manager;
 import domain.Account;
 import view.Login;
 import view.MainFrame;
 import view.Register;
+import view.ViewName;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,10 +23,10 @@ public class LoginController extends Controller {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Register":
-                MainFrame.getMainFrame().setView(new Register());
+                MainFrame.getMainFrame().setView(ViewName.REGISTER, true);
                 break;
             case "Login":
-                AccountManager accountManager = new AccountManager();
+                AccountManager accountManager = (AccountManager) AManager.getManagersMap().get(Manager.Account);
                 Account account = accountManager.login(loginView.getTfusername().getText(), loginView.getPfPassword().getPassword());
 
                 if (account != null) {

@@ -6,17 +6,17 @@ import domain.Account;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AccountManager implements IAccountManager {
+public class AccountManager extends AManager implements IAccountManager {
 
-    private final Map<String, Account> accounts;
+    private final Map<String, Account> accountsMap;
 
     public AccountManager() {
-        accounts = new HashMap<>();
+        accountsMap = new HashMap<>();
     }
 
     @Override
     public Account find(String username) {
-        Account account = accounts.get(username);
+        Account account = accountsMap.get(username);
 
         if (account == null) {
             // Account may not have been loaded from the database yet. Try to
@@ -34,7 +34,7 @@ public class AccountManager implements IAccountManager {
 
                 // Cache the account that has been read from the database, to
                 // avoid querying the database each time a account is needed.
-                accounts.put(username, account);
+                accountsMap.put(username, account);
             }
         }
         return account;
@@ -46,7 +46,7 @@ public class AccountManager implements IAccountManager {
         Account account = accountDAO.login(username, password);
 
         if (account != null) {
-            accounts.put(username, account);
+            accountsMap.put(username, account);
         }
         return account;
     }
@@ -73,7 +73,7 @@ public class AccountManager implements IAccountManager {
         }
 
         // Finally, remove the account from the map in this manager.
-        accounts.remove(username);
+        accountsMap.remove(username);
 
         return result;
     }

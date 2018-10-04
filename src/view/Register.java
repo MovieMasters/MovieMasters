@@ -16,14 +16,13 @@ public class Register extends View {
 
     public Register() {
         setLayout(new GridBagLayout());
-
         lblTitle = new JLabel("Account aanmaken", JLabel.CENTER);
         tfFirstname = new JTextField(15);
         tfLastname = new JTextField(15);
         tfusername = new JTextField(15);
         tfEmailaddress = new JTextField(15);
         pfPassword = new JPasswordField(8);
-        pfVerifyPassword = new JPasswordField("test", 8);
+        pfVerifyPassword = new JPasswordField(8);
 
         lblFirstname = new JLabel("Voornaam");
         lblLastname = new JLabel("Achternaam");

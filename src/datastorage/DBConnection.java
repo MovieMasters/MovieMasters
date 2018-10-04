@@ -6,11 +6,15 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
-
 public class DBConnection {
 
     private static Connection connection;
 
+    /**
+     * Creates a connection if not exists, otherwise returns the current connection
+     *
+     * @return the Connection object
+     */
     public static Connection getConnection() {
         if (connection == null) {
             try {
@@ -32,6 +36,12 @@ public class DBConnection {
         return connection;
     }
 
+    /**
+     * Gets status of the connection
+     *
+     * @return A boolean that returns true if the current connection is not closed,
+     * otherwise false
+     */
     public static boolean connectionIsOpen() {
         boolean open = false;
         if (connection != null) {
@@ -44,9 +54,14 @@ public class DBConnection {
         return open;
     }
 
+    /**
+     * Closed the current connection if open
+     */
     public void closeConnection() {
         try {
-            connection.close();
+            if (connectionIsOpen()) {
+                connection.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -14,9 +14,7 @@ public class Login extends View {
     private LoginController loginController;
 
     public Login() {
-        super();
         setLayout(new GridBagLayout());
-
         loginController = new LoginController(this);
         tfusername = new JTextField(30);
         pfPassword = new JPasswordField(30);

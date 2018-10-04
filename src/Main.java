@@ -1,9 +1,19 @@
+import businnesslogic.AManager;
+import businnesslogic.AccountManager;
+import businnesslogic.Manager;
 import view.Login;
 import view.MainFrame;
+import view.View;
+import view.ViewName;
 
 import javax.swing.*;
+import java.util.HashMap;
 
 public class Main {
+
+    private Main() {
+    }
+
     public static void main(String[] args) {
         /*
         Schedule a job for the event-dispatching thread:
@@ -23,8 +33,12 @@ public class Main {
      */
     private static void createAndShowGUI() {
 
+        HashMap<Manager, AManager> managersMap = new HashMap<>();
+        managersMap.put(Manager.Account, new AccountManager());
+        AManager.setManagersMap(managersMap);
+
         MainFrame mainFrame = MainFrame.getMainFrame();
-        mainFrame.setView(new Login());
+        mainFrame.setView(ViewName.LOGIN, false);
         mainFrame.setVisible(true);
     }
 }
