@@ -1,4 +1,4 @@
-package businnesslogic;
+package businessLogic;
 
 /**
  * Enum Manager holds the manager names

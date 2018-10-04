@@ -1,4 +1,4 @@
-package businnesslogic;
+package businessLogic;
 
 import domain.Account;
 

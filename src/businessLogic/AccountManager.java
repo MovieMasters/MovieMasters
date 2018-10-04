@@ -1,4 +1,4 @@
-package businnesslogic;
+package businessLogic;
 
 import datastorage.AccountDAO;
 import domain.Account;

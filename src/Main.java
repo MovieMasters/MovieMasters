@@ -1,7 +1,6 @@
-import businnesslogic.AccountManager;
-import businnesslogic.IManager;
-import businnesslogic.Manager;
-import businnesslogic.TheaterManager;
+import businessLogic.AccountManager;
+import businessLogic.Manager;
+import businessLogic.TheaterManager;
 import view.MainFrame;
 import view.ViewName;
 

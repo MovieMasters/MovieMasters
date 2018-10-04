@@ -1,7 +1,7 @@
 package view;
 
-import businnesslogic.IManager;
-import businnesslogic.Manager;
+import businessLogic.IManager;
+import businessLogic.Manager;
 
 import javax.swing.*;
 import java.awt.*;

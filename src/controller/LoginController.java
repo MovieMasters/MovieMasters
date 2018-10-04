@@ -1,7 +1,7 @@
 package controller;
 
-import businnesslogic.AccountManager;
-import businnesslogic.Manager;
+import businessLogic.AccountManager;
+import businessLogic.Manager;
 import domain.Account;
 import view.Login;
 import view.MainFrame;
