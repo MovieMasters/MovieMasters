@@ -22,8 +22,10 @@ public class Login extends View {
         lblPassword = new JLabel("Password");
         lblErrorLogin = new JLabel();
         lblErrorLogin.setForeground(Color.RED);
-        btnRegister = new JButton("Register");
+        btnRegister = new JButton("Registreren");
         btnLogin = new JButton("Login");
+
+        btnRegister.setActionCommand("Register");
 
         btnRegister.addActionListener(loginController);
         btnLogin.addActionListener(loginController);
@@ -76,5 +78,9 @@ public class Login extends View {
 
     public JLabel getLblErrorLogin() {
         return lblErrorLogin;
+    }
+
+    public JButton getBtnRegister() {
+        return btnRegister;
     }
 }

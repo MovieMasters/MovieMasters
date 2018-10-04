@@ -9,6 +9,7 @@ import view.ViewName;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 
 public class LoginController extends Controller {
     private Login loginView;
@@ -24,7 +25,7 @@ public class LoginController extends Controller {
                 MainFrame.getMainFrame().setView(ViewName.REGISTER, true);
                 break;
             case "Login":
-                AccountManager accountManager = (AccountManager) MainFrame.getMainFrame().getManagersMap().get(Manager.Account);
+                AccountManager accountManager = (AccountManager) MainFrame.getMainFrame().getManagersMap().get(Manager.ACCOUNT);
                 Account account = accountManager.login(loginView.getTfusername().getText(), loginView.getPfPassword().getPassword());
 
                 if (account != null) {

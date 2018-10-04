@@ -32,7 +32,7 @@ public class Main {
     private static void createAndShowGUI() {
         MainFrame mainFrame = MainFrame.getMainFrame();
         HashMap managersMap = mainFrame.getManagersMap();
-        managersMap.put(Manager.Account, new AccountManager());
+        managersMap.put(Manager.ACCOUNT, new AccountManager());
         managersMap.put(Manager.THEATER, new TheaterManager());
         mainFrame.setView(ViewName.THEATER, false);
         mainFrame.setVisible(true);
