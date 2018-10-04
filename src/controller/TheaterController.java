@@ -54,7 +54,7 @@ public class TheaterController extends Controller {
         }
 
         if (view.getTfPostcode().getText().length() < 5) {
-            errorMap.put(view.getTfName(), "Postcode moet minimaal 5 karakters hebben.");
+            errorMap.put(view.getTfPostcode(), "Postcode moet minimaal 5 karakters hebben.");
         }
 
         System.out.println("map size = " + errorMap.size());
