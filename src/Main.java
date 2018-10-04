@@ -1,9 +1,8 @@
-import businnesslogic.AManager;
 import businnesslogic.AccountManager;
+import businnesslogic.IManager;
 import businnesslogic.Manager;
-import view.Login;
+import businnesslogic.TheaterManager;
 import view.MainFrame;
-import view.View;
 import view.ViewName;
 
 import javax.swing.*;
@@ -32,13 +31,11 @@ public class Main {
      * event-dispatching thread.
      */
     private static void createAndShowGUI() {
-
-        HashMap<Manager, AManager> managersMap = new HashMap<>();
-        managersMap.put(Manager.Account, new AccountManager());
-        AManager.setManagersMap(managersMap);
-
         MainFrame mainFrame = MainFrame.getMainFrame();
-        mainFrame.setView(ViewName.LOGIN, false);
+        HashMap managersMap = mainFrame.getManagersMap();
+        managersMap.put(Manager.Account, new AccountManager());
+        managersMap.put(Manager.THEATER, new TheaterManager());
+        mainFrame.setView(ViewName.THEATER, false);
         mainFrame.setVisible(true);
     }
 }

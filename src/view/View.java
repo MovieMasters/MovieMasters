@@ -1,11 +1,7 @@
 package view;
 
-import businnesslogic.AManager;
-import businnesslogic.Manager;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 
 public abstract class View extends JPanel {
     public void setTextFieldInvalid(JTextField field) {

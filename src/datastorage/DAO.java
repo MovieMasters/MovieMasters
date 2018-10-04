@@ -27,21 +27,20 @@ public abstract class DAO {
 
     /**
      * @param query The prepared statement that will be executed
-     * @return Resultset
      */
-//    public Resultset executePreparedStatement(String query){
-//        ResultSet rs = null;
-//        if (query != null) {
-//            try {
-//                Connection conn = DBConnection.getConnection();
-//                if (conn != null) {
-//                    PreparedStatement stmt = conn.prepareStatement(query);
-//                    stmt.execute();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return rs;
-//    }
+    public void executePreparedStatement(String query) {
+        ResultSet rs = null;
+        if (query != null) {
+            try {
+                Connection conn = DBConnection.getConnection();
+                if (conn != null) {
+                    PreparedStatement stmt = conn.prepareStatement(query);
+                    stmt.execute();
+                    conn.commit();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

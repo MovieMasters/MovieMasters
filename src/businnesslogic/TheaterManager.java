@@ -6,11 +6,11 @@ import domain.Account;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AccountManager implements IManager {
+public class TheaterManager implements IManager {
 
     private final Map<String, Account> accountsMap;
 
-    public AccountManager() {
+    public TheaterManager() {
         accountsMap = new HashMap<>();
     }
 

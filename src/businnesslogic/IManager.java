@@ -2,9 +2,7 @@ package businnesslogic;
 
 import domain.Account;
 
-import javax.swing.text.PasswordView;
-
-public interface IAccountManager {
+public interface IManager {
 
     /**
      * Tries to find the Account object matching the given username.

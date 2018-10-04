@@ -1,5 +1,8 @@
 package view;
 
+import businnesslogic.IManager;
+import businnesslogic.Manager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -7,7 +10,8 @@ import java.util.HashMap;
 public class MainFrame extends JFrame {
 
     private static MainFrame mainFrame;
-    private HashMap<ViewName, View> viewMap;
+    private final HashMap<ViewName, View> viewMap;
+    private final HashMap<Manager, IManager> managersMap;
     private View currentView;
 
     public MainFrame() {
@@ -17,6 +21,7 @@ public class MainFrame extends JFrame {
         centerFrame();
         setJMenuBar(new MenuBar());
         viewMap = new HashMap();
+        managersMap = new HashMap<>();
     }
 
     public static MainFrame getMainFrame() {
@@ -51,6 +56,9 @@ public class MainFrame extends JFrame {
                 case REGISTER:
                     view = new Register();
                     break;
+                case THEATER:
+                    view = new Theater();
+                    break;
             }
             viewMap.put(viewName, view);
         }
@@ -62,5 +70,9 @@ public class MainFrame extends JFrame {
         repaint();
         pack();
         currentView = view;
+    }
+
+    public HashMap<Manager, IManager> getManagersMap() {
+        return managersMap;
     }
 }
