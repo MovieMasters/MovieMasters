@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
         setTitle("MovieMasters");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        centerFrame();
+        initFrame();
         setJMenuBar(new MenuBar());
         viewMap = new HashMap();
         managersMap = new HashMap<>();
@@ -30,16 +30,16 @@ public class MainFrame extends JFrame {
         return mainFrame;
     }
 
-    private void centerFrame() {
-        Dimension frameDimension = new Dimension(800, 600);
-        setSize(frameDimension);
-        setPreferredSize(frameDimension);
+    private void initFrame() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = getSize().width;
         int height = getSize().height;
         int x = (screenSize.width - width) / 2;
         int y = (screenSize.height - height) / 2;
         setLocation(x, y);
+        Dimension frameDimension = new Dimension(800, 600);
+        setSize(frameDimension);
+        setPreferredSize(frameDimension);
     }
 
     public void setView(ViewName viewName, boolean useCached) {
@@ -58,6 +58,9 @@ public class MainFrame extends JFrame {
                     break;
                 case THEATER:
                     view = new Theater();
+                    break;
+                case MOVIECOLLECTION:
+                    view = new MovieCollection();
                     break;
             }
             viewMap.put(viewName, view);

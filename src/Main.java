@@ -1,6 +1,4 @@
-import businessLogic.AccountManager;
-import businessLogic.Manager;
-import businessLogic.TheaterManager;
+import businessLogic.*;
 import view.MainFrame;
 import view.ViewName;
 
@@ -32,9 +30,10 @@ public class Main {
     private static void createAndShowGUI() {
         MainFrame mainFrame = MainFrame.getMainFrame();
         HashMap managersMap = mainFrame.getManagersMap();
-        managersMap.put(Manager.Account, new AccountManager());
-        managersMap.put(Manager.THEATER, new TheaterManager());
-        mainFrame.setView(ViewName.THEATER, false);
+//        managersMap.put(Manager.ACCOUNT, new AccountManager());
+//        managersMap.put(Manager.THEATER, new TheaterManager());
+        managersMap.put(Manager.MOVIE, new MovieManager());
+        mainFrame.setView(ViewName.MOVIECOLLECTION, false);
         mainFrame.setVisible(true);
     }
 }

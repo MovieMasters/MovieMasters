@@ -14,7 +14,6 @@ public class TheaterManager implements IManager {
         accountsMap = new HashMap<>();
     }
 
-    @Override
     public Account find(String username) {
         Account account = accountsMap.get(username);
 
@@ -40,7 +39,6 @@ public class TheaterManager implements IManager {
         return account;
     }
 
-    @Override
     public Account login(String username, char[] password) {
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.login(username, password);
@@ -51,7 +49,6 @@ public class TheaterManager implements IManager {
         return account;
     }
 
-    @Override
     public boolean remove(Account account) {
         boolean result = false;
         String username = account.getUsername();

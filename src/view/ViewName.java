@@ -1,5 +1,5 @@
 package view;
 
 public enum ViewName {
-    LOGIN, REGISTER, THEATER
+    LOGIN, REGISTER, THEATER, MOVIECOLLECTION
 }
