@@ -60,7 +60,10 @@ public class MainFrame extends JFrame {
                     view = new Theater();
                     break;
                 case MOVIECOLLECTION:
-                    view = new MovieCollection();
+                    view = new view.MovieCollection();
+                    break;
+                case MOVIE:
+                    view = new view.Movie();
                     break;
             }
             viewMap.put(viewName, view);

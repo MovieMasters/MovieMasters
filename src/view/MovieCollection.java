@@ -29,27 +29,26 @@ public class MovieCollection extends View{
             // ToDo Create Labels for 1 movie
             Icon icon = createImageIcon("/images/movie_" + movie.getId() + ".jpg", movie.getTitle());
 
-            JPanel movieItem = new JPanel();
-            JLabel image = new JLabel(icon, JLabel.CENTER);
-            JLabel title = new JLabel(movie.getTitle());
+            JPanel pnlMovieItem = new JPanel();
+
+            JButton btnImage = new JButton();
+            btnImage.setIcon(icon);
+            btnImage.setActionCommand(Integer.toString(movie.getId()));
+            btnImage.addActionListener(movieController);
+
+            JLabel lblTitle = new JLabel(movie.getTitle());
+
             GridBagConstraints gbc;
 
             // Set Layout manager
-            movieItem.setLayout(new GridBagLayout());
+            pnlMovieItem.setLayout(new GridBagLayout());
 
-            // Set image size for each movie
-//            image.setPreferredSize(new Dimension(146, 207));
-
-            // Create border for clean development
-            Border border2 = BorderFactory.createLineBorder(Color.RED, 1);
-            movieItem.setBorder(border2);
-
-            // Determine constraints for label image
+            // Determine constraints for label lblImage
             gbc = new GridBagConstraints();
             gbc.gridx = 0;
             gbc.gridy = 0;
-            //Add label to panel movieItem
-            movieItem.add(image, gbc);
+            //Add label to panel pnlMovieItem
+            pnlMovieItem.add(btnImage, gbc);
 
             // Determine contstraints for label title
             gbc = new GridBagConstraints();
@@ -57,11 +56,11 @@ public class MovieCollection extends View{
             gbc.gridy = 1;
             gbc.fill = GridBagConstraints.BOTH;
             gbc.insets = new Insets(3,3,3,3);
-            //Add label to panel movieItem
-            movieItem.add(title, gbc);
+            //Add label to panel pnlMovieItem
+            pnlMovieItem.add(lblTitle, gbc);
 
-            // Add created panel movieItem to view MovieCollection
-            add(movieItem);
+            // Add created panel pnlMovieItem to view MovieCollection
+            add(pnlMovieItem);
         }
     }
 
