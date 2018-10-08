@@ -22,7 +22,7 @@ public class MovieController extends Controller {
     public void actionPerformed(ActionEvent e) {
         int movieId = Integer.parseInt(e.getActionCommand());
         domain.Movie movie = getMovie(movieId);
-        MainFrame.getMainFrame().setView(ViewName.MOVIE, false);
+        MainFrame.getMainFrame().setView(ViewName.MOVIE, false, movie);
     }
 
     public domain.MovieCollection getActualMovies(){
@@ -30,7 +30,7 @@ public class MovieController extends Controller {
         return mcDAO.getActualMovies();
     }
 
-    public domain.Movie getMovie(int movieId){
+    private domain.Movie getMovie(int movieId){
         MovieDAO movieDAO = new MovieDAO();
         return movieDAO.getMovie(movieId);
     }

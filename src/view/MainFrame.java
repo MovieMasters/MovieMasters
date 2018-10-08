@@ -2,7 +2,6 @@ package view;
 
 import businessLogic.IManager;
 import businessLogic.Manager;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -62,8 +61,29 @@ public class MainFrame extends JFrame {
                 case MOVIECOLLECTION:
                     view = new view.MovieCollection();
                     break;
+            }
+            viewMap.put(viewName, view);
+        }
+
+        if (currentView != null) {
+            getContentPane().remove(currentView);
+        }
+        getContentPane().add(view);
+        repaint();
+        pack();
+        currentView = view;
+    }
+
+    public void setView(ViewName viewName, boolean useCached, Object object) {
+        View view = null;
+        if (useCached && viewMap.containsKey(viewName)) {
+            view = viewMap.get(viewName);
+        }
+
+        if (view == null) {
+            switch (viewName) {
                 case MOVIE:
-                    view = new view.Movie();
+                    view = new Movie((domain.Movie) object);
                     break;
             }
             viewMap.put(viewName, view);

@@ -32,7 +32,7 @@ public class Main {
         HashMap managersMap = mainFrame.getManagersMap();
 //        managersMap.put(Manager.ACCOUNT, new AccountManager());
 //        managersMap.put(Manager.THEATER, new TheaterManager());
-        managersMap.put(Manager.MOVIE, new MovieManager());
+//        managersMap.put(Manager.MOVIE, new MovieManager());
         mainFrame.setView(ViewName.MOVIECOLLECTION, false);
         mainFrame.setVisible(true);
     }
