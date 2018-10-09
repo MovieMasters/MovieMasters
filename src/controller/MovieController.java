@@ -13,8 +13,4 @@ public class MovieController {
         this.model = model;
         this.view = view;
     }
-
-    public void setTitle(){
-        view.setTitle(model.getTitle());
-    }
 }

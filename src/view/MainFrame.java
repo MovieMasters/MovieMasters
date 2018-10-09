@@ -34,14 +34,14 @@ public class MainFrame extends JFrame {
 
     private void initFrame() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameDimension = new Dimension(800, 600);
+        setSize(frameDimension);
+        setPreferredSize(frameDimension);
         int width = getSize().width;
         int height = getSize().height;
         int x = (screenSize.width - width) / 2;
         int y = (screenSize.height - height) / 2;
         setLocation(x, y);
-        Dimension frameDimension = new Dimension(800, 600);
-        setSize(frameDimension);
-        setPreferredSize(frameDimension);
     }
 
     public void setView(View view) {

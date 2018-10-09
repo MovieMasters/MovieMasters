@@ -1,5 +1,6 @@
 import view.LoginView;
 import view.MainFrame;
+import view.MovieView;
 
 import javax.swing.*;
 
@@ -27,7 +28,7 @@ public class Main {
      */
     private static void createAndShowGUI() {
         MainFrame mainFrame = MainFrame.getMainFrame();
-        mainFrame.setView(new LoginView());
+        mainFrame.setView(new MovieView());
         mainFrame.setVisible(true);
     }
 }
