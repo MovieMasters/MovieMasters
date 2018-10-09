@@ -13,6 +13,8 @@ public class Movie {
     private String language;
     private List<CastMember> cast;
 
+    public Movie(){}
+
     public Movie(int id, String title, Date releaseDate, int playTime, String summary, String language) {
         this.id = id;
         this.title = title;

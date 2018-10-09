@@ -1,32 +1,29 @@
 package view;
 
-import controller.MovieController;
+import controller.MovieCollectionController;
 import domain.Movie;
+import domain.MovieCollection;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MovieCollection extends View{
+public class MovieCollectionView extends View {
+    Map<String, JButton> buttons;
+//    Map<String, Movie> collection;
 
-    private MovieController movieController;
-    private Map<String, Movie> collection;
-
-    public MovieCollection(){
-        movieController = new MovieController(this);
-        collection = movieController.getActualMovies().getCollection();
-        createMovieItems(collection);
+    public MovieCollectionView(){
+        buttons = new HashMap<String, JButton>();
     }
 
-    /***
-     * Iterate through collection, and add a JPanel for each Movie to this view
-     */
-    private void createMovieItems(Map<String, Movie> collection){
+//    public void setCollection(Map<String, Movie> collection){
+//        this.collection = collection;
+//    }
+
+    public void createMovieItems(Map<String, Movie> collection){
         for (Movie movie : collection.values()){
-            // ToDo Create Labels for 1 movie
+
             Icon icon = createImageIcon("/images/movie_" + movie.getId() + ".jpg", movie.getTitle());
 
             JPanel pnlMovieItem = new JPanel();
@@ -34,7 +31,9 @@ public class MovieCollection extends View{
             JButton btnImage = new JButton();
             btnImage.setIcon(icon);
             btnImage.setActionCommand(Integer.toString(movie.getId()));
-            btnImage.addActionListener(movieController);
+            //Add current ButtonImage to Map buttons
+            addButtonToButtons(movie.getId(), btnImage);
+
 
             JLabel lblTitle = new JLabel(movie.getTitle());
 
@@ -73,5 +72,13 @@ public class MovieCollection extends View{
             System.err.println("Couldn't find file: " + path);
             return null;
         }
+    }
+
+    private void addButtonToButtons(int i, JButton imageButton){
+        buttons.put("movie_"+i, imageButton);
+    }
+
+    public JButton getButton(String i){
+        return buttons.get(i);
     }
 }

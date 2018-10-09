@@ -2,6 +2,11 @@ package view;
 
 import businessLogic.IManager;
 import businessLogic.Manager;
+import controller.MovieCollectionController;
+import controller.MovieController;
+import domain.Movie;
+import domain.MovieCollection;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -59,31 +64,16 @@ public class MainFrame extends JFrame {
                     view = new Theater();
                     break;
                 case MOVIECOLLECTION:
-                    view = new view.MovieCollection();
+                    MovieCollection movieCollectionModel = new MovieCollection();
+                    view = new MovieCollectionView();
+                    MovieCollectionController movieCollectionController = new MovieCollectionController((MovieCollectionView) view);
+                    movieCollectionController.btnListeners();
                     break;
-            }
-            viewMap.put(viewName, view);
-        }
-
-        if (currentView != null) {
-            getContentPane().remove(currentView);
-        }
-        getContentPane().add(view);
-        repaint();
-        pack();
-        currentView = view;
-    }
-
-    public void setView(ViewName viewName, boolean useCached, Object object) {
-        View view = null;
-        if (useCached && viewMap.containsKey(viewName)) {
-            view = viewMap.get(viewName);
-        }
-
-        if (view == null) {
-            switch (viewName) {
                 case MOVIE:
-                    view = new Movie((domain.Movie) object);
+                    Movie movieModel = new Movie();
+                    view = new MovieView();
+                    MovieController movieController = new MovieController(movieModel, (MovieView) view);
+                    movieController.setTitle();
                     break;
             }
             viewMap.put(viewName, view);
@@ -97,6 +87,8 @@ public class MainFrame extends JFrame {
         pack();
         currentView = view;
     }
+
+
 
     public HashMap<Manager, IManager> getManagersMap() {
         return managersMap;

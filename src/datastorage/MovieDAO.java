@@ -18,10 +18,23 @@ public class MovieDAO extends DAO{
     public MovieCollection getActualMovies(){
         MovieCollection movieCollection = new MovieCollection();
         ResultSet rs = executeQuery(
-            "SELECT movie.id, movie.title, movie.releaseDate, movie.playTime, movie.summary, language.language, `show`.date, `show`.time\n" +
-                    "FROM (( movie INNER JOIN `show` ON movie.id = `show`.movieId)\n" +
-                    "INNER JOIN language ON language.code = movie.languageCode)\n" +
-                    "WHERE `show`.Date >= CURDATE() && `show`.time >= CURTIME();"
+            "SELECT\n" +
+                    "       movie.id,\n" +
+                    "       movie.title,\n" +
+                    "       movie.releaseDate,\n" +
+                    "       movie.playTime,\n" +
+                    "       movie.summary,\n" +
+                    "       language.language,\n" +
+                    "       `show`.date,\n" +
+                    "       `show`.time\n" +
+                    "FROM\n" +
+                    "      movie\n" +
+                    "         LEFT JOIN `show`\n" +
+                    "         ON movie.id = `show`.movieId\n" +
+                    "         LEFT JOIN language\n" +
+                    "         ON language.code = movie.languageCode\n" +
+                    //ToDo alter query so only movie with future shows will be added
+                    "WHERE `show`.Date > '2017-12-01';"
         );
 
         if (rs != null){

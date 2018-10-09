@@ -19,4 +19,8 @@ public class MovieCollection {
         String movieTitle = movie.getTitle();
         collection.put(movieTitle, movie);
     }
+
+    public void setMovieCollection(Map<String, Movie> movieCollection) {
+        this.collection = movieCollection;
+    }
 }
