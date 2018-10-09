@@ -4,6 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class View extends JPanel {
+
+    protected ViewName viewName;
+
+    protected ViewName getViewName(){
+        return this.viewName;
+    }
+
     public void setTextFieldInvalid(JTextField field) {
         field.setBorder(BorderFactory.createDashedBorder(Color.RED));
     }

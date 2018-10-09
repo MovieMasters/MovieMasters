@@ -11,18 +11,23 @@ import java.util.Map;
 
 public class MovieCollectionView extends View {
     Map<String, JButton> buttons;
-//    Map<String, Movie> collection;
+    MovieCollection movieCollection;
+    MovieCollectionController movieCollectionController;
 
-    public MovieCollectionView(){
+    public MovieCollectionView(MovieCollection movieCollection){
+        this.viewName = ViewName.MOVIECOLLECTION;
         buttons = new HashMap<String, JButton>();
+        this.movieCollection = movieCollection;
+        movieCollectionController = new MovieCollectionController(movieCollection, this);
+        createMovieItems();
     }
 
 //    public void setCollection(Map<String, Movie> collection){
 //        this.collection = collection;
 //    }
 
-    public void createMovieItems(Map<String, Movie> collection){
-        for (Movie movie : collection.values()){
+    public void createMovieItems(){
+        for (Movie movie : movieCollection.getCollection().values()){
 
             Icon icon = createImageIcon("/images/movie_" + movie.getId() + ".jpg", movie.getTitle());
 
@@ -32,8 +37,8 @@ public class MovieCollectionView extends View {
             btnImage.setIcon(icon);
             btnImage.setActionCommand(Integer.toString(movie.getId()));
             //Add current ButtonImage to Map buttons
-            addButtonToButtons(movie.getId(), btnImage);
-
+//            addButtonToButtons(movie.getId(), btnImage);
+            btnImage.addActionListener(movieCollectionController);
 
             JLabel lblTitle = new JLabel(movie.getTitle());
 

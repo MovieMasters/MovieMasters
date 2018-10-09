@@ -5,7 +5,7 @@ import controller.LoginController;
 import javax.swing.*;
 import java.awt.*;
 
-public class Login extends View {
+public class LoginView extends View {
     private JTextField tfusername;
     private JPasswordField pfPassword;
     private JLabel lblUsername, lblPassword, lblErrorLogin;
@@ -13,7 +13,7 @@ public class Login extends View {
 
     private LoginController loginController;
 
-    public Login() {
+    public LoginView() {
         setLayout(new GridBagLayout());
         loginController = new LoginController(this);
         tfusername = new JTextField(30);
@@ -23,7 +23,7 @@ public class Login extends View {
         lblErrorLogin = new JLabel();
         lblErrorLogin.setForeground(Color.RED);
         btnRegister = new JButton("Register");
-        btnLogin = new JButton("Login");
+        btnLogin = new JButton("LoginView");
 
         btnRegister.addActionListener(loginController);
         btnLogin.addActionListener(loginController);

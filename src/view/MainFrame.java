@@ -15,7 +15,6 @@ public class MainFrame extends JFrame {
 
     private static MainFrame mainFrame;
     private final HashMap<ViewName, View> viewMap;
-    private final HashMap<Manager, IManager> managersMap;
     private View currentView;
 
     public MainFrame() {
@@ -25,7 +24,6 @@ public class MainFrame extends JFrame {
         initFrame();
         setJMenuBar(new MenuBar());
         viewMap = new HashMap();
-        managersMap = new HashMap<>();
     }
 
     public static MainFrame getMainFrame() {
@@ -46,39 +44,7 @@ public class MainFrame extends JFrame {
         setPreferredSize(frameDimension);
     }
 
-    public void setView(ViewName viewName, boolean useCached) {
-        View view = null;
-        if (useCached && viewMap.containsKey(viewName)) {
-            view = viewMap.get(viewName);
-        }
-
-        if (view == null) {
-            switch (viewName) {
-                case LOGIN:
-                    view = new Login();
-                    break;
-                case REGISTER:
-                    view = new Register();
-                    break;
-                case THEATER:
-                    view = new Theater();
-                    break;
-                case MOVIECOLLECTION:
-                    MovieCollection movieCollectionModel = new MovieCollection();
-                    view = new MovieCollectionView();
-                    MovieCollectionController movieCollectionController = new MovieCollectionController((MovieCollectionView) view);
-                    movieCollectionController.btnListeners();
-                    break;
-                case MOVIE:
-                    Movie movieModel = new Movie();
-                    view = new MovieView();
-                    MovieController movieController = new MovieController(movieModel, (MovieView) view);
-                    movieController.setTitle();
-                    break;
-            }
-            viewMap.put(viewName, view);
-        }
-
+    public void setView(View view) {
         if (currentView != null) {
             getContentPane().remove(currentView);
         }
@@ -86,11 +52,10 @@ public class MainFrame extends JFrame {
         repaint();
         pack();
         currentView = view;
+        viewMap.put(view.getViewName(), view);
     }
 
-
-
-    public HashMap<Manager, IManager> getManagersMap() {
-        return managersMap;
+    public HashMap<ViewName, View> getViewMap() {
+        return viewMap;
     }
 }

@@ -26,7 +26,7 @@ public class TheaterController extends Controller {
                 save();
                 break;
             case "Cancel":
-                MainFrame.getMainFrame().setView(ViewName.LOGIN, true);
+//                MainFrame.getMainFrame().setView(ViewName.LOGIN, true);
                 break;
         }
     }

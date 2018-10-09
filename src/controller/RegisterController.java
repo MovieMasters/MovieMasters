@@ -17,7 +17,7 @@ public class RegisterController extends Controller {
                 validateRegistration();
                 break;
             case "Cancel":
-                MainFrame.getMainFrame().setView(ViewName.LOGIN, true);
+//                MainFrame.getMainFrame().setView(ViewName.LOGIN, true);
                 break;
         }
     }

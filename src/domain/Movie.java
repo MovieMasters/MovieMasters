@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Movie {
+public class Movie extends Model {
     private int id;
     private String title;
     private Date releaseDate;

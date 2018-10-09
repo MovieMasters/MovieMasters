@@ -1,9 +1,7 @@
-import businessLogic.*;
+import view.LoginView;
 import view.MainFrame;
-import view.ViewName;
 
 import javax.swing.*;
-import java.util.HashMap;
 
 public class Main {
 
@@ -29,11 +27,7 @@ public class Main {
      */
     private static void createAndShowGUI() {
         MainFrame mainFrame = MainFrame.getMainFrame();
-        HashMap managersMap = mainFrame.getManagersMap();
-//        managersMap.put(Manager.ACCOUNT, new AccountManager());
-//        managersMap.put(Manager.THEATER, new TheaterManager());
-//        managersMap.put(Manager.MOVIE, new MovieManager());
-        mainFrame.setView(ViewName.MOVIECOLLECTION, false);
+        mainFrame.setView(new LoginView());
         mainFrame.setVisible(true);
     }
 }
