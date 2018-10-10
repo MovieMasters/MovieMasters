@@ -29,7 +29,7 @@ public class MovieCollectionView extends View {
     public void createMovieItems(){
         for (Movie movie : movieCollection.getCollection().values()){
 
-            Icon icon = createImageIcon("/images/movie_" + movie.getId() + ".jpg", movie.getTitle());
+            Icon icon = createImageIcon("/resources/movie_" + movie.getId() + ".jpg", movie.getTitle());
 
             JPanel pnlMovieItem = new JPanel();
 
