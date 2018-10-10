@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Date;
 
 public abstract class View extends JPanel {
 
@@ -28,4 +29,8 @@ public abstract class View extends JPanel {
         label.setText(text);
         label.setVisible(true);
     }
+
+//    public String ConvertDateToString(Date date){
+//        Date date = date;
+//    }
 }

@@ -1,6 +1,6 @@
-import view.LoginView;
-import view.MainFrame;
-import view.MovieView;
+import datastorage.MovieDAO;
+import domain.MovieCollection;
+import view.*;
 
 import javax.swing.*;
 
@@ -28,7 +28,12 @@ public class Main {
      */
     private static void createAndShowGUI() {
         MainFrame mainFrame = MainFrame.getMainFrame();
-        mainFrame.setView(new LoginView());
+        //ToDo temporary MovieCollectionView -- to remove
+        MovieDAO movieDAO = new MovieDAO();
+        MovieCollection mcCollection = movieDAO.getActualMovies();
+        View view = new MovieCollectionView(mcCollection);
+
+        mainFrame.setView(view);
         mainFrame.setVisible(true);
     }
 }

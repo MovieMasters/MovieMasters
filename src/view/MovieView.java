@@ -1,11 +1,21 @@
 package view;
 
+import controller.MovieController;
+import domain.Movie;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Date;
 
 public class MovieView extends View {
+    private Movie movie;
+    private MovieController movieController;
 
-    public MovieView(){
+    public MovieView(Movie movie){
+        this.viewName = ViewName.MOVIE;
+        this.movie = movie;
+        this.movieController = new MovieController(this.movie,this);
+
         setLayout(new GridBagLayout());
         createView();
     }
@@ -50,7 +60,7 @@ public class MovieView extends View {
         gbc.gridwidth = 2;
         gbc.gridheight = 2;
 
-        JLabel lblTitle = new JLabel("Titel", JLabel.CENTER );
+        JLabel lblTitle = new JLabel(movie.getTitle(), JLabel.CENTER );
         lblTitle.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblTitle, gbc);
 
@@ -60,7 +70,7 @@ public class MovieView extends View {
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        JLabel lblDate = new JLabel("Datum:");
+        JLabel lblDate = new JLabel("Releasedatum:");
         lblDate.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblDate, gbc);
 

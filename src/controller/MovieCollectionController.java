@@ -3,9 +3,7 @@ package controller;
 import datastorage.MovieDAO;
 import domain.Movie;
 import domain.MovieCollection;
-import view.MainFrame;
-import view.MovieCollectionView;
-import view.ViewName;
+import view.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,7 +48,14 @@ public class MovieCollectionController extends Controller {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
+        int movieId = Integer.parseInt(e.getActionCommand());
+        System.out.println(movieId);
+
+        MovieDAO movieDAO = new MovieDAO();
+        Movie movie = movieDAO.getMovie(movieId);
+        View view = new MovieView(movie);
+
+        MainFrame.getMainFrame().setView(view);
     }
 
 }
