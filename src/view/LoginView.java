@@ -8,30 +8,29 @@ import java.awt.*;
 public class LoginView extends View {
     private JTextField tfusername;
     private JPasswordField pfPassword;
-    private JLabel lblUsername, lblPassword, lblErrorLogin;
+    private JLabel lblUsername, lblPassword;
     private JButton btnRegister, btnLogin;
 
-    private LoginController loginController;
 
     public LoginView() {
+        viewName = ViewName.LOGIN;
         setLayout(new GridBagLayout());
-        loginController = new LoginController(this);
         tfusername = new JTextField(30);
         pfPassword = new JPasswordField(30);
-        lblUsername = new JLabel("Username");
-        lblPassword = new JLabel("Password");
-        lblErrorLogin = new JLabel();
-        lblErrorLogin.setForeground(Color.RED);
-        btnRegister = new JButton("Register");
-        btnLogin = new JButton("LoginView");
+        lblUsername = new JLabel("Gebruikersnaam");
+        lblPassword = new JLabel("Wachtwoord");
+        btnRegister = new JButton("Registreren");
+        btnLogin = new JButton("Login");
 
+        btnRegister.setActionCommand("Register");
+        btnLogin.setActionCommand("Login");
+
+        LoginController loginController = new LoginController(this);
         btnRegister.addActionListener(loginController);
         btnLogin.addActionListener(loginController);
 
         GridBagConstraints gbc = new GridBagConstraints();
-
         gbc.insets = new Insets(10, 10, 10, 10);
-
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -50,11 +49,6 @@ public class LoginView extends View {
         gbc.gridwidth = 2;
         add(pfPassword, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 3;
-        add(lblErrorLogin, gbc);
-
         FlowLayout flowLayout = new FlowLayout();
         flowLayout.setHgap(60);
         JPanel buttonPanel = new JPanel(flowLayout);
@@ -72,9 +66,5 @@ public class LoginView extends View {
 
     public JPasswordField getPfPassword() {
         return pfPassword;
-    }
-
-    public JLabel getLblErrorLogin() {
-        return lblErrorLogin;
     }
 }

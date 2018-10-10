@@ -6,16 +6,16 @@ import controller.TheaterController;
 import javax.swing.*;
 import java.awt.*;
 
-public class Theater extends View {
+public class TheaterView extends View {
     private JTextField tfName, tfStreet, tfHouseNr, tfHouseNrAdd, tfPostcode, tfCity, tfProvince, tfPhoneNr;
     private JLabel lblTitle, lblName, lblStreet, lblHouseNr, lblHouseNrAdd, lblPostcode, lblCity, lblProvince, lblPhoneNr;
     private JButton btnSave, btnCancel;
 
     private TheaterController theaterController;
 
-    public Theater() {
+    public TheaterView() {
         setLayout(new GridBagLayout());
-        lblTitle = new JLabel("Theater aanmaken", JLabel.CENTER);
+        lblTitle = new JLabel("TheaterView aanmaken", JLabel.CENTER);
         tfName = new JTextField(12);
         tfStreet = new JTextField(12);
         tfHouseNr = new JTextField(12);

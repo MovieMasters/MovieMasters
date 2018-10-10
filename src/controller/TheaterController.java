@@ -1,21 +1,16 @@
 package controller;
 
-import view.MainFrame;
-import view.Theater;
-import view.ViewName;
+import view.TheaterView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class TheaterController extends Controller {
-    private Theater view;
+    private TheaterView view;
 
-    public TheaterController(Theater view) {
+    public TheaterController(TheaterView view) {
         this.view = view;
     }
 

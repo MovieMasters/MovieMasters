@@ -1,33 +1,57 @@
 package controller;
 
+import datastorage.AccountDAO;
 import datastorage.MovieDAO;
+import domain.Account;
 import domain.MovieCollection;
 import view.*;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 
 public class LoginController extends Controller {
-    private LoginView loginView;
+    private LoginView view;
 
-    public LoginController(LoginView loginView) {
-        this.loginView = loginView;
+    public LoginController(LoginView view) {
+        this.view = view;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        View view;
         switch (e.getActionCommand()) {
             case "Register":
-                break;
-            case "LoginView":
-                View view = MainFrame.getMainFrame().getViewMap().get(ViewName.MOVIECOLLECTION);
-
-                if (view == null){
-                    MovieDAO movieDAO = new MovieDAO();
-                    MovieCollection mcCollection = movieDAO.getActualMovies();
-                    view = new MovieCollectionView(mcCollection);
+                view = MainFrame.getMainFrame().getViewMap().get(ViewName.REGISTER);
+                if (view == null) {
+                    view = new RegisterView();
                 }
                 MainFrame.getMainFrame().setView(view);
                 break;
+            case "Login":
+                if(login()) {
+                    view = MainFrame.getMainFrame().getViewMap().get(ViewName.MOVIECOLLECTION);
+                    if (view == null) {
+                        MovieDAO movieDAO = new MovieDAO();
+                        MovieCollection mcCollection = movieDAO.getActualMovies();
+                        view = new MovieCollectionView(mcCollection);
+                    }
+                    MainFrame.getMainFrame().setView(view);
+                }
+                break;
         }
+    }
+
+    private boolean login() {
+        boolean ret = true;
+        AccountDAO accountDAO = new AccountDAO();
+        Account account = accountDAO.login(view.getTfusername().getText(), view.getPfPassword().getPassword());
+        if(account == null)
+        {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Gegevens onjuist!", "Onjuiste gegevens", JOptionPane.ERROR_MESSAGE);
+            ret = false;
+        }
+        return ret;
     }
 }

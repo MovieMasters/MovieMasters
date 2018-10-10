@@ -28,7 +28,7 @@ public class Main {
      */
     private static void createAndShowGUI() {
         MainFrame mainFrame = MainFrame.getMainFrame();
-        mainFrame.setView(new MovieView());
+        mainFrame.setView(new LoginView());
         mainFrame.setVisible(true);
     }
 }

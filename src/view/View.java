@@ -7,7 +7,7 @@ public abstract class View extends JPanel {
 
     protected ViewName viewName;
 
-    protected ViewName getViewName(){
+    public ViewName getViewName(){
         return this.viewName;
     }
 

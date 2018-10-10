@@ -21,7 +21,7 @@ public class MovieView extends View {
 
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10,10,10,10);
+        gbc.insets = new Insets(2,2,2,2);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -41,8 +41,8 @@ public class MovieView extends View {
 
         pnlTopRight.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10,10,10,10);
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(5,5,5,5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
@@ -54,6 +54,7 @@ public class MovieView extends View {
         lblTitle.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblTitle, gbc);
 
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
 
