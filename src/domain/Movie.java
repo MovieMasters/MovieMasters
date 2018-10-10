@@ -2,9 +2,12 @@ package domain;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import datastorage.MovieDAO;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class Movie extends Model {
     private int id;
@@ -13,7 +16,7 @@ public class Movie extends Model {
     private int playTime;
     private String summary;
     private String language;
-    private List<CastMember> cast;
+    private Map<String, CastMember> cast;
 
     public Movie(){}
 
@@ -24,7 +27,8 @@ public class Movie extends Model {
         this.playTime = playTime;
         this.summary = summary;
         this.language = language;
-        this.cast = new ArrayList<CastMember>();
+        MovieDAO movieDAO = new MovieDAO();
+        this.cast = movieDAO.getCastMember(id);
     }
 
     public int getId() {
@@ -71,12 +75,8 @@ public class Movie extends Model {
         this.language = language;
     }
 
-    public List<CastMember> getCast() {
+    public Map<String, CastMember> getCast() {
         return cast;
-    }
-
-    public void addCastMember(CastMember castMember){
-        cast.add(castMember);
     }
 
 }

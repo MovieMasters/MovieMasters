@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class View extends JPanel {
@@ -30,7 +32,12 @@ public abstract class View extends JPanel {
         label.setVisible(true);
     }
 
-//    public String ConvertDateToString(Date date){
-//        Date date = date;
-//    }
+    public String convertDateToString(Date dateObject){
+        Date date = dateObject;
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        String strDate = dateFormat.format(date);
+
+        return strDate;
+    }
 }
