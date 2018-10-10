@@ -26,15 +26,15 @@ public abstract class DAO {
     }
 
     /**
-     * @param query The prepared statement that will be executed
+     * @param statement The prepared statement that will be executed
      */
-    public void executePreparedStatement(String query) {
+    public void executePreparedStatement(String statement) {
         ResultSet rs = null;
-        if (query != null) {
+        if (statement != null) {
             try {
                 Connection conn = DBConnection.getConnection();
                 if (conn != null) {
-                    PreparedStatement stmt = conn.prepareStatement(query);
+                    PreparedStatement stmt = conn.prepareStatement(statement);
                     stmt.execute();
                     conn.commit();
                 }

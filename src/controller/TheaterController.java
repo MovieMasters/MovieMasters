@@ -1,10 +1,13 @@
 package controller;
 
+import datastorage.TheaterDAO;
+import domain.Theater;
 import view.TheaterView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class TheaterController extends Controller {
@@ -28,7 +31,7 @@ public class TheaterController extends Controller {
 
     private void save() {
         if (validateForm()) {
-
+            createTheater();
         }
     }
 
@@ -51,18 +54,38 @@ public class TheaterController extends Controller {
         if (view.getTfPostcode().getText().length() < 5) {
             errorMap.put(view.getTfPostcode(), "Postcode moet minimaal 5 karakters hebben.");
         }
+        if(errorMap.size() > 0) {
+            ret = false;
+            JPanel errorPanel = new JPanel(new GridLayout(errorMap.size(), 1));
 
-        System.out.println("map size = " + errorMap.size());
-        JPanel errorPanel = new JPanel(new GridLayout(errorMap.size(), 1));
+            errorMap.forEach((field, error) -> {
+                view.setTextFieldInvalid(field);
+                errorPanel.add(new JLabel(error));
+            });
 
-        errorMap.forEach((field, error) -> {
-            view.setTextFieldInvalid(field);
-            errorPanel.add(new JLabel(error));
-        });
-
-        JScrollPane scroller = new JScrollPane(errorPanel);
-        scroller.setBorder(BorderFactory.createEmptyBorder());
-        JOptionPane.showMessageDialog(view, scroller, "Foutmelding", JOptionPane.ERROR_MESSAGE);
+            JScrollPane scroller = new JScrollPane(errorPanel);
+            scroller.setBorder(BorderFactory.createEmptyBorder());
+            JOptionPane.showMessageDialog(view, scroller, "Foutmelding", JOptionPane.ERROR_MESSAGE);
+        }
         return ret;
+    }
+
+    private Theater createTheater(){
+        Theater theater = null;
+        TheaterDAO theaterDAO = new TheaterDAO();
+        try{
+            theater = theaterDAO.create(view.getTfName().getText(),
+                    view.getTfStreet().getText(),
+                    Integer.parseInt(view.getTfHouseNr().getText()),
+                    view.getTfHouseNrAdd().getText(),
+                    view.getTfPostcode().getText(),
+                    view.getTfCity().getText(),
+                    view.getTfProvince().getText(),
+                    Integer.parseInt(view.getTfPhoneNr().getText()));
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return theater;
     }
 }

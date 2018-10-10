@@ -15,7 +15,7 @@ public class TheaterView extends View {
 
     public TheaterView() {
         setLayout(new GridBagLayout());
-        lblTitle = new JLabel("TheaterView aanmaken", JLabel.CENTER);
+        lblTitle = new JLabel("Theater aanmaken", JLabel.CENTER);
         tfName = new JTextField(12);
         tfStreet = new JTextField(12);
         tfHouseNr = new JTextField(12);

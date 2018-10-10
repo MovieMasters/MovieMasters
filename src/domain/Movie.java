@@ -1,5 +1,7 @@
 package domain;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,4 +78,5 @@ public class Movie extends Model {
     public void addCastMember(CastMember castMember){
         cast.add(castMember);
     }
+
 }
