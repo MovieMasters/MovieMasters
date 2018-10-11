@@ -6,6 +6,7 @@ import domain.Movie;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Date;
 
 public class MovieView extends View {
@@ -52,8 +53,7 @@ public class MovieView extends View {
 
 
         // Adding content to Top Left Panel
-        pnlTopLeft.setLayout(new FlowLayout());
-        Icon icon = createImageIcon("/resources/big/movie_" + movie.getId() + ".jpg", movie.getTitle());
+        Icon icon = createImageIcon("/resources/movie_" + movie.getId() + ".jpg", movie.getTitle());
         JLabel lblImage = new JLabel();
         lblImage.setIcon(icon);
         pnlTopLeft.add(lblImage);
@@ -186,5 +186,15 @@ public class MovieView extends View {
             System.err.println("Couldn't find file: " + path);
             return null;
         }
+    }
+
+    private ImageIcon resizeIcon(ImageIcon icon, int width, int height){
+        Image img = icon.getImage();
+        BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics g = bi.createGraphics();
+        g.drawImage(img, 0, 0, width, height, null);
+        ImageIcon newIcon = new ImageIcon(bi);
+
+        return newIcon;
     }
 }
