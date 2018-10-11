@@ -30,7 +30,6 @@ public class MovieView extends View {
         pnlTopRight.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlBottom.setBorder(BorderFactory.createLineBorder(Color.RED));
 
-        // Adding content to Top Left Panel
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(2,2,2,2);
@@ -50,6 +49,14 @@ public class MovieView extends View {
         gbc.weightx = 0.0;
         gbc.gridwidth = 3;
         add(pnlBottom, gbc);
+
+
+        // Adding content to Top Left Panel
+        pnlTopLeft.setLayout(new FlowLayout());
+        Icon icon = createImageIcon("/resources/big/movie_" + movie.getId() + ".jpg", movie.getTitle());
+        JLabel lblImage = new JLabel();
+        lblImage.setIcon(icon);
+        pnlTopLeft.add(lblImage);
 
         // Adding content to Top Right panel
         pnlTopRight.setLayout(new GridBagLayout());
@@ -169,5 +176,15 @@ public class MovieView extends View {
         btnTicket.setActionCommand("Ticket");
         btnTicket.addActionListener(movieController);
         pnlBottom.add(btnTicket, gbc);
+    }
+
+    private ImageIcon createImageIcon(String path, String description){
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null){
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
     }
 }
