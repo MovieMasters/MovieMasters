@@ -14,6 +14,7 @@ public class MovieCollectionController extends Controller {
     private ActionListener actionListener;
 
     public MovieCollectionController (MovieCollection model, MovieCollectionView view){
+        super();
         this.model = model;
         this.view = view;
     }

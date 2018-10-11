@@ -11,6 +11,10 @@ import java.util.HashMap;
 public abstract class Controller implements IController, ActionListener {
     protected HashMap<JTextField, String> errorMap;
 
+    public Controller(){
+        errorMap = new HashMap<>();
+    }
+
     private void setTextFieldInvalid(JTextField field) {
         BorderUIResource.LineBorderUIResource border = new BorderUIResource.LineBorderUIResource(Color.RED);
         field.setBorder(border);
@@ -38,7 +42,7 @@ public abstract class Controller implements IController, ActionListener {
 
             JScrollPane scroller = new JScrollPane(errorPanel);
             scroller.setBorder(BorderFactory.createEmptyBorder());
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), scroller, "Foutmelding", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, scroller, "Foutmelding", JOptionPane.ERROR_MESSAGE);
         }
     }
 

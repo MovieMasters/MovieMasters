@@ -12,8 +12,8 @@ public class TheaterController extends Controller {
     private TheaterView view;
 
     public TheaterController(TheaterView view) {
+        super();
         this.view = view;
-        errorMap = new HashMap<>();
     }
 
     @Override
