@@ -1,6 +1,7 @@
 package view;
 
 import controller.MovieController;
+import domain.CastMember;
 import domain.Movie;
 
 import javax.swing.*;
@@ -29,6 +30,7 @@ public class MovieView extends View {
         pnlTopRight.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlBottom.setBorder(BorderFactory.createLineBorder(Color.RED));
 
+        // Adding content to Top Left Panel
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(2,2,2,2);
@@ -49,6 +51,7 @@ public class MovieView extends View {
         gbc.gridwidth = 3;
         add(pnlBottom, gbc);
 
+        // Adding content to Top Right panel
         pnlTopRight.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(5,5,5,5);
@@ -75,7 +78,8 @@ public class MovieView extends View {
         pnlTopRight.add(lblDate, gbc);
 
         gbc.gridx = 1;
-        JLabel lblDateValue = new JLabel("09-10-2018");
+        JLabel lblDateValue = new JLabel();
+        lblDateValue.setText(convertDateToString(movie.getReleaseDate()));
         lblDateValue.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblDateValue, gbc);
 
@@ -86,9 +90,84 @@ public class MovieView extends View {
         pnlTopRight.add(lblPlayTime, gbc);
 
         gbc.gridx = 1;
-        JLabel lblPlayTimeValue = new JLabel("128 minuten");
+        JLabel lblPlayTimeValue = new JLabel(movie.getPlayTime() + " minuten");
         lblPlayTimeValue.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblPlayTimeValue, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        JLabel lblLanguage = new JLabel("Taal:");
+        lblLanguage.setBorder(BorderFactory.createLineBorder(Color.RED));
+        pnlTopRight.add(lblLanguage, gbc);
+
+        gbc.gridx = 1;
+        JLabel lblLanguageValue = new JLabel("Nederlands (HARDCODED!)");
+        lblLanguageValue.setBorder(BorderFactory.createLineBorder(Color.RED));
+        pnlTopRight.add(lblLanguageValue, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        JLabel lblDirector = new JLabel("Producer:");
+        lblDirector.setBorder(BorderFactory.createLineBorder(Color.RED));
+        pnlTopRight.add(lblDirector, gbc);
+
+        gbc.gridx = 1;
+        JLabel lblDirectorValue = new JLabel("PietjePuk (HARDCODED!");
+        lblDirectorValue.setBorder(BorderFactory.createLineBorder(Color.RED));
+        pnlTopRight.add(lblDirectorValue, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        JLabel lblActor = new JLabel("Acteurs:");
+        lblActor.setBorder(BorderFactory.createLineBorder(Color.RED));
+        pnlTopRight.add(lblActor, gbc);
+
+        gbc.gridy -= 1;
+        for (CastMember member : movie.getCast().values()){
+            if (member.getRole().equalsIgnoreCase("Acteur")){
+                gbc.gridx = 1;
+                gbc.gridy++;
+                JLabel lblActorValue = new JLabel(member.getName());
+                lblActorValue.setBorder(BorderFactory.createLineBorder(Color.RED));
+                pnlTopRight.add(lblActorValue, gbc);
+            }
+        }
+
+
+        // Adding content to bottom panel
+        pnlBottom.setLayout(new GridBagLayout());
+        gbc.insets = new Insets(5,5,5,5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+
+        JLabel lblSummary = new JLabel("Omschrijving: ");
+        lblSummary.setBorder(BorderFactory.createLineBorder(Color.RED));
+        pnlBottom.add(lblSummary, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        JLabel lblSummaryValue = new JLabel("<html>"+movie.getSummary()+"</html>");
+        lblSummaryValue.setBorder(BorderFactory.createLineBorder(Color.RED));
+        pnlBottom.add(lblSummaryValue, gbc);
+
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        JButton btnBack = new JButton("Terug");
+        btnBack.setActionCommand("Back");
+        btnBack.addActionListener(movieController);
+        pnlBottom.add(btnBack, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        JButton btnTicket = new JButton("Koop ticket");
+        btnTicket.setActionCommand("Ticket");
+        btnTicket.addActionListener(movieController);
+        pnlBottom.add(btnTicket, gbc);
     }
 }

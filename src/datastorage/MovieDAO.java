@@ -1,13 +1,12 @@
 package datastorage;
 
+import domain.CastMember;
 import domain.Movie;
 import domain.MovieCollection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MovieDAO extends DAO{
     public MovieDAO() {
@@ -93,5 +92,39 @@ public class MovieDAO extends DAO{
             }
         }
         return movie;
+    }
+
+    public Map<String, CastMember> getCastMember(int movieId){
+        ResultSet rs = executeQuery(
+            "SELECT movie.id, castmember.castMemberName, castmember.roleRole FROM movie " +
+            "LEFT JOIN movie_castmember castmember on movie.id = castmember.movieId " +
+            "WHERE movie.id = " + movieId + ";"
+        );
+
+        Map<String, CastMember> cast = new HashMap();
+        int p = 1;
+        int a = 1;
+        if (rs != null){
+            try{
+                while (rs.next()) {
+                    String name = rs.getString("castMemberName");
+                    String role = rs.getString("roleRole");
+
+                    CastMember castMember = new CastMember(name, role);
+                    if (castMember.getRole().equalsIgnoreCase("Regisseur")){
+                        cast.put("p"+p, castMember);
+                        p++;
+                    } else {
+                        cast.put("a"+a, castMember);
+                        a++;
+                    }
+
+                }
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return cast;
+
     }
 }
