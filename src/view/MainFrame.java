@@ -1,12 +1,5 @@
 package view;
 
-import businessLogic.IManager;
-import businessLogic.Manager;
-import controller.MovieCollectionController;
-import controller.MovieController;
-import domain.Movie;
-import domain.MovieCollection;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;

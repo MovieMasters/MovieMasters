@@ -1,13 +1,14 @@
 package datastorage;
 
-import domain.Account;
+
+import java.sql.ResultSet;
+
 import domain.Theater;
 import view.MainFrame;
 
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TheaterDAO extends DAO {
@@ -17,8 +18,33 @@ public class TheaterDAO extends DAO {
         // has been added to explicitely make this clear.
     }
 
-    public Theater create(String name, String street, int houseNumber, String houseNrAdd, String postcode, String city, String province, int phoneNr){
+    public Theater find(String name) {
         Theater theater = null;
+        String selectQuery = "SELECT `name`, `street`, `houseNr`, `houseNrAdd`, `postcode`, `city`, `province`, `phone`" +
+                "FROM `theater` WHERE `name` = ?";
+        Connection conn = DBConnection.getConnection();
+        try (PreparedStatement selectStatement = conn.prepareStatement(selectQuery)) {
+            selectStatement.setString(1, name);
+            ResultSet rs = selectStatement.executeQuery();
+            if (rs.next()) {
+                theater = new Theater(rs.getString("name"),
+                        rs.getString("street"),
+                        rs.getInt("houseNr"),
+                        rs.getString("houseNrAdd"),
+                        rs.getString("postcode"),
+                        rs.getString("city"),
+                        rs.getString("province"),
+                        rs.getInt("phone"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Fout tijdens ophalen van theater in de database.\n " +
+                    "Neem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
+        }
+        return theater;
+    }
+
+    public boolean create(String name, String street, int houseNumber, String houseNrAdd, String postcode, String city, String province, int phoneNr) {
+        boolean ret = true;
         String insertQuery = "INSERT INTO `theater` (`name`, `street`, `houseNr`, `houseNrAdd`, `postcode`, `city`, `province`, `phone`)" +
                 "VALUES (?,?,?,?,?,?,?,?)";
         Connection conn = DBConnection.getConnection();
@@ -36,15 +62,34 @@ public class TheaterDAO extends DAO {
             conn.commit();
 
         } catch (SQLException e) {
-            if(e.getErrorCode() == 1406){
+            ret = false;
+            if (e.getErrorCode() == 1406) {
                 JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Theater: " + name + " bestaat al.", "Dubbele invoer", JOptionPane.ERROR_MESSAGE);
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Er is een fout opgetreden tijdens het opslaan.\n " +
                         "Neem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
             }
 
         }
-        return theater;
+        return ret;
+    }
+
+    public boolean delete(Theater theater) {
+        boolean ret = true;
+        String deleteQuery = "DELETE FROM `theater` WHERE `name` = ?";
+        Connection conn = DBConnection.getConnection();
+        try (PreparedStatement deleteStatement = conn.prepareStatement(deleteQuery)) {
+            conn.setAutoCommit(false);
+            deleteStatement.setString(1, theater.getName());
+            deleteStatement.execute();
+            conn.commit();
+
+        } catch (SQLException e) {
+            ret = false;
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Er is een fout opgetreden tijdens het ophalen.\n " +
+                    "Neem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
+        }
+        return ret;
     }
 
 }

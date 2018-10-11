@@ -53,10 +53,9 @@ public class TheaterController extends Controller {
         return (errorMap.size() == 0);
     }
 
-    private Theater createTheater() {
-        Theater theater = null;
+    private boolean createTheater() {
         TheaterDAO theaterDAO = new TheaterDAO();
-        theater = theaterDAO.create(view.getTfName().getText(),
+        return theaterDAO.create(view.getTfName().getText(),
                 view.getTfStreet().getText(),
                 Integer.parseInt(view.getTfHouseNr().getText()),
                 view.getTfHouseNrAdd().getText(),
@@ -64,6 +63,5 @@ public class TheaterController extends Controller {
                 view.getTfCity().getText(),
                 view.getTfProvince().getText(),
                 Integer.parseInt(view.getTfPhoneNr().getText()));
-        return theater;
     }
 }
