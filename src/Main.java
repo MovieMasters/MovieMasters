@@ -28,12 +28,7 @@ public class Main {
      */
     private static void createAndShowGUI() {
         MainFrame mainFrame = MainFrame.getMainFrame();
-        //ToDo temporary MovieCollectionView -- to remove
-        MovieDAO movieDAO = new MovieDAO();
-        MovieCollection mcCollection = movieDAO.getActualMovies();
-        View view = new MovieCollectionView(mcCollection);
-
-        mainFrame.setView(view);
+        mainFrame.setView(new LoginView());
         mainFrame.setVisible(true);
     }
 }
