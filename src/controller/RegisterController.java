@@ -22,7 +22,7 @@ public class RegisterController extends Controller {
                 validateForm();
                 break;
             case "Cancel":
-                view = MainFrame.getMainFrame().getViewMap().get(ViewName.LOGIN);
+                view = MainFrame.getMainFrame().getPreviousView();
                 if(view == null)
                 {
                     view = new LoginView();
@@ -33,15 +33,7 @@ public class RegisterController extends Controller {
     }
 
     private boolean validateForm() {
-        boolean ret = true;
-        HashMap<JTextField, String> errorMap = new HashMap<>();
-        view.setTextFieldValid(view.getTfusername());
-        view.setTextFieldValid(view.getTfEmailaddress());
-        view.setTextFieldValid(view.getTfFirstname());
-        view.setTextFieldValid(view.getTfMiddleName());
-        view.setTextFieldValid(view.getTfLastname());
-        view.setTextFieldValid(view.getPfPassword());
-        view.setTextFieldValid(view.getPfVerifyPassword());
+        resetFormErrors();
 
         if (view.getTfusername().getText().length() < 5) {
             errorMap.put(view.getTfusername(), "Gebruikersnaam moet minimaal 5 karaketers hebben.");
@@ -51,15 +43,7 @@ public class RegisterController extends Controller {
             errorMap.put(view.getTfFirstname(), "Iets fout met voornaam.");
         }
 
-        JPanel errorPanel = new JPanel(new GridLayout(errorMap.size(), 1));
-        errorMap.forEach((field, error) -> {
-            view.setTextFieldInvalid(field);
-            errorPanel.add(new JLabel(error));
-        });
-
-        JScrollPane scroller = new JScrollPane(errorPanel);
-        scroller.setBorder(BorderFactory.createEmptyBorder());
-        JOptionPane.showMessageDialog(view, scroller, "Foutmelding", JOptionPane.ERROR_MESSAGE);
-        return ret;
+        setFormErrors();
+        return (errorMap.size() == 0);
     }
 }

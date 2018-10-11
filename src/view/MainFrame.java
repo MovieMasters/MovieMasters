@@ -15,7 +15,7 @@ public class MainFrame extends JFrame {
 
     private static MainFrame mainFrame;
     private final HashMap<ViewName, View> viewMap;
-    private View currentView;
+    private View currentView, previousView;
 
     public MainFrame() {
         setTitle("MovieMasters");
@@ -51,11 +51,16 @@ public class MainFrame extends JFrame {
         getContentPane().add(view);
         repaint();
         pack();
+        previousView = currentView;
         currentView = view;
         viewMap.put(view.getViewName(), view);
     }
 
     public HashMap<ViewName, View> getViewMap() {
         return viewMap;
+    }
+
+    public View getPreviousView() {
+        return previousView;
     }
 }
