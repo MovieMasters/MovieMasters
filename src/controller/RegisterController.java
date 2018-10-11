@@ -11,6 +11,7 @@ public class RegisterController extends Controller {
     private RegisterView view;
 
     public RegisterController(RegisterView view) {
+        super();
         this.view = view;
     }
 

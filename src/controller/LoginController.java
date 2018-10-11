@@ -14,7 +14,9 @@ import java.util.HashMap;
 public class LoginController extends Controller {
     private LoginView view;
 
-    public LoginController(LoginView view) {
+    public LoginController(LoginView view)
+    {
+        super();
         this.view = view;
     }
 

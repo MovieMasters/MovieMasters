@@ -1,7 +1,6 @@
 package datastorage;
 
 import domain.Theater;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +23,13 @@ class TheaterDAOTest extends DAO {
                 1);
     }
 
-    @AfterEach
-    void tearDown() {
+    @Test
+    void createFindDelete() {
+        create();
+        find();
+        delete();
     }
 
-    @Test
     void create() {
         boolean result = theaterDAO.create(testTheater.getName(),
                 testTheater.getStreet(),
@@ -41,13 +42,11 @@ class TheaterDAOTest extends DAO {
         assertTrue(result);
     }
 
-    @Test
     void find() {
         Theater theater = theaterDAO.find(testTheater.getName());
         assertNotEquals(theater, null);
     }
 
-    @Test
     void delete() {
         assertTrue(theaterDAO.delete(testTheater));
     }
