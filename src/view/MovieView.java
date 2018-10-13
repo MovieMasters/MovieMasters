@@ -53,7 +53,8 @@ public class MovieView extends View {
 
 
         // Adding content to Top Left Panel
-        Icon icon = createImageIcon("/resources/movie_" + movie.getId() + ".jpg", movie.getTitle());
+        ImageIcon icon = setImageforLabel("src/resources/big/movie_" + movie.getId() + ".jpg", 175, 260);
+//        Icon icon = createImageIcon("/resources/movie_" + movie.getId() + ".jpg", movie.getTitle());
         JLabel lblImage = new JLabel();
         lblImage.setIcon(icon);
         pnlTopLeft.add(lblImage);

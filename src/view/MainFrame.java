@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         setTitle("MovieMasters");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
+        setResizable(true);
         initFrame();
         setJMenuBar(new MenuBar());
         viewMap = new HashMap();
