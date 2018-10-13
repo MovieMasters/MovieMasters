@@ -27,17 +27,15 @@ public class PurchaseTicketView extends View {
         this.movie = movie;
         createGUI();
     }
-
+    // Get all PriceCategories from database
     private ArrayList<PriceCategory> getPriceCategories() {
         TicketDAO ticketDAO = new TicketDAO();
         return ticketDAO.getTicketTypes();
     }
 
-
     private void createGUI() {
         // Create GridBagConstraints
         setLayout(new GridBagLayout());
-        setBorder(BorderFactory.createLineBorder(Color.BLUE));
         GridBagConstraints c = new GridBagConstraints();
 
         // Add top panel to Mainpanel
@@ -50,6 +48,12 @@ public class PurchaseTicketView extends View {
         prepareTopPanel(pnlTop);
         add(pnlTop, c);
 
+        //Add Separator to Mainpanel
+        c.gridy++;
+        JSeparator jsp = new JSeparator();
+        jsp.setOrientation(JSeparator.HORIZONTAL);
+        add(jsp, c);
+
         // Add bottom panel to Mainpanel
         c.gridy++;
         JPanel pnlBottom = new JPanel();
@@ -58,17 +62,20 @@ public class PurchaseTicketView extends View {
 
     }
 
+    //Function to setup content of Top panel
     private void prepareTopPanel(JPanel panel){
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         Border border = BorderFactory.createLineBorder(Color.RED);
-        panel.setBorder(border);
+//        panel.setBorder(border);
         c.fill = GridBagConstraints.BOTH;
         c.insets = new Insets(2,2,2,2);
         c.weightx = 1.0;
         c.weighty = 1.0;
 
         //Set image
+        c.fill = GridBagConstraints.VERTICAL;
+        c.anchor = GridBagConstraints.LINE_START;
         c.gridx = 0;
         c.gridy = 0;
         c.gridheight = 6;
@@ -76,7 +83,7 @@ public class PurchaseTicketView extends View {
         JLabel lblImage = new JLabel(icon);
         lblImage.setHorizontalAlignment(JLabel.LEFT);
         lblImage.setVerticalAlignment(JLabel.NORTH);
-//        lblImage.setBorder(border);
+        lblImage.setBorder(border);
         panel.add(lblImage, c);
 
         //Set Title
@@ -102,19 +109,19 @@ public class PurchaseTicketView extends View {
         c.weightx = 0;
         c.ipady = 0;
         c.ipadx = 50;
-        JLabel lblDate = new JLabel("Datum: ",JLabel.RIGHT);
+        JLabel lblDate = new JLabel("Datum: ");
 //        lblDate.setBorder(border);
         panel.add(lblDate, c);
 
         c.gridx = 1;
         c.gridy = 2;
-        JLabel lblTime = new JLabel("Aanvangstijd: ", JLabel.RIGHT);
-        lblTime.setBorder(border);
+        JLabel lblTime = new JLabel("Aanvangstijd: ");
+//        lblTime.setBorder(border);
         panel.add(lblTime, c);
 
         c.gridx = 1;
         c.gridy = 3;
-        JLabel lblLocation = new JLabel("Locatie: ", JLabel.RIGHT);
+        JLabel lblLocation = new JLabel("Locatie: ");
 //        lblLocation.setBorder(border);
         panel.add(lblLocation, c);
 
@@ -135,19 +142,21 @@ public class PurchaseTicketView extends View {
 //        lblLocationValue.setBorder(border);
         panel.add(lblLocationValue, c);
 
-//        c.gridwidth = 2;
-//        c.gridx = 2;
-//        c.gridy = 4;
-//        panel.add(new JLabel(" "), c);
-//        c.gridy++;
-//        panel.add(new JLabel(" "), c);
+        c.gridwidth = 2;
+        c.gridx = 2;
+        c.gridy = 4;
+        panel.add(new JLabel(" "), c);
+        c.gridy++;
+        panel.add(new JLabel(" "), c);
     }
 
+    //Function to setup content of Bottom panel
     private void prepareBottomPanel(JPanel panel){
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         Border border = BorderFactory.createLineBorder(Color.MAGENTA);
-        panel.setBorder(border);
+        Border emptyBorder = BorderFactory.createEmptyBorder(0,5,0,5);
+//        panel.setBorder(border);
         c.fill = GridBagConstraints.BOTH;
         c.insets = new Insets(2,2,2,2);
         c.weightx = 1.0;
@@ -158,41 +167,53 @@ public class PurchaseTicketView extends View {
         c.gridy = 0;
         c.gridwidth = 3;
         JLabel lblHeader = new JLabel("Selecteer de gewenste tickets", JLabel.CENTER);
-        lblHeader.setBorder(border);
+        float fontSize = 20f;
+        lblHeader.setFont(lblHeader.getFont().deriveFont(fontSize));
+//        lblHeader.setBorder(border);
         panel.add(lblHeader, c);
 
         c.gridwidth = 1;
         c.gridy = 1;
-        //Todo Hardcoded, needs change to DAO
-
-        //Todo START FOREACH
+        c.insets = new Insets(2,0,2,0);
+        int rowCount = 0;
         for (PriceCategory p : priceCategoryList) {
             c.gridx = 0;
-            c.ipadx = 400;
+            c.ipadx = 480;
             JLabel lblPrice = new JLabel(p.getName() + ": \u20ac " + p.getPrice());
-            lblPrice.setBorder(border);
+            lblPrice.setBorder(emptyBorder);
+            if(rowCount % 2 == 0){
+                lblPrice.setOpaque(true);
+                lblPrice.setBackground(Color.decode("#d6d6d6"));
+            }
             panel.add(lblPrice, c);
 
             c.gridx = 1;
-            c.ipadx = 50;
+            c.ipadx = 30;
             JLabel lblAmount = new JLabel("Aantal: ");
-            lblAmount.setBorder(border);
+            if(rowCount % 2 == 0){
+                lblAmount.setOpaque(true);
+                lblAmount.setBackground(Color.decode("#d6d6d6"));
+            }
             panel.add(lblAmount, c);
 
             c.gridx = 2;
             c.ipadx = 0;
             String[] amountOptions = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
             JComboBox<String> cbxAmount = new JComboBox<>(amountOptions);
+            cbxAmount.setBorder(emptyBorder);
             panel.add(cbxAmount, c);
 
+            rowCount++;
             c.gridy++;
         }
-        // Todo END FOREACH
+
+        c.insets = new Insets(2,2,2,2);
 
         c.gridx = 1;
         c.gridy++;
         c.gridwidth = 2;
         JButton btnBuy = new JButton("Tickets aanschaffen");
+
         panel.add(btnBuy, c);
     }
 }

@@ -1,5 +1,7 @@
 package view;
 
+import domain.Model;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -8,6 +10,7 @@ public class MainFrame extends JFrame {
 
     private static MainFrame mainFrame;
     private final HashMap<ViewName, View> viewMap;
+    private final HashMap<String, Model> modelMap;
     private View currentView, previousView;
 
     public MainFrame() {
@@ -17,6 +20,7 @@ public class MainFrame extends JFrame {
         initFrame();
         setJMenuBar(new MenuBar());
         viewMap = new HashMap();
+        modelMap = new HashMap<>();
     }
 
     public static MainFrame getMainFrame() {
@@ -55,5 +59,13 @@ public class MainFrame extends JFrame {
 
     public View getPreviousView() {
         return previousView;
+    }
+
+    public HashMap<String, Model> getModelMap() {
+        return modelMap;
+    }
+
+    public void addModel(String string, Model model){
+        modelMap.put(string, model);
     }
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.tools.javac.Main;
 import datastorage.MovieDAO;
 import domain.Movie;
 import domain.MovieCollection;
@@ -54,6 +55,8 @@ public class MovieCollectionController extends Controller {
 
         MovieDAO movieDAO = new MovieDAO();
         Movie movie = movieDAO.getMovie(movieId);
+        //Add movie to mainframe modelMap
+        MainFrame.getMainFrame().addModel("movie", movie);
         View view = new MovieView(movie);
 
         MainFrame.getMainFrame().setView(view);

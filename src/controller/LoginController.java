@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 public class LoginController extends Controller {
     private LoginView view;
+    private Account account;
 
     public LoginController(LoginView view)
     {
@@ -33,6 +34,8 @@ public class LoginController extends Controller {
                 break;
             case "Login":
                 if(login()) {
+                    //Add account to mainframe ModelMap
+                    MainFrame.getMainFrame().addModel("account", account);
                     view = MainFrame.getMainFrame().getViewMap().get(ViewName.MOVIECOLLECTION);
                     if (view == null) {
                         MovieDAO movieDAO = new MovieDAO();
@@ -48,7 +51,7 @@ public class LoginController extends Controller {
     private boolean login() {
         boolean ret = true;
         AccountDAO accountDAO = new AccountDAO();
-        Account account = accountDAO.login(view.getTfusername().getText(), view.getPfPassword().getPassword());
+        account = accountDAO.login(view.getTfusername().getText(), view.getPfPassword().getPassword());
         if(account == null)
         {
             JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Gegevens onjuist!", "Onjuiste gegevens", JOptionPane.ERROR_MESSAGE);

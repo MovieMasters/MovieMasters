@@ -1,6 +1,6 @@
 package domain;
 
-public class Account {
+public class Account extends Model {
     private String username;
     private char[] password;
     private String emailAddress;
