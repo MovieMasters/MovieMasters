@@ -34,9 +34,12 @@ public class MovieController extends Controller {
                 MainFrame.getMainFrame().setView(view);
                 break;
             case "Ticket":
-                System.out.println("Clicked \"Buy Ticket\" button.");
-                PurchaseTicketView purchaseTicketView = new PurchaseTicketView(model);
-                MainFrame.getMainFrame().setView(purchaseTicketView);
+                ShowView showView = new ShowView();
+                MainFrame.getMainFrame().setView(showView);
+
+//                System.out.println("Clicked \"Buy Ticket\" button.");
+//                PurchaseTicketView purchaseTicketView = new PurchaseTicketView();
+//                MainFrame.getMainFrame().setView(purchaseTicketView);
                 break;
         }
     }

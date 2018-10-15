@@ -7,15 +7,15 @@ public class Show {
     private int id;
     private Date date;
     private Time time;
-    private Movie movie;
-    private Room room;
+    private int movieId;
+    private String theaterName;
 
-    public Show(int id, Date date, Time time, Movie movie, Room room) {
+    public Show(int id, Date date, Time time, int movieId, String theatername) {
         this.id = id;
         this.date = date;
         this.time = time;
-        this.movie = movie;
-        this.room = room;
+        this.movieId = movieId;
+        this.theaterName = theatername;
     }
 
     public int getId() {
@@ -38,19 +38,19 @@ public class Show {
         this.time = time;
     }
 
-    public Movie getMovie() {
-        return movie;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    public void setMovie(int movieId) {
+        this.movieId = movieId;
     }
 
-    public Room getRoom() {
-        return room;
+    public String getTheaterName() {
+        return theaterName;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setTheaterName(String theaterName) {
+        this.theaterName = theaterName;
     }
 }

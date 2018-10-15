@@ -22,24 +22,17 @@ public class MovieCollectionView extends View {
         createMovieItems();
     }
 
-//    public void setCollection(Map<String, Movie> collection){
-//        this.collection = collection;
-//    }
-
     public void createMovieItems(){
         for (Movie movie : movieCollection.getCollection().values()){
 
-            Icon icon = createImageIcon("/resources/movie_" + movie.getId() + ".jpg", movie.getTitle());
+            ImageIcon icon = setImageforLabel("src/resources/movie_" + movie.getId() + ".jpg", 146, 207);
 
             JPanel pnlMovieItem = new JPanel();
 
             JButton btnImage = new JButton();
             btnImage.setIcon(icon);
             btnImage.setActionCommand(Integer.toString(movie.getId()));
-            //Add current ButtonImage to Map buttons
-//            addButtonToButtons(movie.getId(), btnImage);
             btnImage.addActionListener(movieCollectionController);
-
             JLabel lblTitle = new JLabel(movie.getTitle());
 
             GridBagConstraints gbc;

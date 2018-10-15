@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.tools.javac.Main;
 import controller.TicketController;
 import datastorage.TicketDAO;
 import domain.Movie;
@@ -19,19 +20,15 @@ public class PurchaseTicketView extends View {
     private TicketController controller;
     private Movie movie;
 
-    public PurchaseTicketView(Movie movie){
+    public PurchaseTicketView(){
         super();
         this.viewName = ViewName.TICKET;
-        this.priceCategoryList = getPriceCategories();
         this.controller = new TicketController(this);
-        this.movie = movie;
+        this.priceCategoryList = controller.getPriceCategories();
+        this.movie = (Movie) MainFrame.getMainFrame().getModelMap().get("movie");
         createGUI();
     }
-    // Get all PriceCategories from database
-    private ArrayList<PriceCategory> getPriceCategories() {
-        TicketDAO ticketDAO = new TicketDAO();
-        return ticketDAO.getTicketTypes();
-    }
+
 
     private void createGUI() {
         // Create GridBagConstraints

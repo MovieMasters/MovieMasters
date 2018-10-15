@@ -1,5 +1,6 @@
 package controller;
 
+import datastorage.TicketDAO;
 import domain.Account;
 import domain.PriceCategory;
 import domain.Show;
@@ -8,6 +9,7 @@ import view.PurchaseTicketView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class TicketController extends Controller {
     private Ticket ticketModel;
@@ -24,6 +26,11 @@ public class TicketController extends Controller {
     public TicketController(Ticket ticketModel, PurchaseTicketView view){
         this(view);
         this.ticketModel = ticketModel;
+    }
+
+    public ArrayList<PriceCategory> getPriceCategories() {
+        TicketDAO ticketDAO = new TicketDAO();
+        return ticketDAO.getTicketTypes();
     }
 
     @Override
