@@ -3,7 +3,7 @@ package domain;
 import java.sql.Date;
 import java.sql.Time;
 
-public class Show {
+public class Show extends Model{
     private int id;
     private Date date;
     private Time time;

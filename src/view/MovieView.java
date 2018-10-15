@@ -178,24 +178,4 @@ public class MovieView extends View {
         btnTicket.addActionListener(movieController);
         pnlBottom.add(btnTicket, gbc);
     }
-
-    private ImageIcon createImageIcon(String path, String description){
-        java.net.URL imgURL = getClass().getResource(path);
-        if (imgURL != null){
-            return new ImageIcon(imgURL, description);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
-    }
-
-    private ImageIcon resizeIcon(ImageIcon icon, int width, int height){
-        Image img = icon.getImage();
-        BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-        Graphics g = bi.createGraphics();
-        g.drawImage(img, 0, 0, width, height, null);
-        ImageIcon newIcon = new ImageIcon(bi);
-
-        return newIcon;
-    }
 }

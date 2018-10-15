@@ -125,17 +125,17 @@ public class PurchaseTicketView extends View {
         //Set Date Tim and Location Valuefields
         c.gridx = 2;
         c.gridy = 1;
-        JLabel lblDateValue = new JLabel("11-10-2018");
+        JLabel lblDateValue = new JLabel(""+convertDateToString(controller.getShowModel().getDate()));
 //        lblDateValue.setBorder(border);
         panel.add(lblDateValue, c);
 
         c.gridy = 2;
-        JLabel lblTimeValue = new JLabel("19:45");
+        JLabel lblTimeValue = new JLabel(""+controller.getShowModel().getTime());
 //        lblTimeValue.setBorder(border);
         panel.add(lblTimeValue, c);
 
         c.gridy = 3;
-        JLabel lblLocationValue = new JLabel("Kinepolis Dordrecht");
+        JLabel lblLocationValue = new JLabel(""+controller.getShowModel().getTheaterName());
 //        lblLocationValue.setBorder(border);
         panel.add(lblLocationValue, c);
 

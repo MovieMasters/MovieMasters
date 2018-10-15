@@ -36,8 +36,8 @@ public class TicketDAO extends DAO {
     }
 
     //ToDo temporary Show request, need to be moved to ShowDAO
-    public ArrayList<Show> getShowsForMovie(int movieId){
-        ArrayList<Show> shows = new ArrayList<>();
+    public HashMap<Integer, Show> getShowsForMovie(int movieId){
+        HashMap<Integer, Show> shows = new HashMap<>();
         ResultSet rs = executeQuery(
             "SELECT s.id, s.date, s.time, m.id AS movieId, t.name FROM `show` s " +
             "LEFT JOIN movie m on s.movieId = m.id " +
@@ -55,7 +55,7 @@ public class TicketDAO extends DAO {
                     //movieId is method's parameter
                     String theaterName = rs.getString("name");
 
-                    shows.add(new Show(id, date, time, movieId, theaterName));
+                    shows.put(id, new Show(id, date, time, movieId, theaterName));
                 }
             } catch(SQLException e){
                 e.printStackTrace();

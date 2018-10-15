@@ -5,6 +5,7 @@ import domain.Account;
 import domain.PriceCategory;
 import domain.Show;
 import domain.Ticket;
+import view.MainFrame;
 import view.PurchaseTicketView;
 
 import java.awt.event.ActionEvent;
@@ -22,10 +23,15 @@ public class TicketController extends Controller {
     public TicketController(PurchaseTicketView view){
         super();
         this.view = view;
+        this.showModel = (Show) MainFrame.getMainFrame().getModelMap().get("show");
     }
     public TicketController(Ticket ticketModel, PurchaseTicketView view){
         this(view);
         this.ticketModel = ticketModel;
+    }
+
+    public Show getShowModel() {
+        return showModel;
     }
 
     public ArrayList<PriceCategory> getPriceCategories() {

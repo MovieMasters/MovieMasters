@@ -35,6 +35,7 @@ public class MovieController extends Controller {
                 break;
             case "Ticket":
                 ShowView showView = new ShowView();
+
                 MainFrame.getMainFrame().setView(showView);
 
 //                System.out.println("Clicked \"Buy Ticket\" button.");
