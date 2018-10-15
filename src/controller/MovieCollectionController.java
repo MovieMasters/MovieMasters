@@ -20,13 +20,6 @@ public class MovieCollectionController extends Controller {
         this.view = view;
     }
 
-
-
-    private MovieCollection getActualMovies(){
-        MovieDAO mcDAO = new MovieDAO();
-        return mcDAO.getActualMovies();
-    }
-
 //    private void createMovieItems(MovieCollection model){
 //        view.createMovieItems(model.getCollection());
 //    }
@@ -51,14 +44,9 @@ public class MovieCollectionController extends Controller {
     @Override
     public void actionPerformed(ActionEvent e) {
         int movieId = Integer.parseInt(e.getActionCommand());
-        System.out.println(movieId);
-
         MovieDAO movieDAO = new MovieDAO();
         Movie movie = movieDAO.getMovie(movieId);
-        //Add movie to mainframe modelMap
-        MainFrame.getMainFrame().addModel("movie", movie);
         View view = new MovieView(movie);
-
         MainFrame.getMainFrame().setView(view);
     }
 

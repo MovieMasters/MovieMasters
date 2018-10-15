@@ -1,31 +1,27 @@
 package view;
 
-import com.sun.tools.javac.Main;
 import controller.TicketController;
-import datastorage.TicketDAO;
 import domain.Movie;
 import domain.PriceCategory;
+import domain.Show;
 import domain.Ticket;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class PurchaseTicketView extends View {
-    private ArrayList<Ticket> tickets;
     private ArrayList<PriceCategory> priceCategoryList;
     private TicketController controller;
-    private Movie movie;
+    private Movie movieModel;
 
-    public PurchaseTicketView(){
+    public PurchaseTicketView(Movie movieModel, ArrayList<PriceCategory> priceCategories){
         super();
         this.viewName = ViewName.TICKET;
-        this.controller = new TicketController(this);
-        this.priceCategoryList = controller.getPriceCategories();
-        this.movie = (Movie) MainFrame.getMainFrame().getModelMap().get("movie");
+        this.controller = new TicketController(movieModel, this);
+        this.priceCategoryList = priceCategories;
+        this.movieModel = movieModel;
         createGUI();
     }
 
@@ -76,7 +72,7 @@ public class PurchaseTicketView extends View {
         c.gridx = 0;
         c.gridy = 0;
         c.gridheight = 6;
-        ImageIcon icon = setImageforLabel("src/resources/big/movie_" + movie.getId() + ".jpg", 175, 260);
+        ImageIcon icon = setImageforLabel("src/resources/big/movie_" + movieModel.getId() + ".jpg", 175, 260);
         JLabel lblImage = new JLabel(icon);
         lblImage.setHorizontalAlignment(JLabel.LEFT);
         lblImage.setVerticalAlignment(JLabel.NORTH);
@@ -91,7 +87,7 @@ public class PurchaseTicketView extends View {
         c.gridwidth = 2;
         c.ipadx = 0;
         c.ipady = 0;
-        JLabel lblTitle = new JLabel(movie.getTitle());
+        JLabel lblTitle = new JLabel(movieModel.getTitle());
         float fontSize = 30f;
 //        lblTitle.setBorder(border);
         lblTitle.setFont(lblTitle.getFont().deriveFont(fontSize));
@@ -125,17 +121,17 @@ public class PurchaseTicketView extends View {
         //Set Date Tim and Location Valuefields
         c.gridx = 2;
         c.gridy = 1;
-        JLabel lblDateValue = new JLabel(""+convertDateToString(controller.getShowModel().getDate()));
+        JLabel lblDateValue = new JLabel(""+convertDateToString(movieModel.getShows().get(1).getDate()));
 //        lblDateValue.setBorder(border);
         panel.add(lblDateValue, c);
 
         c.gridy = 2;
-        JLabel lblTimeValue = new JLabel(""+controller.getShowModel().getTime());
+        JLabel lblTimeValue = new JLabel(""+movieModel.getShows().get(1).getTime());
 //        lblTimeValue.setBorder(border);
         panel.add(lblTimeValue, c);
 
         c.gridy = 3;
-        JLabel lblLocationValue = new JLabel(""+controller.getShowModel().getTheaterName());
+        JLabel lblLocationValue = new JLabel(""+movieModel.getShows().get(1).getRoomId());
 //        lblLocationValue.setBorder(border);
         panel.add(lblLocationValue, c);
 

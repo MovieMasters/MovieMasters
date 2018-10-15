@@ -1,10 +1,7 @@
 package controller;
 
 import datastorage.TicketDAO;
-import domain.Account;
-import domain.PriceCategory;
-import domain.Show;
-import domain.Ticket;
+import domain.*;
 import view.MainFrame;
 import view.PurchaseTicketView;
 
@@ -14,20 +11,16 @@ import java.util.ArrayList;
 
 public class TicketController extends Controller {
     private Ticket ticketModel;
+    private Movie movieModel;
     private Show showModel;
-    private Account accountModel;
     private PriceCategory priceModel;
     private PurchaseTicketView view;
     private ActionListener actionListener;
 
-    public TicketController(PurchaseTicketView view){
+    public TicketController(Movie movie, PurchaseTicketView ticketView){
         super();
         this.view = view;
-        this.showModel = (Show) MainFrame.getMainFrame().getModelMap().get("show");
-    }
-    public TicketController(Ticket ticketModel, PurchaseTicketView view){
-        this(view);
-        this.ticketModel = ticketModel;
+        this.movieModel = movie;
     }
 
     public Show getShowModel() {

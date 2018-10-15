@@ -1,12 +1,12 @@
 package datastorage;
 
-import domain.CastMember;
-import domain.Movie;
-import domain.MovieCollection;
+import domain.*;
+import view.MainFrame;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
+import javax.swing.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;;
 
 public class MovieDAO extends DAO{
     public MovieDAO() {
@@ -23,17 +23,11 @@ public class MovieDAO extends DAO{
                     "       movie.releaseDate,\n" +
                     "       movie.playTime,\n" +
                     "       movie.summary,\n" +
-                    "       language.language,\n" +
-                    "       `show`.date,\n" +
-                    "       `show`.time\n" +
+                    "       `language`.language\n" +
                     "FROM\n" +
                     "      movie\n" +
-                    "         LEFT JOIN `show`\n" +
-                    "         ON movie.id = `show`.movieId\n" +
-                    "         LEFT JOIN language\n" +
-                    "         ON language.code = movie.languageCode\n" +
-                    //ToDo alter query so only movie with future shows will be added
-                    "WHERE `show`.Date > '2017-12-01';"
+                    "         INNER JOIN `language` \n" +
+                    "         ON `language`.code = movie.languageCode;"
         );
 
         if (rs != null){
@@ -54,6 +48,7 @@ public class MovieDAO extends DAO{
                         summary,
                         language
                     );
+
                     movieCollection.addMovie(movie);
                 }
             } catch(SQLException e) {
@@ -84,7 +79,9 @@ public class MovieDAO extends DAO{
                         releaseDate,
                         playTime,
                         summary,
-                        language
+                        language,
+                        getCastMembers(id),
+                        getShows(id)
                     );
                 }
             } catch(SQLException e) {
@@ -94,37 +91,52 @@ public class MovieDAO extends DAO{
         return movie;
     }
 
-    public Map<String, CastMember> getCastMember(int movieId){
-        ResultSet rs = executeQuery(
-            "SELECT movie.id, castmember.castMemberName, castmember.roleRole FROM movie " +
-            "LEFT JOIN movie_castmember castmember on movie.id = castmember.movieId " +
-            "WHERE movie.id = " + movieId + ";"
-        );
+    public List<CastMember> getCastMembers(int movieId){
+        List<CastMember> castMembers = new ArrayList<>();
+        String selectQuery = "SELECT mc.castMemberName, mc.roleRole FROM movie_castmember as mc " +
+            "WHERE mc.movieId = ?;";
+        Connection conn = DBConnection.getConnection();
+        try (PreparedStatement selectStatement = conn.prepareStatement(selectQuery)) {
+            selectStatement.setInt(1, movieId);
+            ResultSet rs = selectStatement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("castMemberName");
+                String role = rs.getString("roleRole");
 
-        Map<String, CastMember> cast = new HashMap();
-        int p = 1;
-        int a = 1;
-        if (rs != null){
-            try{
-                while (rs.next()) {
-                    String name = rs.getString("castMemberName");
-                    String role = rs.getString("roleRole");
-
-                    CastMember castMember = new CastMember(name, role);
-                    if (castMember.getRole().equalsIgnoreCase("Regisseur")){
-                        cast.put("p"+p, castMember);
-                        p++;
-                    } else {
-                        cast.put("a"+a, castMember);
-                        a++;
-                    }
-
-                }
-            } catch(SQLException e) {
-                e.printStackTrace();
+                CastMember castMember = new CastMember(name, role);
+                castMembers.add(castMember);
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Fout tijdens ophalen van castmembers in de database.\n " +
+                    "Neem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
         }
-        return cast;
-
+        return castMembers;
     }
+
+    public List<Show> getShows(int movieId){
+        List<Show> shows = new ArrayList<>();
+        String selectQuery = "SELECT `show`.id, `show`.date, `show`.time, `show`.roomId FROM `show` " +
+                "WHERE `show`.movieId = ?;";
+        Connection conn = DBConnection.getConnection();
+        try (PreparedStatement selectStatement = conn.prepareStatement(selectQuery)) {
+            selectStatement.setInt(1, movieId);
+            ResultSet rs = selectStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                Date date = rs.getDate("date");
+                Time time = rs.getTime("time");
+                int roomId = rs.getInt("roomId");
+                //Movieid is parameter
+
+                Show show = new Show(id,date,time, movieId,roomId);
+                shows.add(show);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Fout tijdens ophalen van castmembers in de database.\n " +
+                    "Neem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
+        }
+        return shows;
+    }
+
+
 }

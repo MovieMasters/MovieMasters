@@ -1,23 +1,28 @@
 package controller;
 
 import datastorage.MovieDAO;
-import domain.Movie;
-import domain.MovieCollection;
+import datastorage.TicketDAO;
+import domain.*;
 import view.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MovieController extends Controller {
-    private Movie model;
-    private MovieView view;
+    private Movie movieModel;
+    private MovieView movieView;
     private ActionListener actionListener;
 
-    public MovieController(Movie model, MovieView view){
+    public MovieController(Movie movieModel, MovieView movieView){
         super();
-        this.model = model;
-        this.view = view;
+        this.movieModel = movieModel;
+        this.movieView = movieView;
     }
+
+    public Map<String, CastMember> cast;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -34,13 +39,11 @@ public class MovieController extends Controller {
                 MainFrame.getMainFrame().setView(view);
                 break;
             case "Ticket":
-                ShowView showView = new ShowView();
+                TicketDAO ticketDAO = new TicketDAO();
+                ArrayList<PriceCategory> priceCategories = ticketDAO.getTicketTypes();
+                PurchaseTicketView ticketView = new PurchaseTicketView(movieModel, priceCategories);
 
-                MainFrame.getMainFrame().setView(showView);
-
-//                System.out.println("Clicked \"Buy Ticket\" button.");
-//                PurchaseTicketView purchaseTicketView = new PurchaseTicketView();
-//                MainFrame.getMainFrame().setView(purchaseTicketView);
+                MainFrame.getMainFrame().setView(ticketView);
                 break;
         }
     }

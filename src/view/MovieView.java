@@ -6,17 +6,15 @@ import domain.Movie;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Date;
 
 public class MovieView extends View {
-    private Movie movie;
+    private Movie movieModel;
     private MovieController movieController;
 
-    public MovieView(Movie movie){
+    public MovieView(Movie movieModel){
         this.viewName = ViewName.MOVIE;
-        this.movie = movie;
-        this.movieController = new MovieController(this.movie,this);
+        this.movieModel = movieModel;
+        this.movieController = new MovieController(this.movieModel,this);
 
         setLayout(new GridBagLayout());
         createView();
@@ -53,8 +51,8 @@ public class MovieView extends View {
 
 
         // Adding content to Top Left Panel
-        ImageIcon icon = setImageforLabel("src/resources/big/movie_" + movie.getId() + ".jpg", 175, 260);
-//        Icon icon = createImageIcon("/resources/movie_" + movie.getId() + ".jpg", movie.getTitle());
+        ImageIcon icon = setImageforLabel("src/resources/big/movie_" + movieModel.getId() + ".jpg", 175, 260);
+//        Icon icon = createImageIcon("/resources/movie_" + movieModel.getId() + ".jpg", movieModel.getTitle());
         JLabel lblImage = new JLabel();
         lblImage.setIcon(icon);
         pnlTopLeft.add(lblImage);
@@ -71,7 +69,7 @@ public class MovieView extends View {
         gbc.gridwidth = 2;
         gbc.gridheight = 2;
 
-        JLabel lblTitle = new JLabel(movie.getTitle(), JLabel.CENTER );
+        JLabel lblTitle = new JLabel(movieModel.getTitle(), JLabel.CENTER );
         lblTitle.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblTitle, gbc);
 
@@ -87,7 +85,7 @@ public class MovieView extends View {
 
         gbc.gridx = 1;
         JLabel lblDateValue = new JLabel();
-        lblDateValue.setText(convertDateToString(movie.getReleaseDate()));
+        lblDateValue.setText(convertDateToString(movieModel.getReleaseDate()));
         lblDateValue.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblDateValue, gbc);
 
@@ -98,7 +96,7 @@ public class MovieView extends View {
         pnlTopRight.add(lblPlayTime, gbc);
 
         gbc.gridx = 1;
-        JLabel lblPlayTimeValue = new JLabel(movie.getPlayTime() + " minuten");
+        JLabel lblPlayTimeValue = new JLabel(movieModel.getPlayTime() + " minuten");
         lblPlayTimeValue.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblPlayTimeValue, gbc);
 
@@ -131,7 +129,7 @@ public class MovieView extends View {
         pnlTopRight.add(lblActor, gbc);
 
         gbc.gridy -= 1;
-        for (CastMember member : movie.getCast().values()){
+        for (CastMember member : movieModel.getCastMembers()){
             if (member.getRole().equalsIgnoreCase("Acteur")){
                 gbc.gridx = 1;
                 gbc.gridy++;
@@ -159,7 +157,7 @@ public class MovieView extends View {
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        JLabel lblSummaryValue = new JLabel("<html>"+movie.getSummary()+"</html>");
+        JLabel lblSummaryValue = new JLabel("<html>"+ movieModel.getSummary()+"</html>");
         lblSummaryValue.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlBottom.add(lblSummaryValue, gbc);
 
@@ -173,7 +171,7 @@ public class MovieView extends View {
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        JButton btnTicket = new JButton("Koop ticket");
+        JButton btnTicket = new JButton("Bestel ticket(s)");
         btnTicket.setActionCommand("Ticket");
         btnTicket.addActionListener(movieController);
         pnlBottom.add(btnTicket, gbc);

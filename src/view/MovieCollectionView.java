@@ -10,13 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MovieCollectionView extends View {
-    Map<String, JButton> buttons;
     MovieCollection movieCollection;
     MovieCollectionController movieCollectionController;
 
     public MovieCollectionView(MovieCollection movieCollection){
         this.viewName = ViewName.MOVIECOLLECTION;
-        buttons = new HashMap<String, JButton>();
         this.movieCollection = movieCollection;
         movieCollectionController = new MovieCollectionController(movieCollection, this);
         createMovieItems();
@@ -59,24 +57,5 @@ public class MovieCollectionView extends View {
             // Add created panel pnlMovieItem to view MovieCollection
             add(pnlMovieItem);
         }
-    }
-
-    // Function to return Icon object. Returns null if path is not found.
-    private ImageIcon createImageIcon(String path, String description){
-        java.net.URL imgURL = getClass().getResource(path);
-        if (imgURL != null){
-            return new ImageIcon(imgURL, description);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
-    }
-
-    private void addButtonToButtons(int i, JButton imageButton){
-        buttons.put("movie_"+i, imageButton);
-    }
-
-    public JButton getButton(String i){
-        return buttons.get(i);
     }
 }

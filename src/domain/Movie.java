@@ -16,9 +16,8 @@ public class Movie extends Model {
     private int playTime;
     private String summary;
     private String language;
-    private Map<String, CastMember> cast;
-
-    public Movie(){}
+    private List<CastMember> castMembers;
+    private List<Show> shows;
 
     public Movie(int id, String title, Date releaseDate, int playTime, String summary, String language) {
         this.id = id;
@@ -27,8 +26,12 @@ public class Movie extends Model {
         this.playTime = playTime;
         this.summary = summary;
         this.language = language;
-        MovieDAO movieDAO = new MovieDAO();
-        this.cast = movieDAO.getCastMember(id);
+    }
+
+    public Movie(int id, String title, Date releaseDate, int playTime, String summary, String language, List<CastMember> castMembers, List<Show> shows) {
+        this(id, title, releaseDate, playTime, summary, language);
+        this.castMembers = castMembers;
+        this.shows = shows;
     }
 
     public int getId() {
@@ -75,8 +78,19 @@ public class Movie extends Model {
         this.language = language;
     }
 
-    public Map<String, CastMember> getCast() {
-        return cast;
+    public List<CastMember> getCastMembers() {
+        return castMembers;
     }
 
+    public void setCastMembers(List<CastMember> castMembers) {
+        this.castMembers = castMembers;
+    }
+
+    public List<Show> getShows() {
+        return shows;
+    }
+
+    public void setShows(List<Show> shows) {
+        this.shows = shows;
+    }
 }
