@@ -8,7 +8,6 @@ import view.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class MovieController extends Controller {
@@ -40,7 +39,7 @@ public class MovieController extends Controller {
                 break;
             case "Ticket":
                 TicketDAO ticketDAO = new TicketDAO();
-                ArrayList<PriceCategory> priceCategories = ticketDAO.getTicketTypes();
+                ArrayList<PriceCategory> priceCategories = ticketDAO.getPriceCategories();
                 PurchaseTicketView ticketView = new PurchaseTicketView(movieModel, priceCategories);
 
                 MainFrame.getMainFrame().setView(ticketView);

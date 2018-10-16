@@ -14,7 +14,6 @@ public class Ticket {
         this.show = show;
         this.account = account;
         this.priceCategory = priceCategory;
-        this.sellingDate = sellingDate;
         this.sellingDate = new Date();
     }
 
@@ -55,5 +54,16 @@ public class Ticket {
 
     public Date getSellingDate() {
         return sellingDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{\n" +
+                "id=" + id +
+                "\n, show=" + show +
+                "\n, account=" + account +
+                "\n, priceCategory=" + priceCategory +
+                "\n, sellingDate=" + sellingDate +
+                "\n}";
     }
 }

@@ -193,6 +193,8 @@ public class PurchaseTicketView extends View {
             c.ipadx = 0;
             String[] amountOptions = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
             JComboBox<String> cbxAmount = new JComboBox<>(amountOptions);
+            //ToDo ...
+            cbxAmount.addActionListener(controller);
             cbxAmount.setBorder(emptyBorder);
             panel.add(cbxAmount, c);
 
@@ -206,6 +208,8 @@ public class PurchaseTicketView extends View {
         c.gridy++;
         c.gridwidth = 2;
         JButton btnBuy = new JButton("Tickets aanschaffen");
+        btnBuy.addActionListener(controller);
+        btnBuy.setActionCommand("Purchase");
 
         panel.add(btnBuy, c);
     }
