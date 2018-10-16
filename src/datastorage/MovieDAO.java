@@ -16,77 +16,53 @@ public class MovieDAO extends DAO{
 
     public MovieCollection getActualMovies(){
         MovieCollection movieCollection = new MovieCollection();
-        ResultSet rs = executeQuery(
-            "SELECT\n" +
-                    "       movie.id,\n" +
-                    "       movie.title,\n" +
-                    "       movie.releaseDate,\n" +
-                    "       movie.playTime,\n" +
-                    "       movie.summary,\n" +
-                    "       `language`.language\n" +
-                    "FROM\n" +
-                    "      movie\n" +
-                    "         INNER JOIN `language` \n" +
-                    "         ON `language`.code = movie.languageCode;"
-        );
+        String selectQuery =    "SELECT movie.id, movie.title, movie.releaseDate, movie.playTime, movie.summary, `language`.language FROM " +
+                                "movie INNER JOIN `language` ON `language`.code = movie.languageCode;";
+        Connection conn = DBConnection.getConnection();
+        try(PreparedStatement selectStatement = conn.prepareStatement(selectQuery)){
+            ResultSet rs = selectStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                Date releaseDate = rs.getDate("releaseDate");
+                int playTime = rs.getInt("playTime");
+                String summary = rs.getString("summary");
+                String language = rs.getString("language");
 
-        if (rs != null){
-            try{
-                while(rs.next()){
-                    int id = rs.getInt("id");
-                    String title = rs.getString("title");
-                    Date releaseDate = rs.getDate("releaseDate");
-                    int playTime = rs.getInt("playTime");
-                    String summary = rs.getString("summary");
-                    String language = rs.getString("language");
-
-                    Movie movie = new Movie(
-                        id,
-                        title,
-                        releaseDate,
-                        playTime,
-                        summary,
-                        language
-                    );
-
-                    movieCollection.addMovie(movie);
-                }
-            } catch(SQLException e) {
-                e.printStackTrace();
+                Movie movie = new Movie(id, title, releaseDate, playTime, summary, language );
+                movieCollection.addMovie(movie);
             }
         }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Fout tijdens het ophalen van de filmcollectie uit de database.\nNeem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
         return movieCollection;
     }
 
     public Movie getMovie(int movieId){
-        ResultSet rs = executeQuery(
-                "SELECT movie.id, movie.title, movie.releaseDate, movie.playTime, movie.summary, language.language FROM movie INNER JOIN language ON language.code = movie.languageCode WHERE movie.id = " + movieId + ";"
-        );
         Movie movie = null;
-        if (rs != null){
-            try{
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    String title = rs.getString("title");
-                    Date releaseDate = rs.getDate("releaseDate");
-                    int playTime = rs.getInt("playTime");
-                    String summary = rs.getString("summary");
-                    String language = rs.getString("language");
+        String selectQuery =    "SELECT movie.id, movie.title, movie.releaseDate, movie.playTime, movie.summary, language.language FROM movie "+
+                                "INNER JOIN language ON language.code = movie.languageCode WHERE movie.id = ?;";
+        Connection conn = DBConnection.getConnection();
+        try(PreparedStatement selectStatement = conn.prepareStatement(selectQuery)){
+            selectStatement.setInt(1, movieId);
+            ResultSet rs = selectStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                Date releaseDate = rs.getDate("releaseDate");
+                int playTime = rs.getInt("playTime");
+                String summary = rs.getString("summary");
+                String language = rs.getString("language");
 
-                    movie = new Movie(
-                        id,
-                        title,
-                        releaseDate,
-                        playTime,
-                        summary,
-                        language,
-                        getCastMembers(id),
-                        getShows(id)
-                    );
-                }
-            } catch(SQLException e) {
-                e.printStackTrace();
+                movie = new Movie(id, title, releaseDate, playTime, summary, language, getCastMembers(id), getShows(id) );
             }
+        }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Fout tijdens het ophalen van de film uit de database.\nNeem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
         return movie;
     }
