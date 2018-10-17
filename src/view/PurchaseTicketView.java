@@ -195,6 +195,7 @@ public class PurchaseTicketView extends View {
             JComboBox<String> cbxAmount = new JComboBox<>(amountOptions);
             //ToDo ...
             cbxAmount.addActionListener(controller);
+            cbxAmount.setActionCommand("Ticket_"+ p.getName());
             cbxAmount.setBorder(emptyBorder);
             panel.add(cbxAmount, c);
 

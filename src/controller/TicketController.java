@@ -65,16 +65,6 @@ public class TicketController extends Controller {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int amount = Integer.parseInt(e.getActionCommand());
-        String priceName = e.getActionCommand().substring(7);
-
-        //ToDo HARDCODED!!!
-        PriceCategory pc = getPriceCategory("CJP-ticket");
-        Show show = movieModel.getShows().get(1);
-        //ToDo
-
-        Account account = (Account) MainFrame.getMainFrame().getModelMap().get("account");
-
         switch (e.getActionCommand()){
             case "Location":
                 //Code
@@ -85,8 +75,20 @@ public class TicketController extends Controller {
             case "Purchase":
                 TicketDAO ticketDAO = new TicketDAO();
                 ticketDAO.createTickets(tickets);
+                JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Uw bestelling is verwerkt. Uw tickets zullen naar het door u opgegeven e-mailadres verzonden worden. Fijne voorstelling!");
                 break;
             default:
+                JComboBox<String> combo = (JComboBox<String>) e.getSource();
+                String selectedItem = (String) combo.getSelectedItem();
+                int amount = Integer.parseInt(selectedItem);
+                String priceName = e.getActionCommand().substring(7);
+                String switchValue = e.getActionCommand().substring(0,6);
+                PriceCategory pc = getPriceCategory(priceName);
+                //ToDo HARDCODED!!!
+                Show show = movieModel.getShows().get(0);
+                Account account = (Account) MainFrame.getMainFrame().getModelMap().get("account");
+
+
                 if (amount <= 0) {
                     if (tickets.get(priceName) != null) {
                         tickets.remove(priceName);

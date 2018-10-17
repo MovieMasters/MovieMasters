@@ -49,15 +49,19 @@ public class TicketDAO extends DAO {
                     insertStatement.setString(2, t.getAccount().getUsername());
                     insertStatement.setString(3, t.getPriceCategory().getName());
                     insertStatement.setInt(4, t.getShow().getRoomId());
+
+                    insertStatement.addBatch();
+                    insertStatement.clearParameters();
                 }
             }
 
-            insertStatement.execute();
+            insertStatement.executeBatch();
             conn.commit();
         } catch (SQLException e){
             ret = false;
             JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Er is een fout opgetreden tijdens het opslaan.\n " +
                     "Neem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
         return ret;
     }
