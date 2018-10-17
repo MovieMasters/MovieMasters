@@ -1,5 +1,6 @@
 package view;
 
+import domain.Account;
 import domain.Model;
 
 import javax.swing.*;
@@ -9,8 +10,8 @@ import java.util.HashMap;
 public class MainFrame extends JFrame {
 
     private static MainFrame mainFrame;
-    private final HashMap<ViewName, View> viewMap;
-    private final HashMap<String, Model> modelMap;
+    private final HashMap<ViewName, View> viewMap = new HashMap<>();
+    private static Account cachedUser;
     private View currentView, previousView;
 
     public MainFrame() {
@@ -19,8 +20,7 @@ public class MainFrame extends JFrame {
         setResizable(true);
         initFrame();
         setJMenuBar(new MenuBar());
-        viewMap = new HashMap();
-        modelMap = new HashMap<>();
+        cachedUser = null;
     }
 
     public static MainFrame getMainFrame() {
@@ -61,11 +61,11 @@ public class MainFrame extends JFrame {
         return previousView;
     }
 
-    public HashMap<String, Model> getModelMap() {
-        return modelMap;
+    public Account getCachedUser() {
+        return cachedUser;
     }
 
-    public void addModel(String string, Model model){
-        modelMap.put(string, model);
+    public void setCachedUser(Account account){
+        cachedUser = account;
     }
 }

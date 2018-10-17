@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class TicketController extends Controller {
     private HashMap<String, HashMap<Integer, Ticket>> tickets;
@@ -22,7 +21,7 @@ public class TicketController extends Controller {
 
     public TicketController(Movie movie, PurchaseTicketView ticketView){
         super();
-        this.view = view;
+        this.view = ticketView;
         this.movieModel = movie;
         this.tickets = new HashMap<>();
     }
@@ -31,7 +30,7 @@ public class TicketController extends Controller {
         return tickets;
     }
 
-    public void addTicket(String priceName, Ticket ticket){
+    private void addTicket(String priceName, Ticket ticket){
         if (!tickets.containsKey(priceName)) {
             HashMap<Integer, Ticket> hm2 = new HashMap<>();
             hm2.put(1, ticket);
@@ -42,18 +41,18 @@ public class TicketController extends Controller {
         }
     }
 
-    public void printTickets(){
+    private void printTickets(){
         System.out.println("---- Tickets stored ---");
         System.out.println(tickets);
         System.out.println("-----------------------\n");
     }
 
-    public ArrayList<PriceCategory> getPriceCategories() {
+    private ArrayList<PriceCategory> getPriceCategories() {
         TicketDAO ticketDAO = new TicketDAO();
         return ticketDAO.getPriceCategories();
     }
 
-    public PriceCategory getPriceCategory(String categoryName){
+    private PriceCategory getPriceCategory(String categoryName){
         PriceCategory priceCategory = null;
         for (PriceCategory p : getPriceCategories()){
             if (p.getName().equalsIgnoreCase(categoryName)){
@@ -76,6 +75,7 @@ public class TicketController extends Controller {
                 TicketDAO ticketDAO = new TicketDAO();
                 ticketDAO.createTickets(tickets);
                 JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Uw bestelling is verwerkt. Uw tickets zullen naar het door u opgegeven e-mailadres verzonden worden. Fijne voorstelling!");
+                System.exit(-1);
                 break;
             default:
                 JComboBox<String> combo = (JComboBox<String>) e.getSource();
@@ -86,7 +86,7 @@ public class TicketController extends Controller {
                 PriceCategory pc = getPriceCategory(priceName);
                 //ToDo HARDCODED!!!
                 Show show = movieModel.getShows().get(0);
-                Account account = (Account) MainFrame.getMainFrame().getModelMap().get("account");
+                Account account = MainFrame.getMainFrame().getCachedUser();
 
 
                 if (amount <= 0) {

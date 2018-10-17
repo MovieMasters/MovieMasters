@@ -107,7 +107,7 @@ public class MovieView extends View {
         pnlTopRight.add(lblLanguage, gbc);
 
         gbc.gridx = 1;
-        JLabel lblLanguageValue = new JLabel("Nederlands (HARDCODED!)");
+        JLabel lblLanguageValue = new JLabel(movieModel.getLanguage());
         lblLanguageValue.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblLanguageValue, gbc);
 
@@ -117,13 +117,19 @@ public class MovieView extends View {
         lblDirector.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblDirector, gbc);
 
-        gbc.gridx = 1;
-        JLabel lblDirectorValue = new JLabel("PietjePuk (HARDCODED!");
-        lblDirectorValue.setBorder(BorderFactory.createLineBorder(Color.RED));
-        pnlTopRight.add(lblDirectorValue, gbc);
+        gbc.gridy -= 1;
+        for (CastMember member : movieModel.getCastMembers()){
+            if (member.getRole().equalsIgnoreCase("Regisseur")){
+                gbc.gridx = 1;
+                gbc.gridy++;
+                JLabel lblDirectorValue = new JLabel(member.getName());
+                lblDirectorValue.setBorder(BorderFactory.createLineBorder(Color.RED));
+                pnlTopRight.add(lblDirectorValue, gbc);
+            }
+        }
 
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy++;
         JLabel lblActor = new JLabel("Acteurs:");
         lblActor.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblActor, gbc);

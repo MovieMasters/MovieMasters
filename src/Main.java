@@ -1,7 +1,18 @@
+/**
+ * <h1>MovieMaster</h1>
+ * <p>The MovieMasters program is an application
+ * which provides the ability to purchase tickets for
+ * a movie show, shown in MovieMaster theaters</p>
+ *
+ * @author Justin Remijnse
+ * @author Jeroen van der Hel
+ * @version 1.0
+ * @since 2018-10-21
+ */
+
 import datastorage.MovieDAO;
 import domain.MovieCollection;
 import view.*;
-
 import javax.swing.*;
 
 public class Main {
@@ -28,10 +39,10 @@ public class Main {
      */
     private static void createAndShowGUI() {
         MainFrame mainFrame = MainFrame.getMainFrame();
-//        MovieDAO movieDAO = new MovieDAO();
-//        MovieCollection mcCollection = movieDAO.getActualMovies();
-//        mainFrame.setView(new MovieCollectionView(mcCollection));
-        mainFrame.setView(new LoginView());
+        MovieDAO movieDAO = new MovieDAO();
+        MovieCollection mcCollection = movieDAO.getActualMovies();
+        mainFrame.setView(new MovieCollectionView(mcCollection));
+//        mainFrame.setView(new LoginView());
         mainFrame.setVisible(true);
     }
 }

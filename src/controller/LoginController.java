@@ -35,7 +35,7 @@ public class LoginController extends Controller {
             case "Login":
                 if(login()) {
                     //Add account to mainframe ModelMap
-                    MainFrame.getMainFrame().addModel("account", account);
+                    MainFrame.getMainFrame().setCachedUser(account);
                     view = MainFrame.getMainFrame().getViewMap().get(ViewName.MOVIECOLLECTION);
                     if (view == null) {
                         MovieDAO movieDAO = new MovieDAO();
