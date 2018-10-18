@@ -26,20 +26,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("Huidige datum: " + LocalDate.now());
-        System.out.println("Huidige tijd: " + LocalTime.now());
-        Show show = new Show(0, LocalDate.now(), LocalTime.now(), 3, 5);
-        MovieDAO movieDAO = new MovieDAO();
-        movieDAO.insertShow(show);
         /*
         Schedule a job for the event-dispatching thread:
         creating and showing this application's GUI.
         */
-//        SwingUtilities.invokeLater(new Runnable() {
-//            public void run() {
-//                createAndShowGUI();
-//            }
-//        });
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
     }
 
     /**
@@ -49,10 +44,12 @@ public class Main {
      */
     private static void createAndShowGUI() {
         MainFrame mainFrame = MainFrame.getMainFrame();
-        MovieDAO movieDAO = new MovieDAO();
-        MovieCollection mcCollection = movieDAO.getActualMovies();
-        mainFrame.setView(new MovieCollectionView(mcCollection));
-//        mainFrame.setView(new LoginView());
+        //MovieDAO movieDAO = new MovieDAO();
+        //MovieCollection mcCollection = movieDAO.getActualMovies();
+        //mainFrame.setView(new MovieCollectionView(mcCollection));
+        mainFrame.setView(new LoginView());
         mainFrame.setVisible(true);
+
+        //ToDo als er geen shows in de database zijn geen nullpointer geven
     }
 }

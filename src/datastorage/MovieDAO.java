@@ -126,8 +126,15 @@ public class MovieDAO extends DAO{
         String query = "INSERT INTO `show` (`date`, `time`, `roomId`, `movieId`) VALUES (?, ?, ?, ?)";
         Connection conn = DBConnection.getConnection();
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setDate(1, Date.valueOf(show.getDate()));
-            stmt.setTime(2, Time.valueOf(show.getTime()));
+
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdfDate = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            java.text.SimpleDateFormat sdfTime = new java.text.SimpleDateFormat("HH:mm:ss");
+            String currentDate = sdfDate.format(dt);
+            String currentTime = sdfTime.format(dt);
+
+            stmt.setString(1, currentDate);
+            stmt.setString(2, currentTime);
             stmt.setInt(3, show.getRoomId());
             stmt.setInt(4, show.getMovieId());
             stmt.execute();

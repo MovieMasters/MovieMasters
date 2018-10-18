@@ -1,6 +1,7 @@
 package datastorage;
 
 import com.mysql.cj.jdbc.exceptions.ConnectionFeatureNotAvailableException;
+import domain.Movie;
 import domain.PriceCategory;
 import domain.Show;
 import domain.Ticket;
@@ -9,6 +10,7 @@ import view.MainFrame;
 import javax.swing.*;
 import java.math.BigDecimal;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.Date;
 
@@ -34,7 +36,7 @@ public class TicketDAO extends DAO {
         return priceCategories;
     }
 
-    public boolean createTickets(HashMap<String, HashMap<Integer, Ticket>> tickets) {
+    public boolean createTickets(HashMap<PriceCategory, Integer> tickets, Show show) {
         boolean ret = true;
         String insertQuery = "INSERT INTO `ticket` (`showId`, `accountUsername`, `priceCategoryCategory`, `roomRoomId`) " +
                 "VALUES (?,?,?,?)";
@@ -42,14 +44,15 @@ public class TicketDAO extends DAO {
         try (PreparedStatement insertStatement = conn.prepareStatement(insertQuery)) {
             conn.setAutoCommit(false);
 
-            for (Map.Entry<String, HashMap<Integer, Ticket>> ticketMap : tickets.entrySet()) {
-                for (Map.Entry<Integer, Ticket> ticket : ticketMap.getValue().entrySet()) {
-                    Ticket t = ticket.getValue();
-                    insertStatement.setInt(1, t.getShow().getId());
-                    insertStatement.setString(2, t.getAccount().getUsername());
-                    insertStatement.setString(3, t.getPriceCategory().getName());
-                    insertStatement.setInt(4, t.getShow().getRoomId());
+            for (Map.Entry<PriceCategory, Integer> entry : tickets.entrySet()) {
+                PriceCategory priceCategory = entry.getKey();
+                Integer amount = entry.getValue();
 
+                for(int i = 0; i < amount; i++) {
+                    insertStatement.setInt(1, show.getId());
+                    insertStatement.setString(2, MainFrame.getMainFrame().getCachedUser().getUsername());
+                    insertStatement.setString(3, priceCategory.getName());
+                    insertStatement.setInt(4, show.getRoomId());
                     insertStatement.addBatch();
                     insertStatement.clearParameters();
                 }

@@ -25,7 +25,7 @@ public class TicketController extends Controller implements ItemListener {
         this.ticketView = ticketView;
         this.movie = movie;
         this.priceCategories = priceCategories;
-        //this.tickets = new HashMap<>();
+        this.tickets = new HashMap<>();
     }
 
 //    public HashMap<String, HashMap<Integer, Ticket>> getTickets() {
@@ -81,13 +81,28 @@ public class TicketController extends Controller implements ItemListener {
                 //Code
                 break;
             case "Purchase":
-
-//                TicketDAO ticketDAO = new TicketDAO();
-//                ticketDAO.createTickets(tickets);
+                    Show selectedShow = null;
+                    ArrayList<Show> shows = movie.getShows().get(ticketView.getBoxTheater().getSelectedItem().toString());
+                for (Show show : shows) {
+                    if (show.getDate().equals(ticketView.getBoxDate().getSelectedItem())
+                            && show.getTime().equals(ticketView.getBoxTime().getSelectedItem())) {
+                        selectedShow = show;
+                    }
+                }
+                    TicketDAO ticketDAO = new TicketDAO();
+                    ticketDAO.createTickets(tickets, selectedShow);
 //                JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Uw bestelling is verwerkt. Uw tickets zullen naar het door u opgegeven e-mailadres verzonden worden. Fijne voorstelling!");
 //                System.exit(-1);
                 break;
-//            default:
+            default:
+                for(PriceCategory p : priceCategories){
+                    if(p.getName().equals(e.getActionCommand())){
+                        JComboBox<String> combo = (JComboBox<String>) e.getSource();
+                        int amount = Integer.parseInt( combo.getSelectedItem().toString());
+                        tickets.put(p,amount);
+                    }
+                }
+                break;
 //                JComboBox<String> combo = (JComboBox<String>) e.getSource();
 //                String selectedItem = (String) combo.getSelectedItem();
 //                int amount = Integer.parseInt(selectedItem);

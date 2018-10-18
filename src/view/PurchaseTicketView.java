@@ -257,4 +257,5 @@ public class PurchaseTicketView extends View {
     public JComboBox getBoxTime() {
         return boxTime;
     }
+
 }
