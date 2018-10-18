@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.tools.javac.Main;
 import datastorage.MovieDAO;
 import domain.Movie;
 import domain.MovieCollection;

@@ -1,13 +1,6 @@
 package domain;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import datastorage.MovieDAO;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Movie extends Model {
     private int id;
@@ -17,7 +10,7 @@ public class Movie extends Model {
     private String summary;
     private String language;
     private List<CastMember> castMembers;
-    private List<Show> shows;
+    private HashMap<String, ArrayList<Show>> shows;
 
     public Movie(int id, String title, Date releaseDate, int playTime, String summary, String language) {
         this.id = id;
@@ -28,7 +21,7 @@ public class Movie extends Model {
         this.language = language;
     }
 
-    public Movie(int id, String title, Date releaseDate, int playTime, String summary, String language, List<CastMember> castMembers, List<Show> shows) {
+    public Movie(int id, String title, Date releaseDate, int playTime, String summary, String language, List<CastMember> castMembers, HashMap<String, ArrayList<Show>> shows) {
         this(id, title, releaseDate, playTime, summary, language);
         this.castMembers = castMembers;
         this.shows = shows;
@@ -86,11 +79,11 @@ public class Movie extends Model {
         this.castMembers = castMembers;
     }
 
-    public List<Show> getShows() {
+    public HashMap<String, ArrayList<Show>> getShows() {
         return shows;
     }
 
-    public void setShows(List<Show> shows) {
+    public void setShows(HashMap<String, ArrayList<Show>> shows) {
         this.shows = shows;
     }
 }

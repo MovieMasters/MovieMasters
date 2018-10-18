@@ -17,7 +17,7 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         setTitle("MovieMasters");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(true);
+        setResizable(false);
         initFrame();
         setJMenuBar(new MenuBar());
         cachedUser = null;

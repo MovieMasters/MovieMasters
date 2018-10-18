@@ -6,7 +6,8 @@ import view.MainFrame;
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;;
+import java.util.HashMap;
+import java.util.List;
 
 public class MovieDAO extends DAO{
     public MovieDAO() {
@@ -89,29 +90,36 @@ public class MovieDAO extends DAO{
         return castMembers;
     }
 
-    public List<Show> getShows(int movieId){
-        List<Show> shows = new ArrayList<>();
-        String selectQuery = "SELECT `show`.id, `show`.date, `show`.time, `show`.roomId FROM `show` " +
-                "WHERE `show`.movieId = ?;";
+    public HashMap<String, ArrayList<Show>> getShows(int movieId){
+        HashMap<String, ArrayList<Show>> mapShows = new HashMap<>();
+        String selectQuery = "SELECT `show`.id, `show`.date, `show`.time, `show`.roomId, `theater`.name as `theater_name` FROM `show` INNER JOIN `room` ON `show`.roomId = `room`.id INNER JOIN `theater` on `room`.theaterName = `theater`.name WHERE `show`.movieId = ? ORDER BY `theater`.name";
         Connection conn = DBConnection.getConnection();
         try (PreparedStatement selectStatement = conn.prepareStatement(selectQuery)) {
             selectStatement.setInt(1, movieId);
             ResultSet rs = selectStatement.executeQuery();
+            ArrayList<Show> shows = null;
             while (rs.next()) {
+                String theater = rs.getString("theater_name");
+                if(mapShows.get(theater) == null)
+                {
+                    shows = new ArrayList<>();
+                }
+
                 int id = rs.getInt("id");
                 Date date = rs.getDate("date");
                 Time time = rs.getTime("time");
                 int roomId = rs.getInt("roomId");
-                //Movieid is parameter
 
-                Show show = new Show(id,date,time, movieId,roomId);
+                Show show = new Show(id, date, time, movieId, roomId);
                 shows.add(show);
+                mapShows.put(theater, shows);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Fout tijdens ophalen van castmembers in de database.\n " +
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Fout tijdens ophalen van shows in de database.\n " +
                     "Neem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
         }
-        return shows;
+        return mapShows;
     }
 
 
