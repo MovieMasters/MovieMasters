@@ -110,7 +110,7 @@ public class MovieDAO extends DAO{
                 Time time = rs.getTime("time");
                 int roomId = rs.getInt("roomId");
 
-                Show show = new Show(id, date, time, movieId, roomId);
+                Show show = new Show(id, date.toLocalDate(), time.toLocalTime(), movieId, roomId);
                 shows.add(show);
                 mapShows.put(theater, shows);
             }
@@ -122,5 +122,18 @@ public class MovieDAO extends DAO{
         return mapShows;
     }
 
+    public void insertShow(Show show){
+        String query = "INSERT INTO `show` (`date`, `time`, `roomId`, `movieId`) VALUES (?, ?, ?, ?)";
+        Connection conn = DBConnection.getConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setDate(1, Date.valueOf(show.getDate()));
+            stmt.setTime(2, Time.valueOf(show.getTime()));
+            stmt.setInt(3, show.getRoomId());
+            stmt.setInt(4, show.getMovieId());
+            stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

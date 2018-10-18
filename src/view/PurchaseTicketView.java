@@ -10,6 +10,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -223,7 +225,7 @@ public class PurchaseTicketView extends View {
     public void fillBoxDates(){
         currentShows = movie.getShows().get(boxTheater.getSelectedItem().toString());
         if(currentShows != null) {
-            TreeSet<Date> dates = new TreeSet<>();
+            TreeSet<LocalDate> dates = new TreeSet<>();
             currentShows.forEach(show -> {
                dates.add(show.getDate());
             });
@@ -234,7 +236,7 @@ public class PurchaseTicketView extends View {
 
     public void fillBoxTimes(){
         if(currentShows != null) {
-            TreeSet<Time> times = new TreeSet<>();
+            TreeSet<LocalTime> times = new TreeSet<>();
             currentShows.forEach(show -> {
                 if(show.getDate().equals(boxDate.getSelectedItem())) {
                     times.add(show.getTime());

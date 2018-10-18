@@ -12,6 +12,10 @@ public class AccountDAO extends DAO {
         // has been added to explicitely make this clear.
     }
 
+    public void insertDateValue(){
+
+    }
+
     /**
      * Gets the account from the database by username
      *
