@@ -5,6 +5,7 @@ import datastorage.TicketDAO;
 import domain.*;
 import view.*;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -38,12 +39,17 @@ public class MovieController extends Controller {
                 MainFrame.getMainFrame().setView(view);
                 break;
             case "Ticket":
-                TicketDAO ticketDAO = new TicketDAO();
-                ArrayList<PriceCategory> priceCategories = ticketDAO.getPriceCategories();
-                PurchaseTicketView ticketView = new PurchaseTicketView(movieModel, priceCategories);
+                try {
+                    TicketDAO ticketDAO = new TicketDAO();
+                    ArrayList<PriceCategory> priceCategories = ticketDAO.getPriceCategories();
+                    PurchaseTicketView ticketView = new PurchaseTicketView(movieModel, priceCategories);
 
-                MainFrame.getMainFrame().setView(ticketView);
-                break;
+                    MainFrame.getMainFrame().setView(ticketView);
+                    break;
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Voor deze film zijn nog geen voorstellingen gepland!");
+                    e1.printStackTrace();
+                }
         }
     }
 }
