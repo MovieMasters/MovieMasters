@@ -1,24 +1,26 @@
 package domain;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class Ticket {
     private int id;
     private Show show;
     private Account account;
     private PriceCategory priceCategory;
-    private Date sellingDate;
+    private LocalDateTime sellingDate;
 
     //Constructor to create Ticket to store in Database
     public Ticket(Show show, Account account, PriceCategory priceCategory) {
         this.show = show;
         this.account = account;
         this.priceCategory = priceCategory;
-        this.sellingDate = new Date();
+        this.sellingDate = this.sellingDate.now();
     }
 
     //Constructor to create Ticket with retrieved data from database
-    public Ticket(int id, Show show, Account account, PriceCategory priceCategory, Date sellingDate) {
+    public Ticket(int id, Show show, Account account, PriceCategory priceCategory, LocalDateTime sellingDate) {
         this(show, account, priceCategory);
         this.id = id;
         this.sellingDate = sellingDate;
@@ -52,7 +54,7 @@ public class Ticket {
         this.priceCategory = priceCategory;
     }
 
-    public Date getSellingDate() {
+    public LocalDateTime getSellingDate() {
         return sellingDate;
     }
 
