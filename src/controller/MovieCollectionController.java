@@ -46,6 +46,7 @@ public class MovieCollectionController extends Controller {
         MovieDAO movieDAO = new MovieDAO();
         Movie movie = movieDAO.getMovie(movieId);
         View view = new MovieView(movie);
+        MainFrame.getMainFrame().setTitle("MovieMasters - Filmdetails: " + movie.getTitle());
         MainFrame.getMainFrame().setView(view);
     }
 

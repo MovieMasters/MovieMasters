@@ -1,6 +1,6 @@
 package domain;
 
-public class Seat {
+public class Seat extends Model {
     private int id;
     private int roomId;
     private String seatType;

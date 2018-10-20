@@ -13,13 +13,15 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// Begin of class
 public class TicketController extends Controller implements ItemListener {
+    // Properties
     private Movie movie;
     private ArrayList<PriceCategory> priceCategories;
     private PurchaseTicketView ticketView;
     private HashMap<PriceCategory, Integer> tickets;
-    //private HashMap<String, HashMap<Integer, Ticket>> tickets;
 
+    // Constructor
     public TicketController(Movie movie, ArrayList<PriceCategory> priceCategories, PurchaseTicketView ticketView){
         super();
         this.ticketView = ticketView;
@@ -51,6 +53,8 @@ public class TicketController extends Controller implements ItemListener {
                     MovieCollection mcCollection = movieDAO.getActualMovies();
                     view = new MovieCollectionView(mcCollection);
                 }
+
+                MainFrame.getMainFrame().setTitle("MovieMasters - Film overzicht");
                 MainFrame.getMainFrame().setView(view);
                 break;
             case "Purchase":

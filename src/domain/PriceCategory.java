@@ -2,7 +2,7 @@ package domain;
 
 import java.math.BigDecimal;
 
-public class PriceCategory {
+public class PriceCategory extends Model {
     private String name;
     private BigDecimal price;
 

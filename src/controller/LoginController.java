@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.tools.javac.Main;
 import datastorage.AccountDAO;
 import datastorage.MovieDAO;
 import domain.Account;
@@ -30,6 +31,7 @@ public class LoginController extends Controller {
                 if (view == null) {
                     view = new RegisterView();
                 }
+                MainFrame.getMainFrame().setTitle("MovieMasters - Registreren");
                 MainFrame.getMainFrame().setView(view);
                 break;
             case "Login":
@@ -42,6 +44,7 @@ public class LoginController extends Controller {
                         MovieCollection mcCollection = movieDAO.getActualMovies();
                         view = new MovieCollectionView(mcCollection);
                     }
+                    MainFrame.getMainFrame().setTitle("MovieMasters - Film overzicht");
                     MainFrame.getMainFrame().setView(view);
                 }
                 break;

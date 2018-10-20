@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
 
-public class Ticket {
+public class Ticket extends Model {
     private int id;
     private Show show;
     private Account account;

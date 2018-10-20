@@ -1,6 +1,6 @@
 package domain;
 
-public class CastMember {
+public class CastMember extends Model {
     private String name;
     private String role;
 

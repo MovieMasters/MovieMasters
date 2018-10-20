@@ -15,11 +15,10 @@ public class MainFrame extends JFrame {
     private View currentView, previousView;
 
     public MainFrame() {
-        setTitle("MovieMasters");
+        setTitle("MovieMasters - Inloggen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         initFrame();
-        setJMenuBar(new MenuBar());
         cachedUser = null;
     }
 
@@ -68,4 +67,6 @@ public class MainFrame extends JFrame {
     public void setCachedUser(Account account){
         cachedUser = account;
     }
+
+
 }

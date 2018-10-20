@@ -28,6 +28,7 @@ public class RegisterController extends Controller {
                 {
                     view = new LoginView();
                 }
+                MainFrame.getMainFrame().setTitle("MovieMasters - Inloggen");
                 MainFrame.getMainFrame().setView(view);
                 break;
         }

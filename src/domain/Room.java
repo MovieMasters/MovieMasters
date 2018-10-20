@@ -3,7 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room {
+public class Room extends Model {
     private int id;
     private String name;
     private String theaterName;

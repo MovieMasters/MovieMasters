@@ -1,3 +1,13 @@
+/**
+ * In this class, the GUI will be created and given the movie model
+ * and a list of priceCategories from the instanciating view.
+ * When selecting an amount of a specific ticket(price), these will be
+ * stored in a list which is a property of this class
+ *
+ * When an instance of this class is constructed, an instance of TicketController class
+ * will be created and given this view as parameter which support communication between view and controller.
+ */
+
 package view;
 
 import controller.TicketController;
@@ -8,22 +18,22 @@ import domain.Show;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.lang.reflect.Array;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.TreeSet;
 
+// Begin of class
 public class PurchaseTicketView extends View {
+    // Properties
     private Movie movie;
     private ArrayList<PriceCategory> priceCategories;
     private TicketController controller;
     private ArrayList<Show> currentShows;
     private JComboBox boxTheater, boxDate, boxTime;
 
+    // Constructor of class
     public PurchaseTicketView(Movie movieModel, ArrayList<PriceCategory> priceCategories){
         super();
         this.viewName = ViewName.TICKET;
@@ -33,6 +43,14 @@ public class PurchaseTicketView extends View {
         createGUI();
     }
 
+    /**
+     * The setup of the GUI is is split in 2 main parts: Toppanel and Bottompanel.
+     * Toppanel contains information en choice options to select the desired show location,
+     * time and date. The Bottompanel contains selection options of multiple kinds of tickets and amounts of them.
+     * Also 2 buttons, 1 to store desired tickets in database, and 1 to go back to the movieCollectionView.
+     */
+
+    // Method to build the GUI. Is called in the class constructor
     private void createGUI() {
         // Create GridBagConstraints
         setLayout(new GridBagLayout());
@@ -67,7 +85,6 @@ public class PurchaseTicketView extends View {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         Border border = BorderFactory.createLineBorder(Color.RED);
-//        panel.setBorder(border);
         c.insets = new Insets(2,2,2,2);
         c.weightx = 1.0;
         c.weighty = 1.0;
@@ -78,7 +95,10 @@ public class PurchaseTicketView extends View {
         c.gridx = 0;
         c.gridy = 0;
         c.gridheight = 6;
+
+        // setImageforLabel() is an function in parentclass.
         ImageIcon icon = setImageforLabel("src/resources/big/movie_" + movie.getId() + ".jpg", 175, 260);
+
         JLabel lblImage = new JLabel(icon);
         lblImage.setHorizontalAlignment(JLabel.LEFT);
         lblImage.setVerticalAlignment(JLabel.NORTH);
@@ -147,7 +167,6 @@ public class PurchaseTicketView extends View {
     private void prepareBottomPanel(JPanel panel){
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        Border border = BorderFactory.createLineBorder(Color.MAGENTA);
         Border emptyBorder = BorderFactory.createEmptyBorder(0,5,0,5);
         c.fill = GridBagConstraints.BOTH;
         c.insets = new Insets(2,2,2,2);

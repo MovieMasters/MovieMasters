@@ -25,9 +25,9 @@ public class MovieView extends View {
         JPanel pnlTopRight = new JPanel();
         JPanel pnlBottom = new JPanel();
 
-        pnlTopLeft.setBorder(BorderFactory.createLineBorder(Color.RED));
-        pnlTopRight.setBorder(BorderFactory.createLineBorder(Color.RED));
-        pnlBottom.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        pnlTopLeft.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        pnlTopRight.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        pnlBottom.setBorder(BorderFactory.createLineBorder(Color.RED));
 
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
@@ -52,7 +52,6 @@ public class MovieView extends View {
 
         // Adding content to Top Left Panel
         ImageIcon icon = setImageforLabel("src/resources/big/movie_" + movieModel.getId() + ".jpg", 175, 260);
-//        Icon icon = createImageIcon("/resources/movie_" + movieModel.getId() + ".jpg", movieModel.getTitle());
         JLabel lblImage = new JLabel();
         lblImage.setIcon(icon);
         pnlTopLeft.add(lblImage);
@@ -70,7 +69,7 @@ public class MovieView extends View {
         gbc.gridheight = 2;
 
         JLabel lblTitle = new JLabel(movieModel.getTitle(), JLabel.CENTER );
-        lblTitle.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        lblTitle.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblTitle, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -80,41 +79,41 @@ public class MovieView extends View {
         gbc.gridx = 0;
         gbc.gridy = 2;
         JLabel lblDate = new JLabel("Releasedatum:");
-        lblDate.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        lblDate.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblDate, gbc);
 
         gbc.gridx = 1;
         JLabel lblDateValue = new JLabel();
         lblDateValue.setText(convertDateToString(movieModel.getReleaseDate()));
-        lblDateValue.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        lblDateValue.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblDateValue, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
         JLabel lblPlayTime = new JLabel("Speeltijd:");
-        lblPlayTime.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        lblPlayTime.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblPlayTime, gbc);
 
         gbc.gridx = 1;
         JLabel lblPlayTimeValue = new JLabel(movieModel.getPlayTime() + " minuten");
-        lblPlayTimeValue.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        lblPlayTimeValue.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblPlayTimeValue, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
         JLabel lblLanguage = new JLabel("Taal:");
-        lblLanguage.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        lblLanguage.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblLanguage, gbc);
 
         gbc.gridx = 1;
         JLabel lblLanguageValue = new JLabel(movieModel.getLanguage());
-        lblLanguageValue.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        lblLanguageValue.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblLanguageValue, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 5;
         JLabel lblDirector = new JLabel("Producer:");
-        lblDirector.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        lblDirector.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblDirector, gbc);
 
         gbc.gridy -= 1;
@@ -123,7 +122,7 @@ public class MovieView extends View {
                 gbc.gridx = 1;
                 gbc.gridy++;
                 JLabel lblDirectorValue = new JLabel(member.getName());
-                lblDirectorValue.setBorder(BorderFactory.createLineBorder(Color.RED));
+//                lblDirectorValue.setBorder(BorderFactory.createLineBorder(Color.RED));
                 pnlTopRight.add(lblDirectorValue, gbc);
             }
         }
@@ -131,7 +130,7 @@ public class MovieView extends View {
         gbc.gridx = 0;
         gbc.gridy++;
         JLabel lblActor = new JLabel("Acteurs:");
-        lblActor.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        lblActor.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblActor, gbc);
 
         gbc.gridy -= 1;
@@ -140,7 +139,7 @@ public class MovieView extends View {
                 gbc.gridx = 1;
                 gbc.gridy++;
                 JLabel lblActorValue = new JLabel(member.getName());
-                lblActorValue.setBorder(BorderFactory.createLineBorder(Color.RED));
+//                lblActorValue.setBorder(BorderFactory.createLineBorder(Color.RED));
                 pnlTopRight.add(lblActorValue, gbc);
             }
         }
@@ -158,13 +157,13 @@ public class MovieView extends View {
         gbc.gridheight = 1;
 
         JLabel lblSummary = new JLabel("Omschrijving: ");
-        lblSummary.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        lblSummary.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlBottom.add(lblSummary, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
         JLabel lblSummaryValue = new JLabel("<html>"+ movieModel.getSummary()+"</html>");
-        lblSummaryValue.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        lblSummaryValue.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlBottom.add(lblSummaryValue, gbc);
 
         gbc.gridwidth = 1;

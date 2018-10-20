@@ -36,6 +36,8 @@ public class MovieController extends Controller {
                     MovieCollection mcCollection = movieDAO.getActualMovies();
                     view = new MovieCollectionView(mcCollection);
                 }
+
+                MainFrame.getMainFrame().setTitle("MovieMasters - Film overzicht");
                 MainFrame.getMainFrame().setView(view);
                 break;
             case "Ticket":
@@ -44,6 +46,7 @@ public class MovieController extends Controller {
                     ArrayList<PriceCategory> priceCategories = ticketDAO.getPriceCategories();
                     PurchaseTicketView ticketView = new PurchaseTicketView(movieModel, priceCategories);
 
+                    MainFrame.getMainFrame().setTitle("MovieMasters - Tickets bestellen ("+movieModel.getTitle()+")");
                     MainFrame.getMainFrame().setView(ticketView);
                     break;
                 } catch (Exception e1) {
