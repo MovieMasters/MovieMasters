@@ -1,9 +1,9 @@
 package controller;
 
+import datastorage.MovieDAO;
 import datastorage.TicketDAO;
 import domain.*;
-import view.MainFrame;
-import view.PurchaseTicketView;
+import view.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -43,11 +43,15 @@ public class TicketController extends Controller implements ItemListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
-            case "Location":
-                //Code
-                break;
-            case "Date":
-                //Code
+            case "Back":
+                View view = MainFrame.getMainFrame().getViewMap().get(ViewName.MOVIECOLLECTION);
+
+                if (view == null){
+                    MovieDAO movieDAO = new MovieDAO();
+                    MovieCollection mcCollection = movieDAO.getActualMovies();
+                    view = new MovieCollectionView(mcCollection);
+                }
+                MainFrame.getMainFrame().setView(view);
                 break;
             case "Purchase":
                     Show selectedShow = null;

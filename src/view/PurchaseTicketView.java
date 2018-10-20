@@ -202,9 +202,18 @@ public class PurchaseTicketView extends View {
 
         c.insets = new Insets(2,2,2,2);
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy++;
+        c.fill = GridBagConstraints.VERTICAL;
+        c.anchor = GridBagConstraints.LINE_START;
+        JButton btnBack = new JButton("Terug naar filmoverzicht");
+        btnBack.setActionCommand("Back");
+        btnBack.addActionListener(controller);
+        panel.add(btnBack, c);
+
+        c.gridx = 1;
         c.gridwidth = 2;
+        c.fill = GridBagConstraints.BOTH;
         JButton btnBuy = new JButton("Tickets aanschaffen");
         btnBuy.addActionListener(controller);
         btnBuy.setActionCommand("Purchase");
