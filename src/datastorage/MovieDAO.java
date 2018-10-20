@@ -5,6 +5,8 @@ import view.MainFrame;
 
 import javax.swing.*;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +20,7 @@ public class MovieDAO extends DAO{
     public MovieCollection getActualMovies(){
         MovieCollection movieCollection = new MovieCollection();
         String selectQuery =    "SELECT movie.id, movie.title, movie.releaseDate, movie.playTime, movie.summary, `language`.language FROM " +
-                                "movie INNER JOIN `language` ON `language`.code = movie.languageCode;";
+                                "movie INNER JOIN (`language`, `show`) ON (`language`.code = movie.languageCode AND `show`.movieId = movie.id) WHERE `show`.date >= CURDATE() AND `show`.time > CURTIME();";
         Connection conn = DBConnection.getConnection();
         try(PreparedStatement selectStatement = conn.prepareStatement(selectQuery)){
             ResultSet rs = selectStatement.executeQuery();
@@ -92,7 +94,7 @@ public class MovieDAO extends DAO{
 
     public HashMap<String, ArrayList<Show>> getShows(int movieId){
         HashMap<String, ArrayList<Show>> mapShows = new HashMap<>();
-        String selectQuery = "SELECT `show`.id, `show`.date, `show`.time, `show`.roomId, `theater`.name as `theater_name` FROM `show` INNER JOIN `room` ON `show`.roomId = `room`.id INNER JOIN `theater` on `room`.theaterName = `theater`.name WHERE `show`.movieId = ? ORDER BY `theater`.name";
+        String selectQuery = "SELECT `show`.id, `show`.date, `show`.time, `show`.roomId, `theater`.name as `theater_name` FROM `show` INNER JOIN `room` ON `show`.roomId = `room`.id INNER JOIN `theater` on `room`.theaterName = `theater`.name WHERE `show`.movieId = ? AND `show`.date >= CURDATE() AND `show`.time > CURTIME() ORDER BY `theater`.name";
         Connection conn = DBConnection.getConnection();
         try (PreparedStatement selectStatement = conn.prepareStatement(selectQuery)) {
             selectStatement.setInt(1, movieId);
@@ -106,11 +108,11 @@ public class MovieDAO extends DAO{
                 }
 
                 int id = rs.getInt("id");
-                Date date = rs.getDate("date");
-                Time time = rs.getTime("time");
+                LocalDate date = rs.getDate("date").toLocalDate();
+                LocalTime time = rs.getTime("time").toLocalTime().minusHours(1);
                 int roomId = rs.getInt("roomId");
 
-                Show show = new Show(id, date.toLocalDate(), time.toLocalTime(), movieId, roomId);
+                Show show = new Show(id, date, time, movieId, roomId);
                 shows.add(show);
                 mapShows.put(theater, shows);
             }
