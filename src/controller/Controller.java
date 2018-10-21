@@ -8,10 +8,10 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
-public abstract class Controller implements IController, ActionListener {
-    protected HashMap<JTextField, String> errorMap;
+public abstract class Controller implements ActionListener {
+    HashMap<JTextField, String> errorMap;
 
-    public Controller(){
+    Controller(){
         errorMap = new HashMap<>();
     }
 
@@ -24,14 +24,14 @@ public abstract class Controller implements IController, ActionListener {
         SwingUtilities.updateComponentTreeUI( field );
     }
 
-    public void resetFormErrors(){
+    void resetFormErrors(){
         errorMap.forEach((field, error) -> {
             setTextFieldValid(field);
         });
         errorMap.clear();
     }
 
-    public void setFormErrors(){
+    void setFormErrors(){
         if (errorMap.size() > 0) {
             JPanel errorPanel = new JPanel(new GridLayout(errorMap.size(), 1));
 
