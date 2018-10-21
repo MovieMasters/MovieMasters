@@ -18,6 +18,11 @@ public class TheaterDAO extends DAO {
         // has been added to explicitely make this clear.
     }
 
+    /**
+     * Gets the Theater by id
+     * @param  name the name of the theater
+     * @return Theater object
+     */
     public Theater find(String name) {
         Theater theater = null;
         String selectQuery = "SELECT `name`, `street`, `houseNr`, `houseNrAdd`, `postcode`, `city`, `province`, `phone`" +
@@ -43,24 +48,36 @@ public class TheaterDAO extends DAO {
         return theater;
     }
 
+    /**
+     * Creates a theater with the specified parameters
+     *
+     * @param name the name of the theater
+     * @param street the adres street name
+     * @param houseNumber the adres house number
+     * @param houseNrAdd the house number addition
+     * @param postcode the postcode
+     * @param city the city
+     * @param province the province
+     * @param phoneNr the phone number
+     * @return boolean indicating the result of the statement
+     */
     public boolean create(String name, String street, int houseNumber, String houseNrAdd, String postcode, String city, String province, int phoneNr) {
         boolean ret = true;
-        String insertQuery = "INSERT INTO `theater` (`name`, `street`, `houseNr`, `houseNrAdd`, `postcode`, `city`, `province`, `phone`)" +
+        String query = "INSERT INTO `theater` (`name`, `street`, `houseNr`, `houseNrAdd`, `postcode`, `city`, `province`, `phone`)" +
                 "VALUES (?,?,?,?,?,?,?,?)";
         Connection conn = DBConnection.getConnection();
-        try (PreparedStatement insertStatement = conn.prepareStatement(insertQuery)) {
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
             conn.setAutoCommit(false);
-            insertStatement.setString(1, name);
-            insertStatement.setString(2, street);
-            insertStatement.setInt(3, houseNumber);
-            insertStatement.setString(4, houseNrAdd);
-            insertStatement.setString(5, postcode);
-            insertStatement.setString(6, city);
-            insertStatement.setString(7, province);
-            insertStatement.setInt(8, phoneNr);
-            insertStatement.execute();
+            stmt.setString(1, name);
+            stmt.setString(2, street);
+            stmt.setInt(3, houseNumber);
+            stmt.setString(4, houseNrAdd);
+            stmt.setString(5, postcode);
+            stmt.setString(6, city);
+            stmt.setString(7, province);
+            stmt.setInt(8, phoneNr);
+            stmt.execute();
             conn.commit();
-
         } catch (SQLException e) {
             ret = false;
             if (e.getErrorCode() == 1406) {
@@ -69,21 +86,26 @@ public class TheaterDAO extends DAO {
                 JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Er is een fout opgetreden tijdens het opslaan.\n " +
                         "Neem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
             }
-
         }
         return ret;
     }
 
+    /**
+     * Deletes the given theater from the database.
+     *
+     * @param theater an object of the Theater class
+     * @return true if execution of the SQL-statement was successful, false
+     * otherwise.
+     */
     public boolean delete(Theater theater) {
         boolean ret = true;
-        String deleteQuery = "DELETE FROM `theater` WHERE `name` = ?";
+        String query = "DELETE FROM `theater` WHERE `name` = ?";
         Connection conn = DBConnection.getConnection();
-        try (PreparedStatement deleteStatement = conn.prepareStatement(deleteQuery)) {
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
             conn.setAutoCommit(false);
-            deleteStatement.setString(1, theater.getName());
-            deleteStatement.execute();
+            stmt.setString(1, theater.getName());
+            stmt.execute();
             conn.commit();
-
         } catch (SQLException e) {
             ret = false;
             JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Er is een fout opgetreden tijdens het ophalen.\n " +

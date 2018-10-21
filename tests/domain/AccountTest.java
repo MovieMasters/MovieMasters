@@ -16,6 +16,7 @@ class AccountTest extends Model {
                 new char[]{'t','e','s','t','P','W'},
                 "test@junit.com",
                 "FirstTestName",
+                "MiddleName",
                 "LastTestName"
         );
     }

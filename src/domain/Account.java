@@ -5,13 +5,15 @@ public class Account extends Model {
     private char[] password;
     private String emailAddress;
     private String firstName;
+    private String middleName;
     private String lastName;
 
-    public Account(String username, char[] password, String emailAddress, String firstName, String lastName) {
+    public Account(String username, char[] password, String emailAddress, String firstName, String middleName, String lastName) {
         this.username = username;
         this.password = password;
         this.emailAddress = emailAddress;
         this.firstName = firstName;
+        this.middleName = middleName;
         this.lastName = lastName;
     }
 
@@ -50,6 +52,14 @@ public class Account extends Model {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getLastName() {

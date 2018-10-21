@@ -7,21 +7,18 @@ import view.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class MovieController extends Controller {
-    private Movie movieModel;
+    private Movie movie;
     private MovieView movieView;
-    private ActionListener actionListener;
 
-    public MovieController(Movie movieModel, MovieView movieView){
+    public MovieController(Movie movie, MovieView movieView){
         super();
-        this.movieModel = movieModel;
+        this.movie = movie;
         this.movieView = movieView;
     }
-
     public Map<String, CastMember> cast;
 
     @Override
@@ -44,9 +41,9 @@ public class MovieController extends Controller {
                 try {
                     TicketDAO ticketDAO = new TicketDAO();
                     ArrayList<PriceCategory> priceCategories = ticketDAO.getPriceCategories();
-                    PurchaseTicketView ticketView = new PurchaseTicketView(movieModel, priceCategories);
+                    PurchaseTicketView ticketView = new PurchaseTicketView(movie, priceCategories);
 
-                    MainFrame.getMainFrame().setTitle("MovieMasters - Tickets bestellen ("+movieModel.getTitle()+")");
+                    MainFrame.getMainFrame().setTitle("MovieMasters - Tickets bestellen ("+movie.getTitle()+")");
                     MainFrame.getMainFrame().setView(ticketView);
                     break;
                 } catch (Exception e1) {

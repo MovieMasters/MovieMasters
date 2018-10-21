@@ -7,21 +7,18 @@ import view.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// Begin of class
 public class TicketController extends Controller implements ItemListener {
-    // Properties
+
     private Movie movie;
     private ArrayList<PriceCategory> priceCategories;
     private PurchaseTicketView ticketView;
     private HashMap<PriceCategory, Integer> tickets;
 
-    // Constructor
     public TicketController(Movie movie, ArrayList<PriceCategory> priceCategories, PurchaseTicketView ticketView){
         super();
         this.ticketView = ticketView;
@@ -68,8 +65,7 @@ public class TicketController extends Controller implements ItemListener {
                 }
                     TicketDAO ticketDAO = new TicketDAO();
                     ticketDAO.createTickets(tickets, selectedShow);
-//                JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Uw bestelling is verwerkt. Uw tickets zullen naar het door u opgegeven e-mailadres verzonden worden. Fijne voorstelling!");
-//                System.exit(-1);
+                JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Uw bestelling is verwerkt. Uw tickets zullen naar het door u opgegeven e-mailadres verzonden worden. Fijne voorstelling!");
                 break;
             default:
                 for(PriceCategory p : priceCategories){

@@ -26,7 +26,7 @@ class TicketTest extends Model {
         LocalTime time = LocalTime.of(22, 00);
         LocalDateTime dateTime = LocalDateTime.of(date, time);
         show = new Show(1, date, time,2, 2);
-        Account account = new Account("Kees", new char[]{'t','e','s','t'}, "kees@mail.com","Kees" ,"Kogel" );
+        Account account = new Account("Kees", new char[]{'t','e','s','t'}, "kees@mail.com","Kees" , "de","Kogel" );
         PriceCategory priceCategory = new PriceCategory("Ticket", new BigDecimal(2));
 
         ticket = new Ticket(1, show, account, priceCategory, dateTime);

@@ -6,45 +6,22 @@ import domain.MovieCollection;
 import view.*;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MovieCollectionController extends Controller {
-    private MovieCollection model;
-    private MovieCollectionView view;
-    private ActionListener actionListener;
+    private MovieCollection movieCollection;
+    private MovieCollectionView movieCollectionView;
 
-    public MovieCollectionController (MovieCollection model, MovieCollectionView view){
+    public MovieCollectionController (MovieCollection movieCollection, MovieCollectionView movieCollectionView){
         super();
-        this.model = model;
-        this.view = view;
+        this.movieCollection = movieCollection;
+        this.movieCollectionView = movieCollectionView;
     }
-
-//    private void createMovieItems(MovieCollection model){
-//        view.createMovieItems(model.getCollection());
-//    }
-
-    public void showView(){
-    }
-
-//    public void btnListeners(){
-//        actionListener = new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int i = Integer.parseInt(e.getActionCommand());
-//                MainFrame.getMainFrame().setView(ViewName.MOVIE());
-//            }
-//        };
-//        for (Movie movie : model.getCollection().values()){
-//            int movieId = movie.getId();
-//            view.getButton("movie_"+movieId).addActionListener(actionListener);
-//        }
-//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         int movieId = Integer.parseInt(e.getActionCommand());
         MovieDAO movieDAO = new MovieDAO();
-        Movie movie = movieDAO.getMovie(movieId);
+        Movie movie = movieDAO.find(movieId);
         View view = new MovieView(movie);
         MainFrame.getMainFrame().setTitle("MovieMasters - Filmdetails: " + movie.getTitle());
         MainFrame.getMainFrame().setView(view);

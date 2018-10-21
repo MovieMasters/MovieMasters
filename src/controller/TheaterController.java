@@ -2,11 +2,9 @@ package controller;
 
 
 import datastorage.TheaterDAO;
-import domain.Theater;
 import view.*;
 
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
 
 public class TheaterController extends Controller {
     private TheaterView view;

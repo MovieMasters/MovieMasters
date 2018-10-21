@@ -5,11 +5,9 @@ import view.MainFrame;
 
 import javax.swing.*;
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.sql.Date;
+import java.time.*;
+import java.util.*;
 
 public class MovieDAO extends DAO{
     public MovieDAO() {
@@ -17,13 +15,18 @@ public class MovieDAO extends DAO{
         // has been added to explicitely make this clear.
     }
 
+    /**
+     * Gets the movies where there will be shows within the future
+     *
+     * @return MovieCollection object with movies
+     */
     public MovieCollection getActualMovies(){
         MovieCollection movieCollection = new MovieCollection();
-        String selectQuery =    "SELECT movie.id, movie.title, movie.releaseDate, movie.playTime, movie.summary, `language`.language FROM " +
-                                "movie INNER JOIN (`language`, `show`) ON (`language`.code = movie.languageCode AND `show`.movieId = movie.id) WHERE `show`.date >= CURDATE() AND `show`.time > CURTIME();";
+        String query =    "SELECT movie.id, movie.title, movie.releaseDate, movie.playTime, movie.summary, `language`.language FROM " +
+                                "movie INNER JOIN (`language`, `show`) ON (`language`.code = movie.languageCode AND `show`.movieId = movie.id) WHERE `show`.date >= CURDATE() AND `show`.time > CURTIME()";
         Connection conn = DBConnection.getConnection();
-        try(PreparedStatement selectStatement = conn.prepareStatement(selectQuery)){
-            ResultSet rs = selectStatement.executeQuery();
+        try(PreparedStatement stmt = conn.prepareStatement(query)){
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
@@ -40,18 +43,21 @@ public class MovieDAO extends DAO{
             JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Fout tijdens het ophalen van de filmcollectie uit de database.\nNeem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
-
         return movieCollection;
     }
 
-    public Movie getMovie(int movieId){
+    /**
+     * Gets the movie by id
+     * @param  movieId the id of the movie
+     * @return Movie object
+     */
+    public Movie find(int movieId){
         Movie movie = null;
-        String selectQuery =    "SELECT movie.id, movie.title, movie.releaseDate, movie.playTime, movie.summary, language.language FROM movie "+
-                                "INNER JOIN language ON language.code = movie.languageCode WHERE movie.id = ?;";
+        String query = "SELECT movie.id, movie.title, movie.releaseDate, movie.playTime, movie.summary, language.language FROM movie INNER JOIN language ON language.code = movie.languageCode WHERE movie.id = ?";
         Connection conn = DBConnection.getConnection();
-        try(PreparedStatement selectStatement = conn.prepareStatement(selectQuery)){
-            selectStatement.setInt(1, movieId);
-            ResultSet rs = selectStatement.executeQuery();
+        try(PreparedStatement stmt = conn.prepareStatement(query)){
+            stmt.setInt(1, movieId);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
@@ -70,18 +76,22 @@ public class MovieDAO extends DAO{
         return movie;
     }
 
+    /**
+     * Gets the cast members by movie id
+     * @param  movieId the id of the movie
+     * @return List of cast members
+     */
     public List<CastMember> getCastMembers(int movieId){
         List<CastMember> castMembers = new ArrayList<>();
-        String selectQuery = "SELECT mc.castMemberName, mc.roleRole FROM movie_castmember as mc " +
+        String query = "SELECT mc.castMemberName, mc.roleRole FROM movie_castmember as mc " +
             "WHERE mc.movieId = ?;";
         Connection conn = DBConnection.getConnection();
-        try (PreparedStatement selectStatement = conn.prepareStatement(selectQuery)) {
-            selectStatement.setInt(1, movieId);
-            ResultSet rs = selectStatement.executeQuery();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, movieId);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("castMemberName");
                 String role = rs.getString("roleRole");
-
                 CastMember castMember = new CastMember(name, role);
                 castMembers.add(castMember);
             }
@@ -92,13 +102,18 @@ public class MovieDAO extends DAO{
         return castMembers;
     }
 
+    /**
+     * Gets the shows for movie
+     * @param  movieId the id of the movie
+     * @return HashMap key -> theater name, value -> ArrayList of shows
+     */
     public HashMap<String, ArrayList<Show>> getShows(int movieId){
         HashMap<String, ArrayList<Show>> mapShows = new HashMap<>();
-        String selectQuery = "SELECT `show`.id, `show`.date, `show`.time, `show`.roomId, `theater`.name as `theater_name` FROM `show` INNER JOIN `room` ON `show`.roomId = `room`.id INNER JOIN `theater` on `room`.theaterName = `theater`.name WHERE `show`.movieId = ? AND `show`.date >= CURDATE() AND `show`.time > CURTIME() ORDER BY `theater`.name";
+        String query = "SELECT `show`.id, `show`.date, `show`.time, `show`.roomId, `theater`.name as `theater_name` FROM `show` INNER JOIN `room` ON `show`.roomId = `room`.id INNER JOIN `theater` on `room`.theaterName = `theater`.name WHERE `show`.movieId = ? AND `show`.date >= CURDATE() AND `show`.time > CURTIME() ORDER BY `theater`.name";
         Connection conn = DBConnection.getConnection();
-        try (PreparedStatement selectStatement = conn.prepareStatement(selectQuery)) {
-            selectStatement.setInt(1, movieId);
-            ResultSet rs = selectStatement.executeQuery();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, movieId);
+            ResultSet rs = stmt.executeQuery();
             ArrayList<Show> shows = null;
             while (rs.next()) {
                 String theater = rs.getString("theater_name");
@@ -123,26 +138,4 @@ public class MovieDAO extends DAO{
         }
         return mapShows;
     }
-
-    public void insertShow(Show show){
-        String query = "INSERT INTO `show` (`date`, `time`, `roomId`, `movieId`) VALUES (?, ?, ?, ?)";
-        Connection conn = DBConnection.getConnection();
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            java.util.Date dt = new java.util.Date();
-            java.text.SimpleDateFormat sdfDate = new java.text.SimpleDateFormat("yyyy-MM-dd");
-            java.text.SimpleDateFormat sdfTime = new java.text.SimpleDateFormat("HH:mm:ss");
-            String currentDate = sdfDate.format(dt);
-            String currentTime = sdfTime.format(dt);
-
-            stmt.setString(1, currentDate);
-            stmt.setString(2, currentTime);
-            stmt.setInt(3, show.getRoomId());
-            stmt.setInt(4, show.getMovieId());
-            stmt.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

@@ -2,10 +2,7 @@ package controller;
 
 import view.*;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
 
 public class RegisterController extends Controller {
     private RegisterView view;
@@ -38,7 +35,7 @@ public class RegisterController extends Controller {
         resetFormErrors();
 
         if (view.getTfusername().getText().length() < 5) {
-            errorMap.put(view.getTfusername(), "Gebruikersnaam moet minimaal 5 karaketers hebben.");
+            errorMap.put(view.getTfusername(), "Gebruikersnaam moet minimaal 5");
         }
 
         if (view.getTfFirstname().getText().length() < 5) {

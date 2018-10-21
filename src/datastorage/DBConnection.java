@@ -9,11 +9,12 @@ public class DBConnection {
     private static Connection connection;
 
     /**
-     * Creates a connection if not exists, otherwise returns the current connection
-     *
-     * @return the Connection object
+     * Creates database properties file
+     * @param url the connection url
+     * @param dbUsername the database username
+     * @param dbPassword the database password
      */
-    private static void createPropertiesFile(){
+    private static void createPropertiesFile(String url, String dbUsername, String dbPassword){
         Properties prop = new Properties();
         OutputStream output = null;
 
@@ -21,9 +22,9 @@ public class DBConnection {
             output = new FileOutputStream("db.properties");
 
             // Set properties
-            prop.setProperty("DB_URL", "jdbc\\:mysql\\://178.251.31.13\\:3306/liannela_moviemasters?serverTimezone=UTC");
-            prop.setProperty("DB_USERNAME", "liannela_movieAPI");
-            prop.setProperty("DB_PASSWORD", "CeGLEIZa");
+            prop.setProperty("DB_URL", url);
+            prop.setProperty("DB_USERNAME", dbUsername);
+            prop.setProperty("DB_PASSWORD", dbPassword);
 
             // Save properties in root folder
             prop.store(output, null);
@@ -40,17 +41,22 @@ public class DBConnection {
         }
     }
 
+    /**
+     * Gets the sql.Connection if exists otherwise creates one
+     * @return java.sql.Connection the connection object
+     */
     public static Connection getConnection() {
         if (connection == null) {
-            try {
-//                DBConnection.createPropertiesFile();
+            try (FileInputStream fis = new FileInputStream("db.properties")){
                 Properties properties = new Properties();
-                FileInputStream fis = new FileInputStream("db.properties");
-                properties.load(fis);
-                connection = DriverManager.getConnection(
-                        properties.getProperty("DB_URL"),
-                        properties.getProperty("DB_USERNAME"),
-                        properties.getProperty("DB_PASSWORD"));
+                if(fis != null)
+                {
+                    properties.load(fis);
+                    connection = DriverManager.getConnection(
+                            properties.getProperty("DB_URL"),
+                            properties.getProperty("DB_USERNAME"),
+                            properties.getProperty("DB_PASSWORD"));
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (FileNotFoundException e) {
@@ -81,7 +87,7 @@ public class DBConnection {
     }
 
     /**
-     * Closed the current connection if open
+     * Closes the current connection if open
      */
     public void closeConnection() {
         try {

@@ -1,19 +1,16 @@
 package datastorage;
 
 import domain.Account;
+import view.MainFrame;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.swing.*;
+import java.sql.*;
 
 public class AccountDAO extends DAO {
 
     public AccountDAO() {
         // Nothing to be initialized. This is a stateless class. Constructor
         // has been added to explicitely make this clear.
-    }
-
-    public void insertDateValue(){
-
     }
 
     /**
@@ -25,27 +22,30 @@ public class AccountDAO extends DAO {
      */
     public Account find(String username) {
         Account account = null;
-        ResultSet rs = executeQuery("SELECT * FROM account WHERE username = '" + username + "';");
-        if (rs != null) {
-            try {
-                // The username for a account is unique, so in case the
-                // resultset does contain data, we need its first entry.
-                if (rs.next()) {
-                    String firstname = rs.getString("firstName");
-                    String lastname = rs.getString("lastName");
-                    char[] password = rs.getString("password").toCharArray();
-                    String emailaddress = rs.getString("emailaddress");
+        String query = "SELECT username, password, emailaddress, firstName, middleName, lastName FROM account WHERE username = ?";
+        Connection conn = DBConnection.getConnection();
+        try(PreparedStatement stmt = conn.prepareStatement(query)){
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                char[] password = rs.getString("password").toCharArray();
+                String emailaddress = rs.getString("emailaddress");
+                String firstName = rs.getString("firstName");
+                String middleName = rs.getString("middleName");
+                String lastName = rs.getString("lastName");
 
-                    account = new Account(
-                            username,
-                            password,
-                            emailaddress,
-                            firstname,
-                            lastname);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+                account = new Account(
+                        username,
+                        password,
+                        emailaddress,
+                        firstName,
+                        middleName,
+                        lastName);
             }
+        }
+        catch(SQLException e) {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Fout tijdens het ophalen van de filmcollectie uit de database.\nNeem contact op met de administrator.", "Fout", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
         return account;
     }
@@ -55,46 +55,71 @@ public class AccountDAO extends DAO {
      *
      * @param username the primary key of the account
      * @param password the primary key of the account
-     * @return the Account object to be found. In case account could not be found,
-     * null is returned.
+     * @return the Account object to be found where username and password match
      */
     public Account login(String username, char[] password) {
-        Account account = null;
-        //ToDo should be prepared statement
-        ResultSet rs = executeQuery("SELECT * FROM `account` WHERE `username` = '" + username + "' AND `password` = '" + new String(password) + "';");
-        if (rs != null) {
-            try {
-                if (rs.next()) {
-                    String firstname = rs.getString("firstName");
-                    String lastname = rs.getString("lastName");
-                    String emailaddress = rs.getString("emailaddress");
-
-                    account = new Account(
-                            username,
-                            password,
-                            emailaddress,
-                            firstname,
-                            lastname);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+        Account account = find(username);
+        if(account != null)
+        {
+            if(account.getPassword().equals(password))
+            {
+                return account;
             }
         }
-        return account;
+        return null;
+    }
+
+
+    /**
+     * Creates an account with the specified parameters
+     *
+     * @param username the primary key of the account
+     * @param password the password of the account
+     * @param emailaddress the emailaddress of the account
+     * @param firstName the first name of the account
+     * @param middleName the middle name of the account
+     * @param lastName the last name of the account
+     * @return boolean indicating the result of the statement
+     */
+    public boolean create(String username, char[] password, String emailaddress, String firstName, String middleName, String lastName){
+       boolean ret = true;
+        String query = "INSERT INTO account (username, password, emailaddress, firstName, middleName, lastName) VALUES ?, ?, ?, ?, ?, ?";
+        Connection conn = DBConnection.getConnection();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, username);
+            stmt.setString(2, password.toString());
+            stmt.setString(3, emailaddress);
+            stmt.setString(4, firstName);
+            stmt.setString(5, middleName);
+            stmt.setString(6, lastName );
+            stmt.executeQuery();
+        } catch (SQLException e){
+            ret = false;
+            e.printStackTrace();
+        }
+        return ret;
     }
 
     /**
-     * Removes the given account from the database.
+     * Deletes the given account from the database.
      *
      * @param account an object of the Account class
      * @return true if execution of the SQL-statement was successful, false
      * otherwise.
      */
-    public boolean remove(Account account) {
-        boolean result = false;
+    public boolean delete(Account account) {
+        boolean ret = true;
         if (account != null) {
-            //ToDo Delete account through preparedStatement
+            String query = "DELETE FROM account WHERE username = ?";
+            Connection conn = DBConnection.getConnection();
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, account.getUsername());
+                stmt.execute();
+            } catch (SQLException e){
+                ret = false;
+                e.printStackTrace();
+            }
         }
-        return result;
+        return ret;
     }
 }

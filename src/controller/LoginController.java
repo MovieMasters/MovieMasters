@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.tools.javac.Main;
 import datastorage.AccountDAO;
 import datastorage.MovieDAO;
 import domain.Account;
@@ -8,9 +7,7 @@ import domain.MovieCollection;
 import view.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
 
 public class LoginController extends Controller {
     private LoginView view;

@@ -25,7 +25,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
         /*
         Schedule a job for the event-dispatching thread:
         creating and showing this application's GUI.
@@ -44,10 +43,10 @@ public class Main {
      */
     private static void createAndShowGUI() {
         MainFrame mainFrame = MainFrame.getMainFrame();
-        MovieDAO movieDAO = new MovieDAO();
-        MovieCollection mcCollection = movieDAO.getActualMovies();
-        mainFrame.setView(new MovieCollectionView(mcCollection));
-//        mainFrame.setView(new LoginView());
+//        MovieDAO movieDAO = new MovieDAO();
+//        MovieCollection mcCollection = movieDAO.getActualMovies();
+//        mainFrame.setView(new MovieCollectionView(mcCollection));
+        mainFrame.setView(new LoginView());
         mainFrame.setVisible(true);
 
     }
