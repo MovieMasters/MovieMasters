@@ -1,8 +1,6 @@
 package view;
 
 import domain.Account;
-import domain.Model;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;

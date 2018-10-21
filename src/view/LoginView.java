@@ -1,3 +1,8 @@
+/**
+ * Creating some Jdoc
+ * @author Jeroen van der Hel
+ * @author Justin Remijnse
+ */
 package view;
 
 import controller.LoginController;
