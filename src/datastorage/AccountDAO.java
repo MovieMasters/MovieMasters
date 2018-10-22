@@ -5,6 +5,7 @@ import view.MainFrame;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.Arrays;
 
 public class AccountDAO extends DAO {
 
@@ -63,7 +64,7 @@ public class AccountDAO extends DAO {
         Account account = find(username);
         if(account != null)
         {
-            if(account.getPassword().equals(password))
+            if(Arrays.equals(account.getPassword(), password))
             {
                 return account;
             }
