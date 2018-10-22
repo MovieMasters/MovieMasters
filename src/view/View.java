@@ -20,12 +20,9 @@ public abstract class View extends JPanel {
 
 
     public String convertDateToString(Date dateObject){
-        Date date = dateObject;
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-        String strDate = dateFormat.format(date);
-
-        return strDate;
+        return dateFormat.format(dateObject);
     }
 
 
