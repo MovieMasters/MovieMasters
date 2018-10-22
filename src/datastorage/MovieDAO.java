@@ -23,14 +23,14 @@ public class MovieDAO extends DAO{
     public MovieCollection getActualMovies(){
         MovieCollection movieCollection = new MovieCollection();
         String query =    "SELECT movie.id, movie.title, movie.releaseDate, movie.playTime, movie.summary, `language`.language FROM " +
-                                "movie INNER JOIN (`language`, `show`) ON (`language`.code = movie.languageCode AND `show`.movieId = movie.id) WHERE `show`.date >= CURDATE() AND `show`.time > CURTIME()";
+                                "movie INNER JOIN (`language`, `show`) ON (`language`.code = movie.languageCode AND `show`.movieId = movie.id) WHERE `show`.date >= CURDATE() AND CASE WHEN `show`.date = CURDATE() THEN `show`.time > CURTIME() ELSE `show`.time = `show`.time END";
         Connection conn = DBConnection.getConnection();
         try(PreparedStatement stmt = conn.prepareStatement(query)){
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                Date releaseDate = rs.getDate("releaseDate");
+                LocalDate releaseDate = rs.getDate("releaseDate").toLocalDate();
                 int playTime = rs.getInt("playTime");
                 String summary = rs.getString("summary");
                 String language = rs.getString("language");
@@ -61,7 +61,7 @@ public class MovieDAO extends DAO{
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                Date releaseDate = rs.getDate("releaseDate");
+                LocalDate releaseDate = rs.getDate("releaseDate").toLocalDate();
                 int playTime = rs.getInt("playTime");
                 String summary = rs.getString("summary");
                 String language = rs.getString("language");
@@ -109,7 +109,7 @@ public class MovieDAO extends DAO{
      */
     public HashMap<String, ArrayList<Show>> getShows(int movieId){
         HashMap<String, ArrayList<Show>> mapShows = new HashMap<>();
-        String query = "SELECT `show`.id, `show`.date, `show`.time, `show`.roomId, `theater`.name as `theater_name` FROM `show` INNER JOIN `room` ON `show`.roomId = `room`.id INNER JOIN `theater` on `room`.theaterName = `theater`.name WHERE `show`.movieId = ? AND `show`.date >= CURDATE() AND `show`.time > CURTIME() ORDER BY `theater`.name";
+        String query = "SELECT `show`.id, `show`.date, `show`.time, `show`.roomId, `theater`.name as `theater_name` FROM `show` INNER JOIN `room` ON `show`.roomId = `room`.id INNER JOIN `theater` on `room`.theaterName = `theater`.name WHERE `show`.movieId = ? AND `show`.date >= CURDATE() AND CASE WHEN `show`.date = CURDATE() THEN `show`.time > CURTIME() ELSE `show`.time = `show`.time END ORDER BY `theater`.name";
         Connection conn = DBConnection.getConnection();
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, movieId);
