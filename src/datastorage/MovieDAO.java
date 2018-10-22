@@ -30,7 +30,7 @@ public class MovieDAO extends DAO{
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                Date releaseDate = rs.getDate("releaseDate");
+                LocalDate releaseDate = rs.getDate("releaseDate").toLocalDate();
                 int playTime = rs.getInt("playTime");
                 String summary = rs.getString("summary");
                 String language = rs.getString("language");
@@ -61,7 +61,7 @@ public class MovieDAO extends DAO{
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
-                Date releaseDate = rs.getDate("releaseDate");
+                LocalDate releaseDate = rs.getDate("releaseDate").toLocalDate();
                 int playTime = rs.getInt("playTime");
                 String summary = rs.getString("summary");
                 String language = rs.getString("language");

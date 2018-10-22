@@ -82,7 +82,7 @@ public class RegisterController extends Controller {
             errorMap.put(view.getPfPassword(), "Wachtwoord moet minimaal 8 karakters lang zijn.");
         }
 
-        if (view.getPfPassword().getPassword() != view.getPfVerifyPassword().getPassword()) {
+        if (!view.getPfPassword().getPassword().equals(view.getPfVerifyPassword().getPassword())) {
             errorMap.put(view.getPfVerifyPassword(), "Wachtwoorden komen niet overeen");
         }
 
