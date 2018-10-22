@@ -6,7 +6,9 @@ import view.*;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
 
 public class RegisterController extends Controller {
     private RegisterView view;
@@ -26,7 +28,7 @@ public class RegisterController extends Controller {
         View view;
         switch (e.getActionCommand()) {
             case "Register":
-                validateForm();
+                createAccount();
                 break;
             case "Cancel":
                 view = MainFrame.getMainFrame().getPreviousView();
@@ -82,11 +84,32 @@ public class RegisterController extends Controller {
             errorMap.put(view.getPfPassword(), "Wachtwoord moet minimaal 8 karakters lang zijn.");
         }
 
-        if (!view.getPfPassword().getPassword().equals(view.getPfVerifyPassword().getPassword())) {
+        if (!Arrays.equals(view.getPfPassword().getPassword(), view.getPfVerifyPassword().getPassword())) {
             errorMap.put(view.getPfVerifyPassword(), "Wachtwoorden komen niet overeen");
         }
 
         setFormErrors();
         return (errorMap.size() == 0);
+    }
+
+    private void createAccount(){
+        if(validateForm()){
+            AccountDAO accountDAO = new AccountDAO();
+            String username, emailAddress, firstName, middleName, lastName;
+            char[] password;
+
+            username = view.getTfusername().getText();
+            emailAddress = view.getTfEmailaddress().getText();
+            firstName = view.getTfFirstname().getText();
+            middleName = view.getTfMiddleName().getText();
+            lastName = view.getTfLastname().getText();
+            password = view.getPfPassword().getPassword();
+            if(accountDAO.create(username, password, emailAddress, firstName, middleName, lastName)) {
+                JOptionPane.showMessageDialog(null, "Account aangemaakt.", "Registreren", JOptionPane.INFORMATION_MESSAGE );
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Account aanmaken mislukt.", "Registreren", JOptionPane.ERROR_MESSAGE );
+            }
+        }
     }
 }

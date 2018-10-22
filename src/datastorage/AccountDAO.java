@@ -85,16 +85,16 @@ public class AccountDAO extends DAO {
      */
     public boolean create(String username, char[] password, String emailaddress, String firstName, String middleName, String lastName){
        boolean ret = true;
-        String query = "INSERT INTO account (username, password, emailaddress, firstName, middleName, lastName) VALUES ?, ?, ?, ?, ?, ?";
+        String query = "INSERT INTO `account` (username, password, emailaddress, firstName, middleName, lastName) VALUES (?, ?, ?, ?, ?, ?)";
         Connection conn = DBConnection.getConnection();
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, username);
-            stmt.setString(2, password.toString());
+            stmt.setString(2, new String(password));
             stmt.setString(3, emailaddress);
             stmt.setString(4, firstName);
             stmt.setString(5, middleName);
             stmt.setString(6, lastName );
-            stmt.executeQuery();
+            stmt.execute();
         } catch (SQLException e){
             ret = false;
             e.printStackTrace();
