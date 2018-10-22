@@ -9,7 +9,6 @@ public class Show extends Model{
     private LocalTime time;
     private int movieId;
     private int roomId;
-//    private List<Ticket> tickets;
 
     public Show(int id, LocalDate date, LocalTime time, int movieId, int roomId) {
         this.id = id;
@@ -54,12 +53,4 @@ public class Show extends Model{
     public void setRoomId(int roomId) {
         this.roomId = roomId;
     }
-
-//    public List<Ticket> getTickets() {
-//        return tickets;
-//    }
-//
-//    public void setTickets(List<Ticket> tickets) {
-//        this.tickets = tickets;
-//    }
 }

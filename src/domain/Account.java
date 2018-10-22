@@ -17,11 +17,6 @@ public class Account extends Model {
         this.lastName = lastName;
     }
 
-    public boolean remove() {
-        //Do something maybe?
-        return true;
-    }
-
     public String getUsername() {
         return username;
     }

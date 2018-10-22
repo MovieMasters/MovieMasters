@@ -1,6 +1,5 @@
 package view;
 
-import controller.RegisterController;
 import controller.TheaterController;
 
 import javax.swing.*;

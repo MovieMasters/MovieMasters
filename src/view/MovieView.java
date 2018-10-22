@@ -20,6 +20,7 @@ public class MovieView extends View {
         createView();
     }
 
+
     private void createView(){
         JPanel pnlTopLeft = new JPanel();
         JPanel pnlTopRight = new JPanel();
@@ -84,7 +85,7 @@ public class MovieView extends View {
 
         gbc.gridx = 1;
         JLabel lblDateValue = new JLabel();
-        lblDateValue.setText(convertDateToString(movieModel.getReleaseDate()));
+        lblDateValue.setText(convertDateToString(movieModel.getReleaseDate(), "dd-MM-yyyy"));
 //        lblDateValue.setBorder(BorderFactory.createLineBorder(Color.RED));
         pnlTopRight.add(lblDateValue, gbc);
 

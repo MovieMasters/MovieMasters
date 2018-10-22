@@ -1,18 +1,19 @@
 package domain;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class Movie extends Model {
     private int id;
     private String title;
-    private Date releaseDate;
+    private LocalDate releaseDate;
     private int playTime;
     private String summary;
     private String language;
     private List<CastMember> castMembers;
     private HashMap<String, ArrayList<Show>> shows;
 
-    public Movie(int id, String title, Date releaseDate, int playTime, String summary, String language) {
+    public Movie(int id, String title, LocalDate releaseDate, int playTime, String summary, String language) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -21,7 +22,7 @@ public class Movie extends Model {
         this.language = language;
     }
 
-    public Movie(int id, String title, Date releaseDate, int playTime, String summary, String language, List<CastMember> castMembers, HashMap<String, ArrayList<Show>> shows) {
+    public Movie(int id, String title, LocalDate releaseDate, int playTime, String summary, String language, List<CastMember> castMembers, HashMap<String, ArrayList<Show>> shows) {
         this(id, title, releaseDate, playTime, summary, language);
         this.castMembers = castMembers;
         this.shows = shows;
@@ -39,11 +40,11 @@ public class Movie extends Model {
         this.title = title;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 

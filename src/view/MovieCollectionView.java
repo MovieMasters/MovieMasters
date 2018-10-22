@@ -6,8 +6,6 @@ import domain.MovieCollection;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MovieCollectionView extends View {
     MovieCollection movieCollection;
@@ -20,11 +18,17 @@ public class MovieCollectionView extends View {
         createMovieItems();
     }
 
+    /**
+     * Creates a new panel for each movie in the movie collection and adds it to the movie collection view
+     */
     public void createMovieItems(){
         for (Movie movie : movieCollection.getCollection().values()){
 
             ImageIcon icon = setImageforLabel("src/resources/movie_" + movie.getId() + ".jpg", 146, 207);
-
+            if(icon == null)
+            {
+                continue;
+            }
             JPanel pnlMovieItem = new JPanel();
 
             JButton btnImage = new JButton();

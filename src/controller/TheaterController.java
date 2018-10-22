@@ -65,8 +65,8 @@ public class TheaterController extends Controller {
     }
 
     /**
-     * When the form is validated then creates the new theater in the database.
-     * @return boolean indication wether the creation is successful
+     * When the form is validated then creates the new Theater in the database.
+     * @return boolean indication whether the creation is successful
      */
     private boolean createTheater() {
         TheaterDAO theaterDAO = new TheaterDAO();

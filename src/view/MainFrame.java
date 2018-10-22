@@ -65,6 +65,4 @@ public class MainFrame extends JFrame {
     public void setCachedUser(Account account){
         cachedUser = account;
     }
-
-
 }

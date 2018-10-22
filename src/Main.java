@@ -43,9 +43,6 @@ public class Main {
      */
     private static void createAndShowGUI() {
         MainFrame mainFrame = MainFrame.getMainFrame();
-//        MovieDAO movieDAO = new MovieDAO();
-//        MovieCollection mcCollection = movieDAO.getActualMovies();
-//        mainFrame.setView(new MovieCollectionView(mcCollection));
         mainFrame.setView(new LoginView());
         mainFrame.setVisible(true);
 
