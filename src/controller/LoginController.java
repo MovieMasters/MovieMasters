@@ -62,6 +62,6 @@ public class LoginController extends Controller {
     private boolean login() {
         AccountDAO accountDAO = new AccountDAO();
         account = accountDAO.login(view.getTfusername().getText(), view.getPfPassword().getPassword());
-        return account == null;
+        return account != null;
     }
 }
