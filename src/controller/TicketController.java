@@ -27,6 +27,11 @@ public class TicketController extends Controller implements ItemListener {
         this.tickets = new HashMap<>();
     }
 
+    /**
+     * Executed on item event for components that are registered on the corresponding view
+     *
+     * @param e the ItemEvent created when user click on the component
+     */
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -39,7 +44,11 @@ public class TicketController extends Controller implements ItemListener {
         }
     }
 
-
+    /**
+     * Executed on action event for components that are registered on the corresponding view
+     *
+     * @param e the ActionEvent created when user click on the component
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){

@@ -43,8 +43,8 @@ public class RegisterController extends Controller {
     }
 
     /**
-     * When the form is validated then creates the new Account in the database.
-     * @return boolean indication whether the creation is successful
+     * Validates the fields in the form
+     * @return boolean indication whether the form is valid
      */
     private boolean validateForm() {
         resetFormErrors();
@@ -92,6 +92,9 @@ public class RegisterController extends Controller {
         return (errorMap.size() == 0);
     }
 
+    /**
+     * When the form is validated, the registration form will be saved in de database
+     */
     private void createAccount(){
         if(validateForm()){
             AccountDAO accountDAO = new AccountDAO();
