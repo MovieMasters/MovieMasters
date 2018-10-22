@@ -1,6 +1,7 @@
 package datastorage;
 
 import domain.Theater;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +22,12 @@ class TheaterDAOTest extends DAO {
                 "TestCity",
                 "TestProvince",
                 1);
+    }
+
+    @AfterEach
+    void tearDown(){
+        theaterDAO = null;
+        testTheater = null;
     }
 
     @Test

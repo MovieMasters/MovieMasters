@@ -20,6 +20,7 @@ public class AccountDAO extends DAO {
      * @return the Account object to be found. In case account could not be found,
      * null is returned.
      */
+    @SuppressWarnings("Duplicates")
     public Account find(String username) {
         Account account = null;
         String query = "SELECT username, password, emailaddress, firstName, middleName, lastName FROM account WHERE username = ?";
@@ -57,6 +58,7 @@ public class AccountDAO extends DAO {
      * @param password the primary key of the account
      * @return the Account object to be found where username and password match
      */
+    @SuppressWarnings("Duplicates")
     public Account login(String username, char[] password) {
         Account account = find(username);
         if(account != null)
