@@ -67,6 +67,7 @@ public class TicketController extends Controller implements ItemListener {
                     TicketDAO ticketDAO = new TicketDAO();
                     ticketDAO.createTickets(tickets, selectedShow);
                 JOptionPane.showMessageDialog(MainFrame.getMainFrame().getContentPane(), "Uw bestelling is verwerkt. Uw tickets zullen naar het door u opgegeven e-mailadres verzonden worden. Fijne voorstelling!");
+                System.exit(-1);
                 break;
             default:
                 for(PriceCategory p : priceCategories){
