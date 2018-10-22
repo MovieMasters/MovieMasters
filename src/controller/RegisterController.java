@@ -12,6 +12,11 @@ public class RegisterController extends Controller {
         this.view = view;
     }
 
+    /**
+     * Executed on action event for components that are registered on the corresponding view
+     *
+     * @param e the ActionEvent created when user click on the component
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         View view;
@@ -30,6 +35,7 @@ public class RegisterController extends Controller {
                 break;
         }
     }
+
 
     private boolean validateForm() {
         resetFormErrors();

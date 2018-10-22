@@ -21,6 +21,11 @@ public class MovieController extends Controller {
     }
     public Map<String, CastMember> cast;
 
+    /**
+     * Executed on action event for components that are registered on the corresponding view
+     *
+     * @param e the ActionEvent created when user click on the component
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         View view;

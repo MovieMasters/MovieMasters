@@ -14,6 +14,11 @@ public class TheaterController extends Controller {
         this.view = view;
     }
 
+    /**
+     * Executed on action event for components that are registered on the corresponding view
+     *
+     * @param e the ActionEvent created when user click on the component
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         View view;
@@ -32,12 +37,20 @@ public class TheaterController extends Controller {
         }
     }
 
+    /**
+     * When the form is validated then creates the new theater in the database.
+     */
     private void save() {
         if (validateForm()) {
             createTheater();
         }
     }
 
+    /**
+     * Validates the form fields
+     *
+     * @return boolean true when the form is valid, false otherwise
+     */
     private boolean validateForm() {
         resetFormErrors();
         if (view.getTfName().getText().length() < 5) {
@@ -51,6 +64,10 @@ public class TheaterController extends Controller {
         return (errorMap.size() == 0);
     }
 
+    /**
+     * When the form is validated then creates the new theater in the database.
+     * @return boolean indication wether the creation is successful
+     */
     private boolean createTheater() {
         TheaterDAO theaterDAO = new TheaterDAO();
         return theaterDAO.create(view.getTfName().getText(),

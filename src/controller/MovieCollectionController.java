@@ -17,6 +17,11 @@ public class MovieCollectionController extends Controller {
         this.movieCollectionView = movieCollectionView;
     }
 
+    /**
+     * Executed on action event when user clicks on any movie in the collection
+     *
+     * @param e the ActionEvent created when user click on the component
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         int movieId = Integer.parseInt(e.getActionCommand());
